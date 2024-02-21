@@ -13,12 +13,38 @@ class WelcomPage extends StatelessWidget {
           ClipPath(
             clipper: DiagonalClipper(),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFFE9D6BF),
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4)),
               ),
               height: 110,
               width: double.infinity,
+              child: 
+              
+            
+              //دا بس عشان اضغط عليه يوديني لصفحه home
+              Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      
+                      
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'home');
+                        },
+                        
+                        child: const Text(
+                          'GO To Home',
+                          style: TextStyle(
+                            
+                        fontWeight: FontWeight.bold,
+                            
+                            
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
             ),
           ),
         ]),
