@@ -214,7 +214,7 @@ class Home extends StatelessWidget {
                 right: 0,
                 child: CustomPaint(
                   painter: RoundedTrianglePainter(),
-                  size: Size(100, 30),
+                  size: const Size(100, 30),
                 ),
               ),
             ],
