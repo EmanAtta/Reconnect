@@ -6,13 +6,13 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor:    Color(0xFFE9D6BF)  ,
-      appBar: AppBar(title: Center(
+       backgroundColor:    const Color(0xFFE9D6BF)  ,
+      appBar: AppBar(title: const Center(
         child: Text('About',style:
          TextStyle(fontWeight: FontWeight.bold,color:Color(0xFFE9D6BF) ,),
          ),
       ),
-       backgroundColor:  Color(0xFF233F41),
+       backgroundColor:  const Color(0xFF233F41),
     ),);
   }
 }

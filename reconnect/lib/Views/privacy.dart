@@ -6,11 +6,11 @@ class Privacy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor:  Color(0xFFE9D6BF) ,
-      appBar: AppBar(title: Text('Privacy',style:
+       backgroundColor:  const Color(0xFFF1E4D4) ,
+      appBar: AppBar(title: const Text('Privacy',style:
        TextStyle(fontWeight: FontWeight.bold,color: Color(0xFFE9D6BF)),
        ),
-       backgroundColor:  Color(0xFF233F41),
+       backgroundColor:  const Color(0xFF233F41),
     ),);
   }
 }

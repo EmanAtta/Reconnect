@@ -8,7 +8,7 @@ class WelcomPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color(0xFF233F41),
+        backgroundColor: const Color(0xFF233F41),
         body: Column(children: [
           ClipPath(
             clipper: DiagonalClipper(),
@@ -21,25 +21,38 @@ class WelcomPage extends StatelessWidget {
               width: double.infinity,
               child: 
               
-            
               //دا بس عشان اضغط عليه يوديني لصفحه home
               Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      
-                      
+                    children: [ 
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, 'home');
+                          Navigator.pushNamed(context, 'login');
                         },
                         
                         child: const Text(
-                          'GO To Home',
+                          'GO To login',
                           style: TextStyle(
                             
                         fontWeight: FontWeight.bold,
                             
                             
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'home');
+                          },
+                          
+                          child: const Text(
+                            'GO To Home',
+                            style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                              
+                              
+                            ),
                           ),
                         ),
                       ),

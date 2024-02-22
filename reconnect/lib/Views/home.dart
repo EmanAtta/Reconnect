@@ -6,9 +6,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE9D6BF),
+      backgroundColor: const Color(0xFFF1E4D4),
       appBar: AppBar(
-        backgroundColor: Color(0xFF233F41),
+        backgroundColor: const Color(0xFF233F41),
         title: const Text(
           'Reconnect',
           style:
@@ -20,24 +20,24 @@ class Home extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.keyboard_arrow_left, color: Color(0xFFE9D6BF)),
+          icon: const Icon(Icons.keyboard_arrow_left, color: Color(0xFFE9D6BF)),
         ),
       ),
       endDrawer: Drawer(
         child: Container(
-          padding: EdgeInsets.only(top: 40),
-          color: Color(0xFF233F41),
+          padding: const EdgeInsets.only(top: 40),
+          color: const Color(0xFF233F41),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.person,
                   color: Color(0xFFE9D6BF),
                 ),
-                title: Text(
+                title: const Text(
                   'Profile',
                   style: TextStyle(
                     color: Color(0xFFE9D6BF),
@@ -47,15 +47,15 @@ class Home extends StatelessWidget {
                   Navigator.pushNamed(context, 'profile');
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.settings,
                   color: Color(0xFFE9D6BF),
                 ),
-                title: Text(
+                title: const Text(
                   'Setings',
                   style: TextStyle(
                     color: Color(0xFFE9D6BF),
@@ -65,15 +65,15 @@ class Home extends StatelessWidget {
                   Navigator.pushNamed(context, 'settings');
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.privacy_tip_outlined,
                   color: Color(0xFFE9D6BF),
                 ),
-                title: Text(
+                title: const Text(
                   'Privacy',
                   style: TextStyle(
                     color: Color(0xFFE9D6BF),
