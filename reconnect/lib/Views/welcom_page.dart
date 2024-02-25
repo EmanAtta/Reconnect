@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reconnect/Views/color.dart';
 
 class WelcomPage extends StatelessWidget {
   const WelcomPage({super.key});
@@ -8,13 +9,13 @@ class WelcomPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: const Color(0xFF233F41),
+        backgroundColor: AppColors.secondaryColor,
         body: Column(children: [
           ClipPath(
             clipper: DiagonalClipper(),
             child: Container(
               decoration: const BoxDecoration(
-                color: Color(0xFFE9D6BF),
+                color: AppColors.primaryColor,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4)),
               ),
               height: 110,

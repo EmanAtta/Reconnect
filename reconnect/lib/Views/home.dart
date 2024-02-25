@@ -1,36 +1,126 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+
+// class Home extends StatelessWidget {
+//   const Home({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: const Color(0xFFF1E4D4),
+//       appBar: AppBar(
+//         backgroundColor: const Color(0xFF233F41),
+//         title: const Text(
+//           'Reconnect',
+//           style:
+//               TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFE9D6BF)),
+//         ),
+//         elevation: 40,
+//         shadowColor: Colors.black,
+//         leading: IconButton(
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//           icon: const Icon(Icons.keyboard_arrow_left, color: Color(0xFFE9D6BF)),
+//         ),
+//       ),
+//       endDrawer: Drawer(
+//         child: Container(
+//           padding: const EdgeInsets.only(top: 40),
+//           color: const Color(0xFF233F41),
+//           child: Column(
+//             children: [
+//               ListTile(
+//                 leading: const Icon(
+//                   Icons.person,
+//                   color: Color(0xFFE9D6BF),
+//                 ),
+//                 title: const Text(
+//                   'Profile',
+//                   style: TextStyle(
+//                     color: Color(0xFFE9D6BF),
+//                   ),
+//                 ),
+//                 onTap: () {
+//                   Navigator.pushNamed(context, 'profile');
+//                 },
+//               ),
+//               const SizedBox(
+//                 height: 15,
+//               ),
+//               ListTile(
+//                 leading: const Icon(
+//                   Icons.settings,
+//                   color: Color(0xFFE9D6BF),
+//                 ),
+//                 title: const Text(
+//                   'Setings',
+//                   style: TextStyle(
+//                     color: Color(0xFFE9D6BF),
+//                   ),
+//                 ),
+//                 onTap: () {
+//                   Navigator.pushNamed(context, 'settings');
+//                 },
+//               ),
+//               const SizedBox(
+//                 height: 15,
+//               ),
+//               ListTile(
+//                 leading: const Icon(
+//                   Icons.privacy_tip_outlined,
+//                   color: Color(0xFFE9D6BF),
+//                 ),
+//                 title: const Text(
+//                   'Privacy',
+//                   style: TextStyle(
+//                     color: Color(0xFFE9D6BF),
+//                   ),
+//                 ),
+//                 onTap: () {
+//                   Navigator.pushNamed(context, 'privacy');
+//                 },
+//               ),
+//               const SizedBox(
+//                 height: 15,
+//               ),
+//               ListTile(
+//                 leading: const Icon(
+//                   Icons.report_gmailerrorred_rounded,
+//                   color: Color(0xFFE9D6BF),
+//                 ),
+//                 title: const Text(
+//                   'About',
+//                   style: TextStyle(
+//                     color: Color(0xFFE9D6BF),
+//                   ),
+//                 ),
+//                 onTap: () {
+//                   Navigator.pushNamed(context, 'about');
+//                 },
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/donation.dart';
-import 'package:reconnect/Views/post.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    HomePage(),
-    Post(),
-    const Donation(),
-  ];
+class Home extends StatelessWidget {
+  const Home({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1E4D4),
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF233F41),
+        backgroundColor: AppColors.secondaryColor,
         title: const Text(
           'Reconnect',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: AppColors.primaryColor),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFE9D6BF)),
         ),
         elevation: 40,
         shadowColor: Colors.black,
@@ -38,11 +128,9 @@ class _HomeState extends State<Home> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.keyboard_arrow_left,
-              color: AppColors.primaryColor),
+          icon: const Icon(Icons.keyboard_arrow_left, color: Color(0xFFE9D6BF)),
         ),
       ),
-    
       endDrawer: Drawer(
         child: Container(
           padding: const EdgeInsets.only(top: 40),
@@ -51,10 +139,6 @@ class _HomeState extends State<Home> {
             children: [
               Column(
                 children: [
-                  SizedBox(
-                    height: 130,
-
-                  ),
                   ListTile(
                     leading: const Icon(
                       Icons.person,
@@ -67,7 +151,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pop(context);
                       Navigator.pushNamed(context, 'profile');
                     },
                   ),
@@ -86,7 +169,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pop(context);
                       Navigator.pushNamed(context, 'settings');
                     },
                   ),
@@ -105,7 +187,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pop(context);
                       Navigator.pushNamed(context, 'privacy');
                     },
                   ),
@@ -115,7 +196,7 @@ class _HomeState extends State<Home> {
                   ListTile(
                     leading: const Icon(
                       Icons.report_gmailerrorred_rounded,
-                      color: AppColors.primaryColor,
+                      color: Color(0xFFE9D6BF),
                     ),
                     title: const Text(
                       'About',
@@ -124,7 +205,6 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pop(context);
                       Navigator.pushNamed(context, 'about');
                     },
                   ),
@@ -138,89 +218,11 @@ class _HomeState extends State<Home> {
                   size: const Size(100, 30),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 640, left: 130),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'login');
-                      },
-                      icon: const Padding(
-                        padding: EdgeInsets.only(),
-                        child: Icon(
-                          Icons.exit_to_app_sharp,
-                          size: 25,
-                          color: AppColors.textolor,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'login');
-                      },
-                      child: const Text(
-                        'Sign Out',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textolor,
-                          fontSize: 21,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
       ),
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.secondaryColor,
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: AppColors.primaryColor,
-            ),
-            label: 'Home',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.public,
-              color: AppColors.primaryColor,
-            ),
-            label: 'Post',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.money,
-              color: AppColors.primaryColor,
-            ),
-            label: 'Donation',
-          ),
-        ],
-        selectedItemColor: AppColors.primaryColor, // Color of the selected item
-        unselectedItemColor:
-            AppColors.primaryColor, // Color of unselected items
-        showUnselectedLabels:
-            true, // Set to true if you want to show labels on unselected items
-        type: BottomNavigationBarType.fixed,
-        selectedIconTheme:
-            const IconThemeData(size: 50, color: AppColors.primaryColor),
-        unselectedIconTheme:
-            const IconThemeData(size: 25, color: AppColors.primaryColor),
-      ),
     );
-  }
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }
 
@@ -228,16 +230,14 @@ class RoundedTrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = AppColors.primaryColor
+      ..color = const Color(0xFFF1E4D4)
       ..style = PaintingStyle.fill;
 
     Path path = Path();
     path.moveTo(size.width, size.height);
-
-    path.lineTo(size.width, -120); // Draw a straight line to the top
-    path.lineTo(size.width - 300, 30); // Adjust the value as needed
-    // Adjust the value as needed
-    path.quadraticBezierTo(size.width, 40, size.width, 30);
+    path.lineTo(size.width, size.height - 150);
+    path.lineTo(size.width - 310, size.height);
+    path.quadraticBezierTo(size.width, size.height, size.width, size.height - 20);
 
     canvas.drawPath(path, paint);
   }
@@ -248,11 +248,3 @@ class RoundedTrianglePainter extends CustomPainter {
   }
 }
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Content'),
-    );
-  }
-}

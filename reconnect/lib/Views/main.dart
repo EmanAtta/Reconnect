@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:reconnect/Views/about.dart';
+import 'package:reconnect/Views/forgetpassword.dart';
 import 'package:reconnect/Views/home.dart';
 import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/privacy.dart';
 import 'package:reconnect/Views/profile.dart';
+import 'package:reconnect/Views/resetpassword.dart';
 import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/signup.dart';
+import 'package:reconnect/Views/verfication.dart';
 import 'package:reconnect/Views/welcom_page.dart';
 
 void main() {
@@ -14,8 +17,6 @@ void main() {
 
 class Reconnect extends StatelessWidget {
   const Reconnect({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,6 +25,9 @@ class Reconnect extends StatelessWidget {
       routes: {
         "login":(context) => const login(),
         "signup":(context) =>const signup(),
+        "forgetBassword":(context)=> const forgetBassword(),
+        'resetPassword':(context)=>const resetPassword(),
+        "verfiyCode":(context)=>const verfiyCode(),
         "home":(context) => const Home(),
         "profile":(context) => const Profile(),
         "settings":(context) => const Settings(),
