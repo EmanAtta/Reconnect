@@ -13,16 +13,17 @@ class _buttonState extends State<button> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20),
       child: Container(
-        height: 50,
-        width: 200,
+        height: 60,
+        width: 240,
         decoration: BoxDecoration(
             color: AppColors.secondaryColor,
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(color: AppColors.textolor),
-            boxShadow: [BoxShadow(blurRadius: 2, spreadRadius: 1)]),
-            child: Center(child: Text(widget.button_text,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: AppColors.textolor),),
+            borderRadius: BorderRadius.circular(35),
+            border: Border.all(color:Color.fromARGB(255, 27, 144, 124)),
+            //boxShadow: const [BoxShadow(blurRadius:1, spreadRadius: 1)]
+            ),
+            child: Center(child: Text(widget.button_text,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: AppColors.primaryColor),),
       ),
       )
     );

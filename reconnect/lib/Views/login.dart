@@ -44,13 +44,14 @@ String? _emailValidator(String? value) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
-                      child: Container(
-                          margin: const EdgeInsets.only(top: 40),
-                          child: const Image(
-                              image: AssetImage("assets/logo.png")))),
+                 Container(
+                     margin: const EdgeInsets.only(top: 40),
+                     child: const Image(
+                         image: AssetImage("assets/logo.png")
+                         )
+                         ),
                   const Text(
-                    "Welcom",
+                    "Welcome",
                     style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
@@ -94,19 +95,19 @@ String? _emailValidator(String? value) {
                             ),
                             borderRadius: BorderRadius.circular(30)),
                         suffixIcon: ConstrainedBox(
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             minHeight: 50,
                             maxHeight: 60,
                           ),
                           child: IconButton(
                             icon: _obscureText
-                                ? Icon(
+                                ? const Icon(
                                     Icons.visibility_off,
-                                    color: AppColors.secondaryColor,
+                                    color: AppColors.secondaryColor,size: 20,
                                   )
-                                : Icon(
+                                : const Icon(
                                     Icons.visibility,
-                                    color: AppColors.secondaryColor,
+                                    color: AppColors.secondaryColor,size: 22,
                                   ),
                             onPressed: () {
                               setState(() {
@@ -123,12 +124,17 @@ String? _emailValidator(String? value) {
                     padding: const EdgeInsets.only(left: 25, top: 10),
                     child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          "Forget password ?",
-                          style: TextStyle(
-                              color: AppColors.secondaryColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, "forgetBassword");
+                          },
+                          child: const Text(
+                            "Forget password ?",
+                            style: TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
                         )),
                   ),
                   InkWell(
@@ -141,16 +147,16 @@ String? _emailValidator(String? value) {
                         print("Not Vaild");
                       }
                     },
-                    child: button(
+                    child: const button(
                       button_text: "Login",
                     ),
                   ),
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25, top: 30),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 25, top: 30),
                         child: Text(
-                          "Don't have account?",
+                          "Don't have account ?",
                           style: TextStyle(
                               color: AppColors.secondaryColor,
                               fontSize: 16,
@@ -158,17 +164,17 @@ String? _emailValidator(String? value) {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 30),
+                        padding: const EdgeInsets.only(top: 30),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, "signup");
                           },
-                          child: Text(
+                          child: const Text(
                             "Sign Up",
                             style: TextStyle(
                                 color: AppColors.textolor,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: 18),
                           ),
                         ),
                       )

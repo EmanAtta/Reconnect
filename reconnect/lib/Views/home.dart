@@ -107,6 +107,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:reconnect/Views/color.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key});
@@ -114,9 +115,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1E4D4),
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF233F41),
+        backgroundColor: AppColors.secondaryColor,
         title: const Text(
           'Reconnect',
           style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFE9D6BF)),
