@@ -10,6 +10,7 @@ import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/signup.dart';
 import 'package:reconnect/Views/verfication.dart';
 import 'package:reconnect/Views/welcom_page.dart';
+import 'pay.dart';
 
 void main() {
   runApp(const Reconnect());
@@ -33,6 +34,7 @@ class Reconnect extends StatelessWidget {
         "settings":(context) => const Settings(),
         "privacy":(context) => const Privacy(),
         'about':(context) => const About(),
+        "pay":(context) => const Pay(),
       },
     );
   }
