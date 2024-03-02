@@ -1,5 +1,4 @@
  import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:reconnect/Views/about.dart';
 import 'package:reconnect/Views/edit.dart';
 import 'package:reconnect/Views/forgetpassword.dart';

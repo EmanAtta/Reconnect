@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reconnect/Views/color.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -6,13 +7,13 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor:    const Color(0xFFE9D6BF)  ,
+       backgroundColor:AppColors.primaryColor ,
       appBar: AppBar(title: const Center(
         child: Text('About',style:
-         TextStyle(fontWeight: FontWeight.bold,color:Color(0xFFE9D6BF) ,),
+         TextStyle(fontWeight: FontWeight.bold,color:AppColors.primaryColor ,),
          ),
       ),
-       backgroundColor:  const Color(0xFF233F41),
+       backgroundColor: AppColors.secondaryColor,
     ),);
   }
 }

@@ -322,7 +322,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/post.dart';
+
 
 class PostModel {
   late String title;

@@ -24,9 +24,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1E4D4),
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF233F41),
+        backgroundColor:AppColors.secondaryColor,
         title: const Text(
           'Reconnect',
           style: TextStyle(
@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
       endDrawer: Drawer(
         child: Container(
           padding: const EdgeInsets.only(top: 40),
-          color: const Color(0xFF233F41),
+          color: AppColors.secondaryColor,
           child: Stack(
             children: [
               Column(
@@ -58,12 +58,12 @@ class _HomeState extends State<Home> {
                   ListTile(
                     leading: const Icon(
                       Icons.person,
-                      color: Color(0xFFE9D6BF),
+                      color: AppColors.primaryColor,
                     ),
                     title: const Text(
                       'Profile',
                       style: TextStyle(
-                        color: Color(0xFFE9D6BF),
+                        color: AppColors.primaryColor,
                       ),
                     ),
                     onTap: () {
@@ -77,12 +77,12 @@ class _HomeState extends State<Home> {
                   ListTile(
                     leading: const Icon(
                       Icons.settings,
-                      color: Color(0xFFE9D6BF),
+                      color: AppColors.primaryColor,
                     ),
                     title: const Text(
                       'Settings',
                       style: TextStyle(
-                        color: Color(0xFFE9D6BF),
+                        color: AppColors.primaryColor,
                       ),
                     ),
                     onTap: () {
@@ -96,12 +96,12 @@ class _HomeState extends State<Home> {
                   ListTile(
                     leading: const Icon(
                       Icons.privacy_tip_outlined,
-                      color: Color(0xFFE9D6BF),
+                      color: AppColors.primaryColor,
                     ),
                     title: const Text(
                       'Privacy',
                       style: TextStyle(
-                        color: Color(0xFFE9D6BF),
+                        color: AppColors.primaryColor,
                       ),
                     ),
                     onTap: () {
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                     title: const Text(
                       'About',
                       style: TextStyle(
-                        color: Color(0xFFE9D6BF),
+                        color: AppColors.primaryColor,
                       ),
                     ),
                     onTap: () {
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                         child: Icon(
                           Icons.exit_to_app_sharp,
                           size: 25,
-                          color: AppColors.textolor,
+                          color: AppColors.secondaryColor,
                         ),
                       ),
                     ),
@@ -163,7 +163,7 @@ class _HomeState extends State<Home> {
                         'Sign Out',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.textolor,
+                          color: AppColors.secondaryColor,
                           fontSize: 21,
                         ),
                       ),

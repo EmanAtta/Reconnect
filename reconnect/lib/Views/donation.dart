@@ -80,6 +80,7 @@ class _DonationState extends State<Donation> {
                             decoration: BoxDecoration(
                               border:
                                   Border.all(color: AppColors.secondaryColor),
+                                  borderRadius: BorderRadius.circular(20)
                             ),
                             child: Container(
                               height: 20,
@@ -110,6 +111,7 @@ class _DonationState extends State<Donation> {
                             decoration: BoxDecoration(
                               border:
                                   Border.all(color: AppColors.secondaryColor),
+                                   borderRadius: BorderRadius.circular(20)
                             ),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(5, 20, 3, 3),
@@ -139,6 +141,7 @@ class _DonationState extends State<Donation> {
                             decoration: BoxDecoration(
                               border:
                                   Border.all(color: AppColors.secondaryColor),
+                                   borderRadius: BorderRadius.circular(20)
                             ),
                             child: Container(
                               height: 20,

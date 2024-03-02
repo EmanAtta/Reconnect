@@ -253,7 +253,7 @@ class Pay extends StatelessWidget {
                         Icons.credit_card,
                         color: AppColors.textolor,
                       ),
-                      SizedBox(width: 2),
+                      SizedBox(width: 1),
                       Text(
                         '3 digits on back of your card',
                         style: TextStyle(
@@ -269,7 +269,7 @@ class Pay extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(right: 4, left: 60, bottom: 150),
+                  padding: EdgeInsets.only(right: 4, left: 30, bottom: 150),
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Security code*',
