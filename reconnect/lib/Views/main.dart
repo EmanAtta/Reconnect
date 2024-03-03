@@ -1,5 +1,6 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:reconnect/Views/about.dart';
+import 'package:reconnect/Views/change_password.dart';
 import 'package:reconnect/Views/edit.dart';
 import 'package:reconnect/Views/forgetpassword.dart';
 import 'package:reconnect/Views/home.dart';
@@ -39,7 +40,9 @@ class Reconnect extends StatelessWidget {
         "privacy": (context) => const Privacy(),
         'about': (context) => const About(),
         "pay": (context) => const Pay(),
-        "EditProfile":(context) =>  Edit()
+        "EditProfile": (context) => const Edit(),
+        "change password": (context) => const Change_Password(),
+        'welcome': (context) => const WelcomPage(),
       },
     );
   }

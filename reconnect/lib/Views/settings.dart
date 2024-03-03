@@ -44,8 +44,8 @@ class Settings extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, "EditProfile");
             },
-            child: const button(
-              button_text: "Edit Profile",
+            child: const button_settingpage(
+              button_settingpage_text: "Edit Profile",
               icon: Icons.border_color_outlined,
             ),
           ),
@@ -54,22 +54,22 @@ class Settings extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "forgetBassword");
+              Navigator.pushNamed(context, "change password");
             },
-            child: const button(
-              button_text: "Change Password",
+            child: const button_settingpage(
+              button_settingpage_text: "Change Password",
               icon: Icons.password_outlined,
             ),
           ),
-          const button(
-            button_text: 'Notification',
+          const button_settingpage(
+            button_settingpage_text: 'Notification',
             icon: Icons.notifications,
           ),
           SizedBox(
             height: 20,
           ),
-          const button(
-            button_text: 'Dark Mode',
+          const button_settingpage(
+            button_settingpage_text: 'Dark Mode',
             icon: Icons.bedtime,
           ),
         ],
@@ -78,18 +78,19 @@ class Settings extends StatelessWidget {
   }
 }
 
-class button extends StatefulWidget {
-  final String button_text;
+class button_settingpage extends StatefulWidget {
+  final String button_settingpage_text;
   final IconData icon; // Add an icon parameter
 
-  const button({Key? key, required this.button_text, required this.icon})
+  const button_settingpage(
+      {Key? key, required this.button_settingpage_text, required this.icon})
       : super(key: key);
 
   @override
-  State<button> createState() => _buttonState();
+  State<button_settingpage> createState() => _button_settingpageState();
 }
 
-class _buttonState extends State<button> {
+class _button_settingpageState extends State<button_settingpage> {
   bool switchValue = false; // Add a boolean variable to store switch state
 
   @override
@@ -117,7 +118,7 @@ class _buttonState extends State<button> {
                   ),
                   SizedBox(width: 10), // Adjust spacing between icon and text
                   Text(
-                    widget.button_text,
+                    widget.button_settingpage_text,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
@@ -126,8 +127,8 @@ class _buttonState extends State<button> {
                   ),
                 ],
               ),
-              if (widget.button_text == 'Notification' ||
-                  widget.button_text == 'Dark Mode')
+              if (widget.button_settingpage_text == 'Notification' ||
+                  widget.button_settingpage_text == 'Dark Mode')
                 Switch(
                   activeColor: AppColors.primaryColor,
                   value: switchValue,

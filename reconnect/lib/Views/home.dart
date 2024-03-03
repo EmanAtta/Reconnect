@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        backgroundColor:AppColors.secondaryColor,
+        backgroundColor: AppColors.secondaryColor,
         title: const Text(
           'Reconnect',
           style: TextStyle(
@@ -42,18 +42,31 @@ class _HomeState extends State<Home> {
               color: AppColors.primaryColor),
         ),
       ),
-    
       endDrawer: Drawer(
         child: Container(
-          padding: const EdgeInsets.only(top: 40),
+          padding: const EdgeInsets.only(top: 0),
           color: AppColors.secondaryColor,
           child: Stack(
             children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: ClipPath(
+                  clipper: DiagonalClipper(),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(4)),
+                    ),
+                    height: 100,
+                    width: double.infinity,
+                  ),
+                ),
+              ),
               Column(
                 children: [
                   SizedBox(
-                    height: 130,
-
+                    height: 215,
                   ),
                   ListTile(
                     leading: const Icon(
@@ -63,8 +76,7 @@ class _HomeState extends State<Home> {
                     title: const Text(
                       'Profile',
                       style: TextStyle(
-                        color: AppColors.primaryColor,
-                      ),
+                          color: AppColors.primaryColor, fontSize: 20),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -82,8 +94,7 @@ class _HomeState extends State<Home> {
                     title: const Text(
                       'Settings',
                       style: TextStyle(
-                        color: AppColors.primaryColor,
-                      ),
+                          color: AppColors.primaryColor, fontSize: 20),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -101,8 +112,7 @@ class _HomeState extends State<Home> {
                     title: const Text(
                       'Privacy',
                       style: TextStyle(
-                        color: AppColors.primaryColor,
-                      ),
+                          color: AppColors.primaryColor, fontSize: 20),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -120,8 +130,7 @@ class _HomeState extends State<Home> {
                     title: const Text(
                       'About',
                       style: TextStyle(
-                        color: AppColors.primaryColor,
-                      ),
+                          color: AppColors.primaryColor, fontSize: 20),
                     ),
                     onTap: () {
                       Navigator.pop(context);
@@ -130,45 +139,43 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: CustomPaint(
-                  painter: RoundedTrianglePainter(),
-                  size: const Size(100, 30),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 640, left: 130),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'login');
-                      },
-                      icon: const Padding(
-                        padding: EdgeInsets.only(),
-                        child: Icon(
-                          Icons.exit_to_app_sharp,
-                          size: 25,
-                          color: AppColors.secondaryColor,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ClipPath(
+                  clipper: BottomDiagonalClipper(),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.primaryColor,
+                    ),
+                    height: 100,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 30, bottom: 15),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'welcome');
+                          },
+                          child: const Text(
+                            'Sign Out',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.secondaryColor,
+                              fontSize: 25,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black,
+                                  offset: Offset(2, 2),
+                                  blurRadius: 3,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'login');
-                      },
-                      child: const Text(
-                        'Sign Out',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.secondaryColor,
-                          fontSize: 21,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -224,28 +231,36 @@ class _HomeState extends State<Home> {
   }
 }
 
-class RoundedTrianglePainter extends CustomPainter {
+class DiagonalClipper extends CustomClipper<Path> {
   @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = AppColors.primaryColor
-      ..style = PaintingStyle.fill;
-
+  Path getClip(Size size) {
     Path path = Path();
-    path.moveTo(size.width, size.height);
-
-    path.lineTo(size.width, -120); // Draw a straight line to the top
-    path.lineTo(size.width - 300, 30); // Adjust the value as needed
-    // Adjust the value as needed
-    path.quadraticBezierTo(size.width, 40, size.width, 30);
-
-    canvas.drawPath(path, paint);
+    path.lineTo(0.0, size.height);
+    path.lineTo(size.width, size.height - 90);
+    path.lineTo(size.width, 0.0);
+    path.close();
+    return path;
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+class BottomDiagonalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.moveTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
   }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
 class HomePage extends StatelessWidget {
