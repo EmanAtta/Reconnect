@@ -15,6 +15,7 @@ class _PostState extends State<Post> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _tagsController = TextEditingController();
+  TextEditingController _newTextFieldController = TextEditingController();
 
   Future<void> _getImage() async {
     final picker = ImagePicker();
@@ -28,40 +29,41 @@ class _PostState extends State<Post> {
   }
 
   void _submitPost() {
-    // Handle post submission logic
     String title = _titleController.text;
     String description = _descriptionController.text;
     String tags = _tagsController.text;
+    String newTextFieldValue = _newTextFieldController.text;
 
-    // Add your logic to save or send the post data
     if (title.isEmpty ||
         description.isEmpty ||
         tags.isEmpty ||
-        _selectedImage == null) {
-      // Show an error message or alert
+        _selectedImage == null ||
+        newTextFieldValue.isEmpty) {
       return;
     }
+
     PostModel post = PostModel(
       title: title,
       description: description,
       tags: tags,
+      newTextFieldValue: newTextFieldValue,
       image: _selectedImage!,
     );
     allPosts.add(post);
-     setState(() {
-    _selectedImage = null;
-    _titleController.clear();
-    _descriptionController.clear();
-    _tagsController.clear();
-  });
-   
 
-    // Navigate to the post list page
+    setState(() {
+      _selectedImage = null;
+      _titleController.clear();
+      _descriptionController.clear();
+      _tagsController.clear();
+      _newTextFieldController.clear();
+    });
+
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => PostListPage(
-           posts: allPosts,
+          posts: allPosts,
         ),
       ),
     );
@@ -70,21 +72,18 @@ class _PostState extends State<Post> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       backgroundColor: AppColors.primaryColor,
-      body:
-       SingleChildScrollView(
-         child: Padding(
-          padding:
-                EdgeInsets.only(top: 34,left: 20, right: 20),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(top: 34, left: 20, right: 20),
           child: Column(
             children: [
               Card(
-                elevation: 30, // Set the elevation to add a shadow
+                elevation: 30,
                 shadowColor: AppColors.textolor,
                 color: AppColors.primaryColor,
                 child: Padding(
-                  padding:  const EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(top: 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -103,21 +102,22 @@ class _PostState extends State<Post> {
                                 )
                               : Container(
                                   color: Colors.grey[300],
-                                  height: 220,
-                                  child:  const Expanded(
+                                  height: 180,
+                                  child: const Expanded(
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.add_photo_alternate,
                                           size: 50,
                                           color: AppColors.textolor,
                                         ),
-                                        SizedBox(height: 10.0),
+                                        SizedBox(height: 5.0),
                                         Text(
                                           'Add Image',
-                                          style:
-                                              TextStyle(color: AppColors.textolor),
+                                          style: TextStyle(
+                                              color: AppColors.textolor),
                                         ),
                                       ],
                                     ),
@@ -125,7 +125,7 @@ class _PostState extends State<Post> {
                                 ),
                         ),
                       ),
-                       SizedBox(height: 1.0),
+                      SizedBox(height: 1.0),
                       TextField(
                         controller: _titleController,
                         decoration: const InputDecoration(
@@ -141,7 +141,7 @@ class _PostState extends State<Post> {
                           ),
                         ),
                       ),
-                       SizedBox(height: 1.0),
+                      SizedBox(height: 1.0),
                       TextField(
                         controller: _descriptionController,
                         maxLines: 2,
@@ -160,7 +160,6 @@ class _PostState extends State<Post> {
                       ),
                       const SizedBox(height: 2),
                       TextField(
-                        
                         controller: _tagsController,
                         maxLines: 2,
                         decoration: const InputDecoration(
@@ -177,16 +176,29 @@ class _PostState extends State<Post> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 1,
-                      )
+                      const SizedBox(height: 2),
+                      TextField(
+                        controller: _newTextFieldController,
+                        maxLines: 3,
+                        decoration: const InputDecoration(
+                          labelText: 'Description: ',
+                          labelStyle: TextStyle(
+                            color: AppColors.textolor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: _submitPost,
                 style: ElevatedButton.styleFrom(
@@ -199,8 +211,8 @@ class _PostState extends State<Post> {
               ),
             ],
           ),
-               ),
-       ),
+        ),
+      ),
     );
   }
 }

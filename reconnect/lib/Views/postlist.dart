@@ -6,6 +6,7 @@ class PostModel {
   late String title;
   late String description;
   late String tags;
+  late String newTextFieldValue;
   late File image;
 
   PostModel({
@@ -13,6 +14,7 @@ class PostModel {
     required this.description,
     required this.tags,
     required this.image,
+    required this.newTextFieldValue,
   });
 }
 
@@ -107,6 +109,30 @@ class PostListPage extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text: '${posts[index].tags}',
+                                style: TextStyle(
+                                  color: AppColors.textolor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Descreption: ',
+                            style: TextStyle(
+                              color: AppColors
+                                  .secondaryColor, 
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '${posts[index].newTextFieldValue}',
                                 style: TextStyle(
                                   color: AppColors.textolor,
                                   fontSize: 18.0,
