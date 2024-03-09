@@ -13,8 +13,11 @@ import 'package:reconnect/Views/signup.dart';
 import 'package:reconnect/Views/verfication.dart';
 import 'package:reconnect/Views/welcom_page.dart';
 import 'pay.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     const Reconnect(),
   );

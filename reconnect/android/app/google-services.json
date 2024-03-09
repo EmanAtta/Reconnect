@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "964805127782",
+    "project_id": "reconnect-8f8e9",
+    "storage_bucket": "reconnect-8f8e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964805127782:android:20cbdbd641842194b807a7",
+        "android_client_info": {
+          "package_name": "com.example.reconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKXiKctzYcll1uLs0yig1ASErKICM3ClI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
