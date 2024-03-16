@@ -32,7 +32,7 @@ class WelcomPage extends StatelessWidget {
               Container(
                   width: 150,
                   child: Image(image: AssetImage("assets/logo.png"))),
-              Align(
+              const Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Reconnect',

@@ -18,6 +18,10 @@ class _forgetBasswordState extends State<forgetBassword> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40),
+            child: const Icon(Icons.password_rounded,color:AppColors.secondaryColor,size:120,),
+          ),
           const Center(
               child: Text(
             "Forgot password ?",

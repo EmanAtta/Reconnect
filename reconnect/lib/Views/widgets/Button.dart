@@ -20,7 +20,7 @@ class _buttonState extends State<button> {
         decoration: BoxDecoration(
             color: AppColors.secondaryColor,
             borderRadius: BorderRadius.circular(35),
-            border: Border.all(color:Color.fromARGB(255, 27, 144, 124)),
+            //border: Border.all(color:Color.fromARGB(255, 221, 234, 232)),
             //boxShadow: const [BoxShadow(blurRadius:1, spreadRadius: 1)]
             ),
             child: Center(child: Text(widget.button_text,style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: AppColors.primaryColor),),

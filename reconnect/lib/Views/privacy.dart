@@ -9,7 +9,7 @@ class Privacy extends StatelessWidget {
     return Scaffold(
        backgroundColor: AppColors.primaryColor ,
       appBar: AppBar(title: const Text('Privacy',style:
-       TextStyle(fontWeight: FontWeight.bold,color: AppColors.textolor),
+       TextStyle(fontWeight: FontWeight.bold,color: AppColors.primaryColor),
        ),
        backgroundColor:AppColors.secondaryColor,
     ),);

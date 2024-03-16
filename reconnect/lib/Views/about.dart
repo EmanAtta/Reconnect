@@ -8,11 +8,9 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
        backgroundColor:AppColors.primaryColor ,
-      appBar: AppBar(title: const Center(
-        child: Text('About',style:
-         TextStyle(fontWeight: FontWeight.bold,color:AppColors.primaryColor ,),
-         ),
-      ),
+      appBar: AppBar(title: Text('About',style:
+       TextStyle(fontWeight: FontWeight.bold,color:AppColors.primaryColor ,),
+       ),
        backgroundColor: AppColors.secondaryColor,
     ),);
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 
 import 'color.dart';
 
@@ -17,8 +16,7 @@ class Settings extends StatelessWidget {
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
-        elevation: 40,
-        shadowColor: Colors.black,
+  
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -104,7 +102,7 @@ class _button_settingpageState extends State<button_settingpage> {
         decoration: BoxDecoration(
           color: AppColors.secondaryColor,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Color.fromARGB(255, 27, 144, 124)),
+          //border: Border.all(color: Color.fromARGB(255, 27, 144, 124)),
         ),
         child: Padding(
           padding: EdgeInsets.only(top: 1, left: 10, right: 10),
