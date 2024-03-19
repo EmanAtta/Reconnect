@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
 
@@ -15,21 +17,40 @@ class _forgetBasswordState extends State<forgetBassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(33),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.keyboard_arrow_left,
+                color: AppColors.textolor,
+                size: 30,
+                ),
+                   
+          )
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 40),
-            child: const Icon(Icons.password_rounded,color:AppColors.secondaryColor,size:120,),
+            padding: EdgeInsets.only(bottom: 40),
+            child:SvgPicture.asset("assets/password.svg",color: AppColors.secondaryColor,height:120,width:100,),
           ),
           const Center(
-              child: Text(
-            "Forgot password ?",
-            style: TextStyle(
-                color: AppColors.secondaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          )),
+              child: Padding(
+                padding: EdgeInsets.only(bottom:20),
+                child: Text(
+                            "Forgot password ?",
+                            style: TextStyle(
+                  color: AppColors.secondaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+                          ),
+              )),
           const Center(
             child: Text(
               "enter email  address",
@@ -46,10 +67,14 @@ class _forgetBasswordState extends State<forgetBassword> {
               cursorColor: AppColors.primaryColor,
               decoration: InputDecoration(
                 hintText: 'enter email',
-                hintStyle: TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
+                hintStyle: TextStyle(color: AppColors.labelStyle, fontSize: 12),
                 border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
                 focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.textolor),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.secondaryColor),
                   borderRadius: BorderRadius.circular(25),
                 ),

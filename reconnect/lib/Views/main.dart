@@ -41,6 +41,7 @@ class Reconnect extends StatelessWidget {
         "profile": (context) => const Profile(),
         "settings": (context) => Settings(),
         "privacy": (context) => const Privacy(),
+        
         'about': (context) => const About(),
         "pay": (context) => const Pay(),
         "EditProfile": (context) => const Edit(),

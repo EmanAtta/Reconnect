@@ -45,7 +45,7 @@ String? _emailValidator(String? value) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                  Container(
-                     margin: const EdgeInsets.only(top: 40),
+                     margin: const EdgeInsets.only(top:70),
                      child: const Image(
                          image: AssetImage("assets/logo.png")
                          )
@@ -62,16 +62,17 @@ String? _emailValidator(String? value) {
                     style: TextStyle(fontSize: 20, color: AppColors.textolor),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(35, 20, 35, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
                       cursorColor: AppColors.textolor,
                       decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle: const TextStyle(
-                            fontSize: 15, color: AppColors.textolor),
-                        focusedBorder: OutlineInputBorder(
+                          fontSize: 15, color: AppColors.labelStyle),
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                         focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: AppColors.secondaryColor,
+                              color: AppColors.textolor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(30)),
@@ -80,17 +81,18 @@ String? _emailValidator(String? value) {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(35, 10, 35, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: TextFormField(
                       cursorColor: AppColors.textolor,
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         labelText: "password",
                         labelStyle: const TextStyle(
-                            fontSize: 15, color: AppColors.textolor),
+                            fontSize: 15, color: AppColors.labelStyle),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: AppColors.secondaryColor,
+                              color: AppColors.textolor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(30)),

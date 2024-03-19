@@ -162,13 +162,7 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold,
                               color: AppColors.secondaryColor,
                               fontSize: 25,
-                              shadows: [
-                                Shadow(
-                                  color: Colors.black,
-                                  offset: Offset(2, 2),
-                                  blurRadius: 3,
-                                ),
-                              ],
+                              
                             ),
                           ),
                         ),

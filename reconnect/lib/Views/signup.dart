@@ -16,11 +16,27 @@ class _signupState extends State<signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(32),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.keyboard_arrow_left,
+                color: AppColors.textolor,
+                size: 30,
+                ),
+                
+          )
+        ),
+      ),
     
         body: SingleChildScrollView(
           child: Column(
             children: [
-            Container(margin: EdgeInsets.only(top: 25),child: const Image(image: AssetImage("assets/logo.png"))),
+            Container(child: const Image(image: AssetImage("assets/logo.png"))),
             const Text(
                       "Creat account",
                       style: TextStyle(
@@ -28,19 +44,18 @@ class _signupState extends State<signup> {
                           fontWeight: FontWeight.bold,
                           color: AppColors.secondaryColor),
                     ),
-            const Row(children: [
-              Expanded(child: textfield(label_Text: "First name")),
-              Expanded(child: textfield(label_Text: "Last name")),
-            ],),
-            const textfield(label_Text: "Email"),
+           textfield(label_Text: 'first name'),
+          textfield(label_Text: 'last name'),
+            textfield(label_Text: 'email'),
             Padding(
-              padding: const EdgeInsets.only(top: 10,left: 35,right: 35),
+              padding: const EdgeInsets.only(top: 12,left: 15,right: 15),
               child: TextFormField(
                 cursorColor: AppColors.textolor,obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: "password",
-                  labelStyle: TextStyle(fontSize: 15,color: AppColors.textolor),
-                  focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor)),
+                  labelStyle: TextStyle(fontSize: 15,color: AppColors.labelStyle),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                  focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30)),
                   suffixIcon: IconButton(onPressed: (){setState(() {
                                   _obscureText = !_obscureText;
                                 });}, icon: _obscureText
@@ -55,13 +70,14 @@ class _signupState extends State<signup> {
                   ),),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10,left: 35,right: 35),
+              padding: const EdgeInsets.only(top: 12,left:15,right: 15),
               child: TextFormField(
                 cursorColor: AppColors.textolor,obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: "Confirm password",
-                  labelStyle: TextStyle(fontSize: 15,color: AppColors.textolor),
-                  focusedBorder:UnderlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor)),
+                  labelStyle: TextStyle(fontSize: 15,color: AppColors.labelStyle),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                  focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30)),
                   suffixIcon: IconButton(onPressed: (){setState(() {
                                   _obscureText = !_obscureText;
                                 });}, icon: _obscureText
@@ -76,7 +92,7 @@ class _signupState extends State<signup> {
                   ),),
             ),
              Padding(
-               padding: const EdgeInsets.only(top: 20),
+               padding: const EdgeInsets.only(top: 18),
                child: GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(context, "home");
@@ -87,11 +103,11 @@ class _signupState extends State<signup> {
              )),
               Row(children: [
               const Padding(
-                padding: EdgeInsets.only(top:30,left: 27),
+                padding: EdgeInsets.only(top:20,left: 30),
                 child: Text("Already have account ?",style: TextStyle(color: AppColors.secondaryColor,fontSize: 16,fontWeight: FontWeight.bold),),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 20),
                 child: GestureDetector(onTap: (){Navigator.pushReplacementNamed(context, "login");},child: const Text("Login",style: TextStyle(color:AppColors.textolor,fontSize:18,fontWeight: FontWeight.bold))),
               ),
              ],)
