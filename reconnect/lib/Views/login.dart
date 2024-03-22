@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:reconnect/Views/authentications/autentication.dart';
+import 'package:reconnect/Views/authentications/logincontroller.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/forgetpassword.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
 
 class login extends StatefulWidget {
@@ -11,6 +16,7 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
   bool _obscureText = true;
+  final controller = Get.put(LoginController());
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
 
 String? _emailValidator(String? value) {
@@ -64,6 +70,7 @@ String? _emailValidator(String? value) {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
+                      controller: controller.email,
                       cursorColor: AppColors.textolor,
                       decoration: InputDecoration(
                         labelText: "Email",
@@ -83,6 +90,7 @@ String? _emailValidator(String? value) {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: TextFormField(
+                      controller: controller.password,
                       cursorColor: AppColors.textolor,
                       obscureText: _obscureText,
                       decoration: InputDecoration(
@@ -128,7 +136,7 @@ String? _emailValidator(String? value) {
                         alignment: Alignment.topLeft,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, "forgetBassword");
+                            Get.offAll(() => const forgetBassword());
                           },
                           child: const Text(
                             "Forget password ?",
@@ -141,7 +149,9 @@ String? _emailValidator(String? value) {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, "home");
+                       Authentication.instance.logInWithEmailandPassword(
+                          controller.email.text.trim(),
+                          controller.password.text.trim());
                       var formdata = formstate.currentState;
                       if (formdata!.validate()) {
                         print("Vaild");

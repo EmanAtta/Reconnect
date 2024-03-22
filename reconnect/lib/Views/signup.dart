@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:reconnect/Views/authentications/signupcontrollers.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
 import 'package:reconnect/Views/widgets/textformfield.dart';
@@ -12,6 +15,7 @@ class signup extends StatefulWidget {
 
 class _signupState extends State<signup> {
   bool _obscureText = true;
+  final controller = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +48,17 @@ class _signupState extends State<signup> {
                           fontWeight: FontWeight.bold,
                           color: AppColors.secondaryColor),
                     ),
-           textfield(label_Text: 'first name'),
-          textfield(label_Text: 'last name'),
-            textfield(label_Text: 'email'),
+           textfield(label_Text: 'first name', controller: controller.firstname,),
+          textfield(label_Text: 'last name', controller: controller.lastname),
+            textfield(label_Text: 'email', controller: controller.email),
+            // Padding(
             Padding(
               padding: const EdgeInsets.only(top: 12,left: 15,right: 15),
               child: TextFormField(
+                controller: controller.password,
                 cursorColor: AppColors.textolor,obscureText: _obscureText,
                 decoration: InputDecoration(
+                
                   labelText: "password",
                   labelStyle: TextStyle(fontSize: 15,color: AppColors.labelStyle),
                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
@@ -72,6 +79,7 @@ class _signupState extends State<signup> {
             Padding(
               padding: const EdgeInsets.only(top: 12,left:15,right: 15),
               child: TextFormField(
+                controller: controller.confirmpasswordr,
                 cursorColor: AppColors.textolor,obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: "Confirm password",
@@ -95,7 +103,25 @@ class _signupState extends State<signup> {
                padding: const EdgeInsets.only(top: 18),
                child: GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, "home");
+                              if (controller.password.text.trim() ==
+                          controller.confirmpasswordr.text.trim()) {
+                        SignUpController.instance.regester(
+                            controller.email.text.trim(),
+                            controller.password.text.trim());
+                      }
+                      else{
+                        Get.snackbar("Error", "Password not match",
+                        snackPosition: SnackPosition.BOTTOM
+                        ,backgroundColor: Color.fromARGB(255, 216, 130, 124),
+                        snackStyle: SnackStyle.FLOATING,
+                        borderRadius: 10,
+                        margin: const EdgeInsets.all(15),
+                        colorText: Colors.white,
+                        duration: const Duration(seconds:3),
+                        isDismissible: true,
+                        forwardAnimationCurve: Curves.easeOutBack,
+                        reverseAnimationCurve: Curves.easeInBack,);
+                    };
                             },
                child: const button(
                           button_text: "Sign up",

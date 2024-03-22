@@ -3,7 +3,8 @@ import 'package:reconnect/Views/color.dart';
 
 class textfield extends StatefulWidget {
 final String label_Text;
-const textfield({super.key,required this.label_Text});
+final TextEditingController controller;
+const textfield({super.key,required this.label_Text,required this.controller});
 
   @override
   State<textfield> createState() => _textfieldState();
@@ -15,6 +16,7 @@ class _textfieldState extends State<textfield> {
     return Padding(
         padding: const EdgeInsets.only(top: 12,left:15,right:15),
         child: TextFormField(
+          controller: widget.controller,
           cursorColor: AppColors.textolor,
           decoration:InputDecoration(
             labelText: widget.label_Text,
