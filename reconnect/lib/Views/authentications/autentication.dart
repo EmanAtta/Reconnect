@@ -1,21 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:reconnect/Views/authentications/signupcontrollers.dart';
-import 'package:reconnect/Views/authentications/user_repo.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
 import 'package:reconnect/Views/home.dart';
 import 'package:reconnect/Views/login.dart';
-import 'package:reconnect/Views/pick_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reconnect/Views/welcom_page.dart';
-
 
 class Authentication extends GetxController {
   static Authentication get instance => Get.find();
   final _auth = FirebaseAuth.instance;
   late final Rx<User?> firebaseuser;
-  final controller = Get.put(SignUpController()); 
+  final _db = FirebaseFirestore.instance;
+  final controller = Get.put(SignUpController());
 
   @override
   void onReady() {
@@ -30,6 +27,7 @@ class Authentication extends GetxController {
         : Get.offAll(() => const login());
   }
 
+//SIGNIN
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -39,54 +37,133 @@ class Authentication extends GetxController {
           ? Get.offAll(() => const Home())
           : Get.offAll(() => const WelcomPage());
 
-      
       final user = UserModel(
-                        firstname: controller.firstname.text.trim(),
-                        lastname: controller.lastname.text.trim(),
-                        email: controller.email.text.trim(),
-                        password: controller.password.text.trim(),
-                      );
-                      
-                        
-                      
-                      SignUpController.instance.creatuser(user);
-                      
+        firstname: controller.firstname.text.trim(),
+        lastname: controller.lastname.text.trim(),
+        email: controller.email.text.trim(),
+        password: controller.password.text.trim(),
+      );
 
+      SignUpController.instance.creatuser(user);
     } on FirebaseAuthException catch (e) {
       final errorMessage = _getFirebaseErrorMessage(e);
       print("error: $errorMessage");
       // Display error in snackbar
-      Get.snackbar('Error', errorMessage,
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
       throw Exception(errorMessage);
     } catch (_) {
       const errorMessage = "An error occurred";
       print("error: $errorMessage");
       // Display error in snackbar
-      Get.snackbar('Error', errorMessage,
+      Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+//LOGIN AND UPDATE FIREBASE
+
+Future<void> logInWithEmailandPassword(String email, String password) async {
+  try {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    final user = _auth.currentUser;
+    if (user != null && user.emailVerified) {
+      await _updateFirestoreEmailAndPassword(email, password);
+      if (firebaseuser.value != null) {
+        Get.offAll(() => const Home());
+      } else {
+        Get.offAll(() => const WelcomPage());
+      }
+    } else {
+     
+      Get.snackbar('Error', 'Please verify your email.',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  } on FirebaseAuthException catch (e) {
+    final errorMessage = _getFirebaseErrorMessage(e);
+    print('firebase exception - $errorMessage');
+    
+    Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
+  } catch (_) {
+    const errorMessage = "An error occurred";
+    print("error: $errorMessage");
+    
+    Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
+    throw Exception(errorMessage);
+  }
+}
+
+
+//UPDATE FIREBASE
+Future<void> _updateFirestoreEmailAndPassword(
+    String email, String password) async {
+  try {
+    final userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    
+    if (userSnapshot.docs.isNotEmpty) {
+      final userDoc = userSnapshot.docs.first;
+      await userDoc.reference.update({
+        'password': password,
+        
+      });
+    }
+  } catch (e) {
+    print('Error updating Firestore: $e');
+    throw Exception('Error updating Firestore: $e');
+  }
+}
+
+
+
+//REST PASSWORD
+
+  Future<void> resetPasswordAndUpdateFirestore(String email) async {
+   
+    bool emailExists = await checkIfEmailExists(email);
+
+    if (emailExists) {
+      try {
+        await _auth.sendPasswordResetEmail(email: email);
+
+        Get.snackbar("Success", "Password reset email sent",
+            snackPosition: SnackPosition.BOTTOM);
+
+        Get.offAll(() => const login(), duration: const Duration(seconds: 3));
+      } on FirebaseAuthException catch (e) {
+        final errorMessage = _getFirebaseErrorMessage(e);
+        print('Firebase exception - $errorMessage');
+        // Display error in snackbar
+        Get.snackbar('Error', errorMessage,
+            snackPosition: SnackPosition.BOTTOM);
+      } catch (_) {
+        const errorMessage = "An error occurred";
+        print("Error: $errorMessage");
+        Get.snackbar('Error', errorMessage,
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    } else {
+      Get.snackbar("Error", "Email not registered",
           snackPosition: SnackPosition.BOTTOM);
     }
   }
 
-  Future<void> logInWithEmailandPassword(String email, String password) async {
+  
+  //CHECK IF EMAIL EXISTS
+  Future<bool> checkIfEmailExists(String email) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      firebaseuser.value != null
-          ? Get.offAll(() => const ImagePage())
-          : Get.offAll(() => const WelcomPage());
-    } on FirebaseAuthException catch (e) {
-      final errorMessage = _getFirebaseErrorMessage(e);
-      print('firebase exception - $errorMessage');
-      // Display error in snackbar
-      Get.snackbar('Error', errorMessage,
-          snackPosition: SnackPosition.BOTTOM);
-    } catch (_) {
-      const errorMessage = "An error occurred";
-      print("error: $errorMessage");
-      // Display error in snackbar
-      Get.snackbar('Error', errorMessage,
-          snackPosition: SnackPosition.BOTTOM);
-      throw Exception(errorMessage);
+      
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get();
+
+      return querySnapshot.docs.isNotEmpty;
+    } catch (error) {
+      
+      print('Error checking email existence: $error');
+      return false; 
     }
   }
 

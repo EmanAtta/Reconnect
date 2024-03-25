@@ -11,24 +11,23 @@ class User_report extends GetxController {
   // Function to create user
   Future<void> creatuser(UserModel user) async {
     print("hi");
-    await _db
-        .collection("users")
-        .add(user.toJson())
-        .then((_) {
-          
-          // Show success snackbar
-          Get.snackbar("Success", "Your account has been created",
-              backgroundColor: Colors.green,
-              snackPosition: SnackPosition.BOTTOM,
-              duration: Duration(seconds: 1),
-              );
-          
-        })
-        .catchError((error) {
-          // Show error snackbar
-          Get.snackbar("Error", "Something went wrong",
-              snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
-          print(error.toString());
-        });
+    await _db.collection("users").add(user.toJson()).then((_) {
+      // Show success snackbar
+      Get.snackbar(
+        "Success",
+        "Your account has been created",
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 1),
+      );
+    }).catchError((error) {
+      // Show error snackbar
+      Get.snackbar("Error", "Something went wrong",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
+      print(error.toString());
+    });
+  }
+
+  Future<void> updatauserrecord(UserModel user) async {
+    await _db.collection('users').doc(user.id).update(user.toJson());
   }
 }

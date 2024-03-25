@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/donation.dart';
 import 'package:reconnect/Views/post.dart';
@@ -35,7 +36,7 @@ class _HomeState extends State<Home> {
         
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: const Icon(Icons.keyboard_arrow_left,
               color: AppColors.primaryColor),
