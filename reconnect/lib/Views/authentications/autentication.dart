@@ -65,7 +65,7 @@ Future<void> logInWithEmailandPassword(String email, String password) async {
   try {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
     final user = _auth.currentUser;
-    if (user != null && user.emailVerified) {
+    if (user != null) {
       await _updateFirestoreEmailAndPassword(email, password);
       if (firebaseuser.value != null) {
         Get.offAll(() => const Home());

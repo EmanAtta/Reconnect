@@ -3,7 +3,7 @@ import 'package:reconnect/Views/color.dart';
 
 class button extends StatefulWidget {
   final String button_text;
-  const button({super.key, required this.button_text});
+  const button({super.key, required this.button_text,});
 
   @override
   State<button> createState() => _buttonState();

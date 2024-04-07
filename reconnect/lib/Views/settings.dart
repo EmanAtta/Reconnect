@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:get/get.dart';
+import 'package:reconnect/Views/change_password.dart';
+import 'package:reconnect/Views/edit.dart';
+import 'package:reconnect/Views/home.dart';
+import 'package:reconnect/Views/profile.dart';
 import 'color.dart';
 
 class Settings extends StatelessWidget {
@@ -16,10 +20,9 @@ class Settings extends StatelessWidget {
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
-  
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.offAll(Home());
           },
           icon: const Icon(Icons.keyboard_arrow_left,
               color: AppColors.primaryColor),
@@ -41,7 +44,7 @@ class Settings extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "EditProfile");
+              Get.offAll(() => const Edit());
             },
             child: const button_settingpage(
               button_settingpage_text: "Edit Profile",
@@ -53,7 +56,7 @@ class Settings extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, "change password");
+              Get.offAll(() => const Change_Password());
             },
             child: const button_settingpage(
               button_settingpage_text: "Change Password",
