@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/authentications/signupcontrollers.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
-import 'package:reconnect/Views/home.dart';
+
 import 'package:reconnect/Views/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:reconnect/Views/welcom_page.dart';
 
 class Authentication extends GetxController {
@@ -23,8 +25,8 @@ class Authentication extends GetxController {
 
   _setInitialScreen(User? user) {
     user == null
-        ? Get.offAll(() => const WelcomPage())
-        : Get.offAll(() => const login());
+        ? Get.to( WelcomPage())
+        : Get.to(Navigationpage());
   }
 
 //SIGNIN
@@ -34,8 +36,8 @@ class Authentication extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       firebaseuser.value != null
-          ? Get.offAll(() => const Home())
-          : Get.offAll(() => const WelcomPage());
+          ? Get.to(()=>Navigationpage())
+          : Get.to(()=> WelcomPage());
 
       final user = UserModel(
         firstname: controller.firstname.text.trim(),
@@ -61,19 +63,26 @@ class Authentication extends GetxController {
 
 //LOGIN AND UPDATE FIREBASE
 
+bool _isAlreadyLoggedIn = false;
+
 Future<void> logInWithEmailandPassword(String email, String password) async {
   try {
+    // Check if user is already authenticated
+    if (_isAlreadyLoggedIn || _auth.currentUser != null) {
+      // User is already authenticated, navigate to home page directly
+      Get.to(() =>  Navigationpage());
+      _isAlreadyLoggedIn = true;
+      return;
+    }
+
+    // Perform the login operation
     await _auth.signInWithEmailAndPassword(email: email, password: password);
     final user = _auth.currentUser;
     if (user != null) {
       await _updateFirestoreEmailAndPassword(email, password);
-      if (firebaseuser.value != null) {
-        Get.offAll(() => const Home());
-      } else {
-        Get.offAll(() => const WelcomPage());
-      }
+      Get.offAll(() =>  Navigationpage());
+      _isAlreadyLoggedIn = true;
     } else {
-     
       Get.snackbar('Error', 'Please verify your email.',
           snackPosition: SnackPosition.BOTTOM);
     }
@@ -90,6 +99,7 @@ Future<void> logInWithEmailandPassword(String email, String password) async {
     throw Exception(errorMessage);
   }
 }
+
 
 
 //UPDATE FIREBASE
@@ -130,7 +140,7 @@ Future<void> _updateFirestoreEmailAndPassword(
         Get.snackbar("Success", "Password reset email sent",
             snackPosition: SnackPosition.BOTTOM);
 
-        Get.offAll(() => const login(), duration: const Duration(seconds: 3));
+        Get.to( login(), duration: const Duration(seconds: 3));
       } on FirebaseAuthException catch (e) {
         final errorMessage = _getFirebaseErrorMessage(e);
         print('Firebase exception - $errorMessage');

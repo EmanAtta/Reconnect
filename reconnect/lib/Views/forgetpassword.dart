@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/authentications/autentication.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/login.dart';
+import 'package:reconnect/Views/resetpassword.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
 
 class forgetBassword extends StatefulWidget {
@@ -20,34 +22,33 @@ class _forgetBasswordState extends State<forgetBassword> {
   final _emailcontroller = TextEditingController();
 
   @override
- 
-
- 
-    
-  
-
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(33),
-        child: AppBar(
+      appBar: //PreferredSize(
+        //preferredSize: Size.fromHeight(33),
+        AppBar(
             shape: BeveledRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(200),
                     bottomRight: Radius.circular(200))),
-            backgroundColor: const Color.fromARGB(0, 68, 27, 27),
-            leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
+             backgroundColor: Colors.transparent,
+        leading: IconButton(
+          color: Color.fromARGB(221, 44, 39, 39),
+          onPressed: () {
+            Get.back(
+                  closeOverlays: true,
+                  result: true,
+                  
+            );
+          },
               icon: const Icon(
                 Icons.keyboard_arrow_left,
                 color: AppColors.textolor,
                 size: 30,
               ),
             )),
-      ),
+      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -106,7 +107,8 @@ class _forgetBasswordState extends State<forgetBassword> {
             padding: const EdgeInsets.only(top: 10),
             child: InkWell(
                 onTap: () {
-                  Authentication.instance.resetPasswordAndUpdateFirestore(_emailcontroller.text.trim());
+                  //Authentication.instance.resetPasswordAndUpdateFirestore(_emailcontroller.text.trim());
+                  Get.to(()=>resetPassword());
                 },
                 child: button(
                   button_text: "send email",

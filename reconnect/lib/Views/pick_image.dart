@@ -1,13 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/home.dart';
+
+
+import 'package:dotted_border/dotted_border.dart';
 
 class ImagePage extends StatefulWidget {
-  const ImagePage({super.key});
+  
+  ImagePage({super.key});
 
   @override
   _ImagePageState createState() => _ImagePageState();
@@ -34,167 +38,21 @@ class _ImagePageState extends State<ImagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text(
-          'Reconnect',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: AppColors.primaryColor),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.keyboard_arrow_left,
-              color: AppColors.primaryColor),
-        ),
-      ),
-      endDrawer: Drawer(
-        child: Container(
-          padding: const EdgeInsets.only(top: 0),
-          color: AppColors.secondaryColor,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: ClipPath(
-                  clipper: DiagonalClipper(),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(4)),
-                    ),
-                    height: 100,
-                    width: double.infinity,
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 215,
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      Icons.person,
-                      color: AppColors.primaryColor,
-                    ),
-                    title: const Text(
-                      'Profile',
-                      style: TextStyle(
-                          color: AppColors.primaryColor, fontSize: 20),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, 'profile');
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      Icons.settings,
-                      color: AppColors.primaryColor,
-                    ),
-                    title: const Text(
-                      'Settings',
-                      style: TextStyle(
-                          color: AppColors.primaryColor, fontSize: 20),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, 'settings');
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      Icons.privacy_tip_outlined,
-                      color: AppColors.primaryColor,
-                    ),
-                    title: const Text(
-                      'Privacy',
-                      style: TextStyle(
-                          color: AppColors.primaryColor, fontSize: 20),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, 'privacy');
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      Icons.report_gmailerrorred_rounded,
-                      color: AppColors.primaryColor,
-                    ),
-                    title: const Text(
-                      'About',
-                      style: TextStyle(
-                          color: AppColors.primaryColor, fontSize: 20),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, 'about');
-                    },
-                  ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ClipPath(
-                  clipper: BottomDiagonalClipper(),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryColor,
-                    ),
-                    height: 100,
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 30, bottom: 15),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, 'welcome');
-                          },
-                          child: const Text(
-                            'Sign Out',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.secondaryColor,
-                              fontSize: 25,
-                              
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      
       body: Column(
-        children: <Widget>[
+        children: [
           Expanded(
             child: Container(
               color: Color(0xFF4A563E),
               child: Center(
                   child: _pickedImage != null
                       ? Container(
+                        width: 300,
+                        height: 250,
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Colors.white70, // Set border color
-                              width: 2, // Set border width
+                              width: 3, // Set border width
                             ),
                           ),
                           child: Image.file(
@@ -202,18 +60,21 @@ class _ImagePageState extends State<ImagePage> {
                             height: 250,
                           ),
                         )
-                      : Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white70, // Set border color
-                              width: 2, // Set border width
-                            ),
+                      : DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(10),
+                          padding: EdgeInsets.all(20),
+                        color:Color(0xFFFFE8D6),
+  strokeWidth: 2,
+  dashPattern: [
+    5,
+    5,],
+                        child: Container(
+                            
+                              
+                            child:  SvgPicture.asset("assets/bro.svg")
                           ),
-                          child: Image(
-                            image: AssetImage('assets/upload.png'),
-                            height: 250,
-                          ),
-                        )),
+                      )),
             ),
           ),
           Expanded(
@@ -301,7 +162,7 @@ class _ImagePageState extends State<ImagePage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 70,
+                    height: 10,
                   ),
                   OutlinedButton(
                     onPressed: () {},
@@ -328,3 +189,20 @@ class _ImagePageState extends State<ImagePage> {
     );
   }
 }
+class BottomDiagonalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.moveTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+

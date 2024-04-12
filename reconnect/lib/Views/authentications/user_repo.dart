@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
-import 'package:reconnect/Views/home.dart'; // Import the home screen
+// Import the home screen
 
 class User_report extends GetxController {
   static User_report get instance => Get.find();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:get/get.dart';
+
 import 'package:reconnect/Views/login.dart';
 
 
@@ -64,7 +65,7 @@ class WelcomPage extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: GestureDetector(
                       onTap: () {
-                        Get.offAll(() => const login());
+                        Get.to(()=> login());
                       },
                       child: const Text(
                         'Get started',

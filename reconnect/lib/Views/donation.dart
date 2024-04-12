@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/pay.dart';
 
 class Donation extends StatefulWidget {
   const Donation({super.key});
@@ -78,10 +81,9 @@ class _DonationState extends State<Donation> {
                           child: Container(
                             height: 43,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.secondaryColor),
-                                  borderRadius: BorderRadius.circular(20)
-                            ),
+                                border:
+                                    Border.all(color: AppColors.secondaryColor),
+                                borderRadius: BorderRadius.circular(20)),
                             child: Container(
                               height: 20,
                               padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
@@ -109,10 +111,9 @@ class _DonationState extends State<Donation> {
                           child: Container(
                             height: 43,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.secondaryColor),
-                                   borderRadius: BorderRadius.circular(20)
-                            ),
+                                border:
+                                    Border.all(color: AppColors.secondaryColor),
+                                borderRadius: BorderRadius.circular(20)),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(5, 20, 3, 3),
                               child: TextFormField(
@@ -139,10 +140,9 @@ class _DonationState extends State<Donation> {
                           child: Container(
                             height: 43,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.secondaryColor),
-                                   borderRadius: BorderRadius.circular(20)
-                            ),
+                                border:
+                                    Border.all(color: AppColors.secondaryColor),
+                                borderRadius: BorderRadius.circular(20)),
                             child: Container(
                               height: 20,
                               padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
@@ -167,7 +167,7 @@ class _DonationState extends State<Donation> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'pay');
+                Get.to(()=>Pay());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors

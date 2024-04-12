@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/change_password.dart';
 import 'package:reconnect/Views/edit.dart';
-import 'package:reconnect/Views/home.dart';
+
 import 'package:reconnect/Views/profile.dart';
 import 'color.dart';
 
@@ -22,59 +22,61 @@ class Settings extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            Get.offAll(Home());
+           Get.back();
           },
           icon: const Icon(Icons.keyboard_arrow_left,
               color: AppColors.primaryColor),
         ),
       ),
-      body: Column(
-        children: [
-          Padding(
-              padding: EdgeInsets.only(top: 70, left: 30),
-              child: Text(
-                'Account Settings',
-                style: TextStyle(
-                    color: AppColors.secondaryColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400),
-              )),
-          SizedBox(
-            height: 10,
-          ),
-          InkWell(
-            onTap: () {
-              Get.offAll(() => const Edit());
-            },
-            child: const button_settingpage(
-              button_settingpage_text: "Edit Profile",
-              icon: Icons.border_color_outlined,
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(top: 70, left: 30),
+                child: Text(
+                  'Account Settings',
+                  style: TextStyle(
+                      color: AppColors.secondaryColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400),
+                )),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          InkWell(
-            onTap: () {
-              Get.offAll(() => const Change_Password());
-            },
-            child: const button_settingpage(
-              button_settingpage_text: "Change Password",
-              icon: Icons.password_outlined,
+            InkWell(
+              onTap: () {
+                Get.to(()=> Edit());
+              },
+              child: const button_settingpage(
+                button_settingpage_text: "Edit Profile",
+                icon: Icons.border_color_outlined,
+              ),
             ),
-          ),
-          const button_settingpage(
-            button_settingpage_text: 'Notification',
-            icon: Icons.notifications,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          const button_settingpage(
-            button_settingpage_text: 'Dark Mode',
-            icon: Icons.bedtime,
-          ),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
+                Get.to( Change_Password());
+              },
+              child: const button_settingpage(
+                button_settingpage_text: "Change Password",
+                icon: Icons.password_outlined,
+              ),
+            ),
+            const button_settingpage(
+              button_settingpage_text: 'Notification',
+              icon: Icons.notifications,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            const button_settingpage(
+              button_settingpage_text: 'Dark Mode',
+              icon: Icons.bedtime,
+            ),
+          ],
+        ),
       ),
     );
   }

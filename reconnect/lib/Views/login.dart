@@ -136,7 +136,7 @@ String? _emailValidator(String? value) {
                         alignment: Alignment.topLeft,
                         child: GestureDetector(
                           onTap: () {
-                            Get.offAll(() => const forgetBassword());
+                            Get.to(forgetBassword());
                           },
                           child: const Text(
                             "Forget password ?",

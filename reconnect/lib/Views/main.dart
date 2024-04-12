@@ -6,7 +6,7 @@ import 'package:reconnect/Views/change_password.dart';
 import 'package:reconnect/Views/donation.dart';
 import 'package:reconnect/Views/edit.dart';
 import 'package:reconnect/Views/forgetpassword.dart';
-import 'package:reconnect/Views/home.dart';
+
 import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/pick_image.dart';
 import 'package:reconnect/Views/post.dart';
@@ -22,7 +22,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'pay.dart';
 import 'package:get/get_core/get_core.dart';
 
-void main() async {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(Authentication()));
@@ -44,21 +44,13 @@ class Reconnect extends StatelessWidget {
         GetPage(name: '/', page: () => const WelcomPage()),
         GetPage(name: '/login', page: () => const login()),
         GetPage(name: '/signup', page: () => const signup()),
-        GetPage(name: '/forget', page: () => const forgetBassword()),
-        GetPage(name: '/reset', page: () => const resetPassword()),
-        //GetPage(name: '/verification', page: () => const Verification()),
-        GetPage(name: '/home', page: () => const Home()),
-        GetPage(name: '/post', page: ()=>Post()),
-        GetPage(name: '/donation', page: () => const Donation()),
-
-        GetPage(name: '/profile', page: () => const profile()),
-        GetPage(name: '/settings', page: () => Settings()),
-        GetPage(name: '/privacy', page: () => const Privacy()),
-        GetPage(name: '/about', page: () => const About()),
-        GetPage(name: '/pay', page: () => const Pay()),
-        GetPage(name: '/edit', page: () => const Edit()),
-        //GetPage(name: '/change_password', page: () => const Change_Password()),
+       
+        GetPage(name: '/forgetpassword', page: () => const forgetBassword()),
+        GetPage(name: '/resetpassword', page: () => const resetPassword()),
+        GetPage(name: '/image', page:()=>ImagePage())
       ],
+     
+     
     );
   }
 }
