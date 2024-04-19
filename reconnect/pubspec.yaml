@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^1.0.7
+  #image_picker: ^1.0.8
   provider: ^6.1.2
   get: ^4.6.5
 
@@ -41,12 +41,15 @@ dependencies:
   firebase_core: ^2.26.0
   cloud_firestore: ^4.15.7
   firebase_storage: ^11.6.9
-  firebase_messaging: ^14.7.18
+  firebase_messaging: ^14.7.19
   firebase_auth: ^4.17.7
   google_sign_in: ^6.2.1
-  flutter_svg: ^1.0.3
-  curved_labeled_navigation_bar: ^2.0.2
+  flutter_svg: ^2.0.10+1
+  
   dotted_border: ^2.1.0
+  curved_navigation_bar: ^1.0.3
+  image_picker: ^1.0.7
+  #firebase_messaging: ^14.8.2
   
 
 

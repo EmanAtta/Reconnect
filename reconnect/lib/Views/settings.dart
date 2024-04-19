@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:reconnect/Views/change_password.dart';
 import 'package:reconnect/Views/edit.dart';
 
-import 'package:reconnect/Views/profile.dart';
 import 'color.dart';
 
 class Settings extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/widgets/Button.dart';
+
 
 class resetPassword extends StatefulWidget {
   const resetPassword({super.key});

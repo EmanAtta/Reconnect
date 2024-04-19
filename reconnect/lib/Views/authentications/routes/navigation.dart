@@ -1,4 +1,4 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -6,8 +6,8 @@ import 'package:reconnect/Views/about.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/donation.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:reconnect/Views/pick_image.dart';
+import 'package:reconnect/Views/login.dart';
+
 
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/privacy.dart';
@@ -20,7 +20,7 @@ class Navigationpage extends StatelessWidget {
       Get.put(Bottomnavigationcontroller());
   Navigationpage({Key? key}) : super(key: key);
 
-  final screens = [ImagePage(), Post(), Donation()];
+  final screens = [Post(), Donation()];
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,7 @@ class Navigationpage extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: IconButton(
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: () {},
             icon: const Icon(Icons.keyboard_arrow_left,
                 color: AppColors.primaryColor),
           ),
@@ -162,7 +160,7 @@ class Navigationpage extends StatelessWidget {
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, 'welcome');
+                              Get.to(() => login());
                             },
                             child: const Text(
                               'Sign Out',
@@ -190,34 +188,25 @@ class Navigationpage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        animationCurve: Curves.fastEaseInToSlowEaseOut,
+        animationCurve: Curves.fastOutSlowIn,
         height: 60,
-        
-        onTap: (value) {
-          bottomnavigationcontroller.changeIndex(value);
-        },
+        index: bottomnavigationcontroller.selectedIndex.value,
         backgroundColor: Color(0xFFFFE8D6),
         color: Color(0xFF4A563E),
-        items: const [
-          CurvedNavigationBarItem(
-            child: Icon(
-              Icons.home,
-              color: AppColors.primaryColor,
-            ),
+        items: [
+          
+          Icon(
+            Icons.post_add,
+            color: AppColors.primaryColor,
           ),
-          CurvedNavigationBarItem(
-            child: Icon(
-              Icons.post_add,
-              color: AppColors.primaryColor,
-            ),
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(
-              Icons.monetization_on_outlined,
-              color: AppColors.primaryColor,
-            ),
+          Icon(
+            Icons.monetization_on_outlined,
+            color: AppColors.primaryColor,
           ),
         ],
+        onTap: (index) {
+          bottomnavigationcontroller.changeIndex(index);
+        },
       ),
     );
   }

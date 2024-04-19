@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:reconnect/Views/authentications/autentication.dart';
+import 'package:reconnect/Views/autentication.dart';
+
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/resetpassword.dart';
@@ -107,8 +108,8 @@ class _forgetBasswordState extends State<forgetBassword> {
             padding: const EdgeInsets.only(top: 10),
             child: InkWell(
                 onTap: () {
-                  //Authentication.instance.resetPasswordAndUpdateFirestore(_emailcontroller.text.trim());
-                  Get.to(()=>resetPassword());
+                  Authentication.instance.resetPasswordAndUpdateFirestore(_emailcontroller.text.trim());
+                 // Get.to(()=>resetPassword());
                 },
                 child: button(
                   button_text: "send email",

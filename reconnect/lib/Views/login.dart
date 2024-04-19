@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:reconnect/Views/authentications/autentication.dart';
+import 'package:reconnect/Views/autentication.dart';
+
 import 'package:reconnect/Views/authentications/logincontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/forgetpassword.dart';
@@ -19,8 +21,7 @@ class _loginState extends State<login> {
   final controller = Get.put(LoginController());
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
 
-String? _emailValidator(String? value) {
-   
+  String? _emailValidator(String? value) {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\\.,;:\s@\"]+\.)+[^<>()[\]\\.,;:\s@\"]{2,})$';
     RegExp regex = RegExp(pattern);
@@ -29,13 +30,15 @@ String? _emailValidator(String? value) {
     }
     return null;
   }
- String? _passwordValidator(String? value) {
+
+  String? _passwordValidator(String? value) {
     if (value == null || value.isEmpty || value.length <= 7) {
       return 'Password must be at least 8 characters long';
     }
-  
+
     return null;
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,19 +46,16 @@ String? _emailValidator(String? value) {
         home: Scaffold(
           backgroundColor: AppColors.primaryColor,
           body: Form(
-             autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             key: formstate,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                 Container(
-                     margin: const EdgeInsets.only(top:70),
-                     child: const Image(
-                         image: AssetImage("assets/logo.png")
-                         )
-                         ),
+                  Container(
+                      margin: const EdgeInsets.only(top: 70),
+                      child: const Image(image: AssetImage("assets/logo.png"))),
                   const Text(
                     "Welcome",
                     style: TextStyle(
@@ -75,60 +75,67 @@ String? _emailValidator(String? value) {
                       decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle: const TextStyle(
-                          fontSize: 15, color: AppColors.labelStyle),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
-                         focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppColors.textolor,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(30)),
-                      ),
-                      validator:_emailValidator,    
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    child: TextFormField(
-                      controller: controller.password,
-                      cursorColor: AppColors.textolor,
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                        labelText: "password",
-                        labelStyle: const TextStyle(
                             fontSize: 15, color: AppColors.labelStyle),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.secondaryColor),
+                            borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                               color: AppColors.textolor,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(30)),
-                        suffixIcon: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            minHeight: 50,
-                            maxHeight: 60,
-                          ),
-                          child: IconButton(
-                            icon: _obscureText
-                                ? const Icon(
-                                    Icons.visibility_off,
-                                    color: AppColors.secondaryColor,size: 20,
-                                  )
-                                : const Icon(
-                                    Icons.visibility,
-                                    color: AppColors.secondaryColor,size: 22,
-                                  ),
-                            onPressed: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
+                      ),
+                      validator: _emailValidator,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    child: TextFormField(
+                        controller: controller.password,
+                        cursorColor: AppColors.textolor,
+                        obscureText: _obscureText,
+                        decoration: InputDecoration(
+                          labelText: "password",
+                          labelStyle: const TextStyle(
+                              fontSize: 15, color: AppColors.labelStyle),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.secondaryColor),
+                              borderRadius: BorderRadius.circular(30)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: AppColors.textolor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(30)),
+                          suffixIcon: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              minHeight: 50,
+                              maxHeight: 60,
+                            ),
+                            child: IconButton(
+                              icon: _obscureText
+                                  ? const Icon(
+                                      Icons.visibility_off,
+                                      color: AppColors.secondaryColor,
+                                      size: 20,
+                                    )
+                                  : const Icon(
+                                      Icons.visibility,
+                                      color: AppColors.secondaryColor,
+                                      size: 22,
+                                    ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      validator: _passwordValidator
-                    ),
+                        validator: _passwordValidator),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 25, top: 10),
@@ -149,7 +156,7 @@ String? _emailValidator(String? value) {
                   ),
                   InkWell(
                     onTap: () {
-                       Authentication.instance.logInWithEmailandPassword(
+                      Authentication.instance.logInWithEmailandPassword(
                           controller.email.text.trim(),
                           controller.password.text.trim());
                       var formdata = formstate.currentState;
@@ -165,8 +172,8 @@ String? _emailValidator(String? value) {
                   ),
                   Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 25, top: 30),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 170),
                         child: Text(
                           "Don't have account ?",
                           style: TextStyle(
@@ -176,7 +183,7 @@ String? _emailValidator(String? value) {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 30),
+                        padding: const EdgeInsets.only(top: 170, left: 20),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, "signup");
@@ -189,7 +196,7 @@ String? _emailValidator(String? value) {
                                 fontSize: 18),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],

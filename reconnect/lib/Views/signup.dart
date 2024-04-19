@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/authentications/signupcontrollers.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
 import 'package:reconnect/Views/widgets/textformfield.dart';
 
@@ -134,7 +135,7 @@ class _signupState extends State<signup> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: GestureDetector(onTap: (){Navigator.pushReplacementNamed(context, "login");},child: const Text("Login",style: TextStyle(color:AppColors.textolor,fontSize:18,fontWeight: FontWeight.bold))),
+                child: GestureDetector(onTap: (){Get.offAll(()=>login());},child: const Text("Login",style: TextStyle(color:AppColors.textolor,fontSize:18,fontWeight: FontWeight.bold))),
               ),
              ],)
           ],

@@ -1,0 +1,519 @@
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy UP-TO-DATE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+
+> Configure project :flutter_plugin_android_lifecycle
+Warning: The plugin flutter_plugin_android_lifecycle requires Android SDK version 34.
+For more information about build configuration, see https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+
+> Configure project :google_sign_in_android
+Warning: The plugin google_sign_in_android requires Android SDK version 34.
+For more information about build configuration, see https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+
+> Configure project :image_picker_android
+Warning: The plugin image_picker_android requires Android SDK version 34.
+For more information about build configuration, see https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+WARNING:We recommend using a newer Android Gradle plugin to use compileSdk = 34
+
+This Android Gradle plugin (7.3.0) was tested up to compileSdk = 33
+
+This warning can be suppressed by adding
+    android.suppressUnsupportedCompileSdk=34
+to this project's gradle.properties
+
+The build will continue, but you are strongly encouraged to update your project to
+use a newer Android Gradle Plugin that has been tested with compileSdk = 34
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:compileFlutterBuildDebug
+> Task :app:packLibsflutterBuildDebug UP-TO-DATE
+> Task :cloud_firestore:preBuild UP-TO-DATE
+> Task :cloud_firestore:preDebugBuild UP-TO-DATE
+> Task :firebase_core:preBuild UP-TO-DATE
+> Task :firebase_core:preDebugBuild UP-TO-DATE
+> Task :firebase_core:compileDebugAidl NO-SOURCE
+> Task :cloud_firestore:compileDebugAidl NO-SOURCE
+> Task :firebase_auth:preBuild UP-TO-DATE
+> Task :firebase_auth:preDebugBuild UP-TO-DATE
+> Task :firebase_auth:compileDebugAidl NO-SOURCE
+> Task :firebase_messaging:preBuild UP-TO-DATE
+> Task :firebase_messaging:preDebugBuild UP-TO-DATE
+> Task :firebase_messaging:compileDebugAidl NO-SOURCE
+> Task :firebase_storage:preBuild UP-TO-DATE
+> Task :firebase_storage:preDebugBuild UP-TO-DATE
+> Task :firebase_storage:compileDebugAidl NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:preBuild UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:preDebugBuild UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugAidl NO-SOURCE
+> Task :google_sign_in_android:preBuild UP-TO-DATE
+> Task :google_sign_in_android:preDebugBuild UP-TO-DATE
+> Task :google_sign_in_android:compileDebugAidl NO-SOURCE
+> Task :image_picker_android:preBuild UP-TO-DATE
+> Task :image_picker_android:preDebugBuild UP-TO-DATE
+> Task :image_picker_android:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :cloud_firestore:packageDebugRenderscript NO-SOURCE
+> Task :firebase_auth:packageDebugRenderscript NO-SOURCE
+> Task :firebase_core:packageDebugRenderscript NO-SOURCE
+> Task :firebase_messaging:packageDebugRenderscript NO-SOURCE
+> Task :firebase_storage:packageDebugRenderscript NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:packageDebugRenderscript NO-SOURCE
+> Task :google_sign_in_android:packageDebugRenderscript NO-SOURCE
+> Task :image_picker_android:packageDebugRenderscript NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :cloud_firestore:writeDebugAarMetadata UP-TO-DATE
+> Task :firebase_auth:writeDebugAarMetadata UP-TO-DATE
+> Task :firebase_core:writeDebugAarMetadata UP-TO-DATE
+> Task :firebase_messaging:writeDebugAarMetadata UP-TO-DATE
+> Task :firebase_storage:writeDebugAarMetadata UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:writeDebugAarMetadata UP-TO-DATE
+> Task :google_sign_in_android:writeDebugAarMetadata UP-TO-DATE
+> Task :image_picker_android:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:cleanMergeDebugAssets
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :cloud_firestore:mergeDebugShaders UP-TO-DATE
+> Task :cloud_firestore:compileDebugShaders NO-SOURCE
+> Task :cloud_firestore:generateDebugAssets UP-TO-DATE
+> Task :cloud_firestore:packageDebugAssets UP-TO-DATE
+> Task :firebase_auth:mergeDebugShaders UP-TO-DATE
+> Task :firebase_auth:compileDebugShaders NO-SOURCE
+> Task :firebase_auth:generateDebugAssets UP-TO-DATE
+> Task :firebase_auth:packageDebugAssets UP-TO-DATE
+> Task :firebase_core:mergeDebugShaders UP-TO-DATE
+> Task :firebase_core:compileDebugShaders NO-SOURCE
+> Task :firebase_core:generateDebugAssets UP-TO-DATE
+> Task :firebase_core:packageDebugAssets UP-TO-DATE
+> Task :firebase_messaging:mergeDebugShaders UP-TO-DATE
+> Task :firebase_messaging:compileDebugShaders NO-SOURCE
+> Task :firebase_messaging:generateDebugAssets UP-TO-DATE
+> Task :firebase_messaging:packageDebugAssets UP-TO-DATE
+> Task :firebase_storage:mergeDebugShaders UP-TO-DATE
+> Task :firebase_storage:compileDebugShaders NO-SOURCE
+> Task :firebase_storage:generateDebugAssets UP-TO-DATE
+> Task :firebase_storage:packageDebugAssets UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:mergeDebugShaders UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugShaders NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:generateDebugAssets UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:packageDebugAssets UP-TO-DATE
+> Task :google_sign_in_android:mergeDebugShaders UP-TO-DATE
+> Task :google_sign_in_android:compileDebugShaders NO-SOURCE
+> Task :google_sign_in_android:generateDebugAssets UP-TO-DATE
+> Task :google_sign_in_android:packageDebugAssets UP-TO-DATE
+> Task :image_picker_android:mergeDebugShaders UP-TO-DATE
+> Task :image_picker_android:compileDebugShaders NO-SOURCE
+> Task :image_picker_android:generateDebugAssets UP-TO-DATE
+> Task :image_picker_android:packageDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:copyFlutterAssetsDebug
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :cloud_firestore:compileDebugRenderscript NO-SOURCE
+> Task :cloud_firestore:generateDebugResValues UP-TO-DATE
+> Task :cloud_firestore:generateDebugResources UP-TO-DATE
+> Task :cloud_firestore:packageDebugResources UP-TO-DATE
+> Task :firebase_auth:compileDebugRenderscript NO-SOURCE
+> Task :firebase_auth:generateDebugResValues UP-TO-DATE
+> Task :firebase_auth:generateDebugResources UP-TO-DATE
+> Task :firebase_auth:packageDebugResources UP-TO-DATE
+> Task :firebase_core:compileDebugRenderscript NO-SOURCE
+> Task :firebase_core:generateDebugResValues UP-TO-DATE
+> Task :firebase_core:generateDebugResources UP-TO-DATE
+> Task :firebase_core:packageDebugResources UP-TO-DATE
+> Task :firebase_messaging:compileDebugRenderscript NO-SOURCE
+> Task :firebase_messaging:generateDebugResValues UP-TO-DATE
+> Task :firebase_messaging:generateDebugResources UP-TO-DATE
+> Task :firebase_messaging:packageDebugResources UP-TO-DATE
+> Task :firebase_storage:compileDebugRenderscript NO-SOURCE
+> Task :firebase_storage:generateDebugResValues UP-TO-DATE
+> Task :firebase_storage:generateDebugResources UP-TO-DATE
+> Task :firebase_storage:packageDebugResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugRenderscript NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:generateDebugResValues UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:generateDebugResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:packageDebugResources UP-TO-DATE
+> Task :google_sign_in_android:compileDebugRenderscript NO-SOURCE
+> Task :google_sign_in_android:generateDebugResValues UP-TO-DATE
+> Task :google_sign_in_android:generateDebugResources UP-TO-DATE
+> Task :google_sign_in_android:packageDebugResources UP-TO-DATE
+> Task :image_picker_android:compileDebugRenderscript NO-SOURCE
+> Task :image_picker_android:generateDebugResValues UP-TO-DATE
+> Task :image_picker_android:generateDebugResources UP-TO-DATE
+> Task :image_picker_android:packageDebugResources UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:processDebugGoogleServices UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :cloud_firestore:extractDeepLinksDebug UP-TO-DATE
+> Task :cloud_firestore:processDebugManifest UP-TO-DATE
+> Task :firebase_auth:extractDeepLinksDebug UP-TO-DATE
+> Task :firebase_auth:processDebugManifest UP-TO-DATE
+> Task :firebase_core:extractDeepLinksDebug UP-TO-DATE
+> Task :firebase_core:processDebugManifest UP-TO-DATE
+> Task :firebase_messaging:extractDeepLinksDebug UP-TO-DATE
+> Task :firebase_messaging:processDebugManifest UP-TO-DATE
+> Task :firebase_storage:extractDeepLinksDebug UP-TO-DATE
+> Task :firebase_storage:processDebugManifest UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:extractDeepLinksDebug UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:processDebugManifest UP-TO-DATE
+> Task :google_sign_in_android:extractDeepLinksDebug UP-TO-DATE
+> Task :google_sign_in_android:processDebugManifest UP-TO-DATE
+> Task :image_picker_android:extractDeepLinksDebug UP-TO-DATE
+> Task :image_picker_android:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :cloud_firestore:compileDebugLibraryResources UP-TO-DATE
+> Task :cloud_firestore:parseDebugLocalResources UP-TO-DATE
+> Task :firebase_core:parseDebugLocalResources UP-TO-DATE
+> Task :firebase_core:generateDebugRFile UP-TO-DATE
+> Task :cloud_firestore:generateDebugRFile UP-TO-DATE
+> Task :firebase_auth:compileDebugLibraryResources UP-TO-DATE
+> Task :firebase_auth:parseDebugLocalResources UP-TO-DATE
+> Task :firebase_auth:generateDebugRFile UP-TO-DATE
+> Task :firebase_core:compileDebugLibraryResources UP-TO-DATE
+> Task :firebase_messaging:compileDebugLibraryResources UP-TO-DATE
+> Task :firebase_messaging:parseDebugLocalResources UP-TO-DATE
+> Task :firebase_messaging:generateDebugRFile UP-TO-DATE
+> Task :firebase_storage:compileDebugLibraryResources UP-TO-DATE
+> Task :firebase_storage:parseDebugLocalResources UP-TO-DATE
+> Task :firebase_storage:generateDebugRFile UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugLibraryResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:parseDebugLocalResources UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:generateDebugRFile UP-TO-DATE
+> Task :google_sign_in_android:compileDebugLibraryResources UP-TO-DATE
+> Task :google_sign_in_android:parseDebugLocalResources UP-TO-DATE
+> Task :google_sign_in_android:generateDebugRFile UP-TO-DATE
+> Task :image_picker_android:compileDebugLibraryResources UP-TO-DATE
+> Task :image_picker_android:parseDebugLocalResources UP-TO-DATE
+> Task :image_picker_android:generateDebugRFile UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :cloud_firestore:generateDebugBuildConfig UP-TO-DATE
+> Task :cloud_firestore:javaPreCompileDebug UP-TO-DATE
+> Task :firebase_core:generateDebugBuildConfig UP-TO-DATE
+> Task :firebase_core:javaPreCompileDebug UP-TO-DATE
+> Task :firebase_core:compileDebugJavaWithJavac UP-TO-DATE
+> Task :firebase_core:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :cloud_firestore:compileDebugJavaWithJavac UP-TO-DATE
+> Task :cloud_firestore:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :firebase_auth:generateDebugBuildConfig UP-TO-DATE
+> Task :firebase_auth:javaPreCompileDebug UP-TO-DATE
+> Task :firebase_auth:compileDebugJavaWithJavac UP-TO-DATE
+> Task :firebase_auth:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :firebase_messaging:generateDebugBuildConfig UP-TO-DATE
+> Task :firebase_messaging:javaPreCompileDebug UP-TO-DATE
+> Task :firebase_messaging:compileDebugJavaWithJavac UP-TO-DATE
+> Task :firebase_messaging:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :firebase_storage:generateDebugBuildConfig UP-TO-DATE
+> Task :firebase_storage:javaPreCompileDebug UP-TO-DATE
+> Task :firebase_storage:compileDebugJavaWithJavac UP-TO-DATE
+> Task :firebase_storage:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:generateDebugBuildConfig UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:javaPreCompileDebug UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileDebugJavaWithJavac UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :google_sign_in_android:generateDebugBuildConfig UP-TO-DATE
+> Task :google_sign_in_android:javaPreCompileDebug UP-TO-DATE
+> Task :google_sign_in_android:compileDebugJavaWithJavac UP-TO-DATE
+> Task :google_sign_in_android:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :image_picker_android:generateDebugBuildConfig UP-TO-DATE
+> Task :image_picker_android:javaPreCompileDebug UP-TO-DATE
+> Task :image_picker_android:compileDebugJavaWithJavac UP-TO-DATE
+> Task :image_picker_android:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :cloud_firestore:processDebugJavaRes NO-SOURCE
+> Task :cloud_firestore:bundleLibResDebug NO-SOURCE
+> Task :firebase_auth:processDebugJavaRes NO-SOURCE
+> Task :firebase_auth:bundleLibResDebug NO-SOURCE
+> Task :firebase_core:processDebugJavaRes NO-SOURCE
+> Task :firebase_core:bundleLibResDebug NO-SOURCE
+> Task :firebase_messaging:processDebugJavaRes NO-SOURCE
+> Task :firebase_messaging:bundleLibResDebug NO-SOURCE
+> Task :firebase_storage:processDebugJavaRes NO-SOURCE
+> Task :firebase_storage:bundleLibResDebug NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:processDebugJavaRes NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:bundleLibResDebug NO-SOURCE
+> Task :google_sign_in_android:processDebugJavaRes NO-SOURCE
+> Task :google_sign_in_android:bundleLibResDebug NO-SOURCE
+> Task :image_picker_android:processDebugJavaRes NO-SOURCE
+> Task :image_picker_android:bundleLibResDebug NO-SOURCE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :firebase_auth:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :firebase_core:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :firebase_storage:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :cloud_firestore:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :firebase_messaging:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :image_picker_android:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :google_sign_in_android:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :app:dexBuilderDebug UP-TO-DATE
+> Task :app:mergeDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :cloud_firestore:mergeDebugJniLibFolders UP-TO-DATE
+> Task :cloud_firestore:mergeDebugNativeLibs NO-SOURCE
+> Task :cloud_firestore:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :firebase_auth:mergeDebugJniLibFolders UP-TO-DATE
+> Task :firebase_auth:mergeDebugNativeLibs NO-SOURCE
+> Task :firebase_auth:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :firebase_core:mergeDebugJniLibFolders UP-TO-DATE
+> Task :firebase_core:mergeDebugNativeLibs NO-SOURCE
+> Task :firebase_core:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :firebase_messaging:mergeDebugJniLibFolders UP-TO-DATE
+> Task :firebase_messaging:mergeDebugNativeLibs NO-SOURCE
+> Task :firebase_messaging:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :firebase_storage:mergeDebugJniLibFolders UP-TO-DATE
+> Task :firebase_storage:mergeDebugNativeLibs NO-SOURCE
+> Task :firebase_storage:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:mergeDebugJniLibFolders UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:mergeDebugNativeLibs NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :google_sign_in_android:mergeDebugJniLibFolders UP-TO-DATE
+> Task :google_sign_in_android:mergeDebugNativeLibs NO-SOURCE
+> Task :google_sign_in_android:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :image_picker_android:mergeDebugJniLibFolders UP-TO-DATE
+> Task :image_picker_android:mergeDebugNativeLibs NO-SOURCE
+> Task :image_picker_android:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebug UP-TO-DATE
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+> Task :app:preProfileBuild UP-TO-DATE
+> Task :app:mergeProfileNativeDebugMetadata NO-SOURCE
+> Task :app:compileFlutterBuildProfile
+> Task :app:packLibsflutterBuildProfile
+> Task :cloud_firestore:preProfileBuild UP-TO-DATE
+> Task :firebase_core:preProfileBuild UP-TO-DATE
+> Task :firebase_core:compileProfileAidl NO-SOURCE
+> Task :cloud_firestore:compileProfileAidl NO-SOURCE
+> Task :firebase_auth:preProfileBuild UP-TO-DATE
+> Task :firebase_auth:compileProfileAidl NO-SOURCE
+> Task :firebase_messaging:preProfileBuild UP-TO-DATE
+> Task :firebase_messaging:compileProfileAidl NO-SOURCE
+> Task :firebase_storage:preProfileBuild UP-TO-DATE
+> Task :firebase_storage:compileProfileAidl NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:preProfileBuild UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:compileProfileAidl NO-SOURCE
+> Task :google_sign_in_android:preProfileBuild UP-TO-DATE
+> Task :google_sign_in_android:compileProfileAidl NO-SOURCE
+> Task :image_picker_android:preProfileBuild UP-TO-DATE
+> Task :image_picker_android:compileProfileAidl NO-SOURCE
+> Task :app:compileProfileAidl NO-SOURCE
+> Task :cloud_firestore:packageProfileRenderscript NO-SOURCE
+> Task :firebase_auth:packageProfileRenderscript NO-SOURCE
+> Task :firebase_core:packageProfileRenderscript NO-SOURCE
+> Task :firebase_messaging:packageProfileRenderscript NO-SOURCE
+> Task :firebase_storage:packageProfileRenderscript NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:packageProfileRenderscript NO-SOURCE
+> Task :google_sign_in_android:packageProfileRenderscript NO-SOURCE
+> Task :image_picker_android:packageProfileRenderscript NO-SOURCE
+> Task :app:compileProfileRenderscript NO-SOURCE
+> Task :app:generateProfileBuildConfig
+> Task :cloud_firestore:writeProfileAarMetadata
+> Task :firebase_auth:writeProfileAarMetadata
+> Task :firebase_core:writeProfileAarMetadata
+> Task :firebase_messaging:writeProfileAarMetadata
+> Task :firebase_storage:writeProfileAarMetadata
+> Task :flutter_plugin_android_lifecycle:writeProfileAarMetadata
+> Task :google_sign_in_android:writeProfileAarMetadata
+> Task :image_picker_android:writeProfileAarMetadata
+> Task :app:cleanMergeProfileAssets UP-TO-DATE
+> Task :app:mergeProfileShaders
+> Task :app:compileProfileShaders NO-SOURCE
+> Task :app:generateProfileAssets UP-TO-DATE
+> Task :app:checkProfileAarMetadata
+> Task :cloud_firestore:mergeProfileShaders
+> Task :cloud_firestore:compileProfileShaders NO-SOURCE
+> Task :cloud_firestore:generateProfileAssets UP-TO-DATE
+> Task :cloud_firestore:packageProfileAssets
+> Task :firebase_auth:mergeProfileShaders
+> Task :firebase_auth:compileProfileShaders NO-SOURCE
+> Task :firebase_auth:generateProfileAssets UP-TO-DATE
+> Task :firebase_auth:packageProfileAssets
+> Task :firebase_core:mergeProfileShaders
+> Task :firebase_core:compileProfileShaders NO-SOURCE
+> Task :firebase_core:generateProfileAssets UP-TO-DATE
+> Task :firebase_core:packageProfileAssets
+> Task :firebase_messaging:mergeProfileShaders
+> Task :firebase_messaging:compileProfileShaders NO-SOURCE
+> Task :firebase_messaging:generateProfileAssets UP-TO-DATE
+> Task :firebase_messaging:packageProfileAssets
+> Task :firebase_storage:mergeProfileShaders
+> Task :firebase_storage:compileProfileShaders NO-SOURCE
+> Task :firebase_storage:generateProfileAssets UP-TO-DATE
+> Task :firebase_storage:packageProfileAssets
+> Task :flutter_plugin_android_lifecycle:mergeProfileShaders
+> Task :flutter_plugin_android_lifecycle:compileProfileShaders NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:generateProfileAssets UP-TO-DATE
+> Task :flutter_plugin_android_lifecycle:packageProfileAssets
+> Task :google_sign_in_android:mergeProfileShaders
+> Task :google_sign_in_android:compileProfileShaders NO-SOURCE
+> Task :google_sign_in_android:generateProfileAssets UP-TO-DATE
+> Task :google_sign_in_android:packageProfileAssets
+> Task :image_picker_android:mergeProfileShaders
+> Task :image_picker_android:compileProfileShaders NO-SOURCE
+> Task :image_picker_android:generateProfileAssets UP-TO-DATE
+> Task :image_picker_android:packageProfileAssets
+> Task :app:mergeProfileAssets
+> Task :app:copyFlutterAssetsProfile
+> Task :app:generateProfileResValues
+> Task :cloud_firestore:compileProfileRenderscript NO-SOURCE
+> Task :cloud_firestore:generateProfileResValues
+> Task :cloud_firestore:generateProfileResources
+> Task :cloud_firestore:packageProfileResources
+> Task :firebase_auth:compileProfileRenderscript NO-SOURCE
+> Task :firebase_auth:generateProfileResValues
+> Task :firebase_auth:generateProfileResources
+> Task :firebase_auth:packageProfileResources
+> Task :firebase_core:compileProfileRenderscript NO-SOURCE
+> Task :firebase_core:generateProfileResValues
+> Task :firebase_core:generateProfileResources
+> Task :firebase_core:packageProfileResources
+> Task :firebase_messaging:compileProfileRenderscript NO-SOURCE
+> Task :firebase_messaging:generateProfileResValues
+> Task :firebase_messaging:generateProfileResources
+> Task :firebase_messaging:packageProfileResources
+> Task :firebase_storage:compileProfileRenderscript NO-SOURCE
+> Task :firebase_storage:generateProfileResValues
+> Task :firebase_storage:generateProfileResources
+> Task :firebase_storage:packageProfileResources
+> Task :flutter_plugin_android_lifecycle:compileProfileRenderscript NO-SOURCE
+> Task :flutter_plugin_android_lifecycle:generateProfileResValues
+> Task :flutter_plugin_android_lifecycle:generateProfileResources
+> Task :flutter_plugin_android_lifecycle:packageProfileResources
+> Task :google_sign_in_android:compileProfileRenderscript NO-SOURCE
+> Task :google_sign_in_android:generateProfileResValues
+> Task :google_sign_in_android:generateProfileResources
+> Task :google_sign_in_android:packageProfileResources
+> Task :image_picker_android:compileProfileRenderscript NO-SOURCE
+> Task :image_picker_android:generateProfileResValues
+> Task :image_picker_android:generateProfileResources
+> Task :image_picker_android:packageProfileResources
+> Task :app:mapProfileSourceSetPaths
+> Task :app:generateProfileResources
+> Task :app:createProfileCompatibleScreenManifests
+> Task :app:processProfileGoogleServices
+> Task :app:extractDeepLinksProfile
+> Task :cloud_firestore:extractDeepLinksProfile
+> Task :app:mergeProfileResources
+> Task :firebase_auth:extractDeepLinksProfile
+> Task :firebase_core:extractDeepLinksProfile
+
+> Task :cloud_firestore:processProfileManifest
+package="io.flutter.plugins.firebase.firestore" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-4.15.8\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :firebase_auth:processProfileManifest
+package="io.flutter.plugins.firebase.auth" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-4.17.8\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :firebase_messaging:extractDeepLinksProfile
+
+> Task :firebase_core:processProfileManifest
+package="io.flutter.plugins.firebase.core" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-2.27.0\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :firebase_storage:extractDeepLinksProfile
+> Task :flutter_plugin_android_lifecycle:extractDeepLinksProfile
+
+> Task :firebase_storage:processProfileManifest
+package="io.flutter.plugins.firebase.storage" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_storage-11.6.9\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :google_sign_in_android:extractDeepLinksProfile
+
+> Task :firebase_messaging:processProfileManifest
+package="io.flutter.plugins.firebase.messaging" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_messaging-14.7.19\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :image_picker_android:extractDeepLinksProfile
+
+> Task :flutter_plugin_android_lifecycle:processProfileManifest
+package="io.flutter.plugins.flutter_plugin_android_lifecycle" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.19\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :google_sign_in_android:processProfileManifest
+package="io.flutter.plugins.googlesignin" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\google_sign_in_android-6.1.23\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :image_picker_android:processProfileManifest
+package="io.flutter.plugins.imagepicker" found in source AndroidManifest.xml: C:\Users\East-Sound\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.9+6\android\src\main\AndroidManifest.xml.
+Setting the namespace via a source AndroidManifest.xml's package attribute is deprecated.
+Please instead set the namespace (or testNamespace) in the module's build.gradle file, as described here: https://developer.android.com/studio/build/configure-app-module#set-namespace
+This migration can be done automatically using the AGP Upgrade Assistant, please refer to https://developer.android.com/studio/build/agp-upgrade-assistant for more information.
+
+> Task :cloud_firestore:compileProfileLibraryResources
+> Task :app:processProfileMainManifest
+> Task :app:processProfileManifest
+> Task :app:processProfileManifestForPackage
+> Task :firebase_auth:compileProfileLibraryResources
+> Task :cloud_firestore:parseProfileLocalResources
+> Task :firebase_core:parseProfileLocalResources
+> Task :firebase_auth:parseProfileLocalResources
+> Task :firebase_core:compileProfileLibraryResources
+> Task :firebase_messaging:compileProfileLibraryResources
+> Task :firebase_storage:compileProfileLibraryResources
+> Task :firebase_messaging:parseProfileLocalResources
+> Task :flutter_plugin_android_lifecycle:compileProfileLibraryResources
+> Task :firebase_storage:parseProfileLocalResources
+> Task :google_sign_in_android:compileProfileLibraryResources
+> Task :image_picker_android:compileProfileLibraryResources
+> Task :google_sign_in_android:parseProfileLocalResources
+> Task :flutter_plugin_android_lifecycle:parseProfileLocalResources
+> Task :image_picker_android:parseProfileLocalResources
+> Task :cloud_firestore:generateProfileBuildConfig
+> Task :cloud_firestore:javaPreCompileProfile
+> Task :firebase_core:generateProfileBuildConfig
+> Task :firebase_core:javaPreCompileProfile
+> Task :firebase_auth:generateProfileBuildConfig
+> Task :firebase_auth:javaPreCompileProfile
+> Task :firebase_messaging:generateProfileBuildConfig
+> Task :firebase_messaging:javaPreCompileProfile
+> Task :firebase_storage:generateProfileBuildConfig
+> Task :firebase_storage:javaPreCompileProfile
+> Task :flutter_plugin_android_lifecycle:generateProfileBuildConfig
+> Task :flutter_plugin_android_lifecycle:javaPreCompileProfile
+> Task :google_sign_in_android:generateProfileBuildConfig
+> Task :google_sign_in_android:javaPreCompileProfile
+> Task :image_picker_android:generateProfileBuildConfig
+> Task :firebase_core:generateProfileRFile
+> Task :image_picker_android:javaPreCompileProfile
+> Task :flutter_plugin_android_lifecycle:generateProfileRFile
+> Task :firebase_auth:generateProfileRFile
+> Task :cloud_firestore:generateProfileRFile
+> Task :image_picker_android:generateProfileRFile
+> Task :firebase_storage:generateProfileRFile
+> Task :google_sign_in_android:generateProfileRFile
+> Task :firebase_messaging:generateProfileRFile

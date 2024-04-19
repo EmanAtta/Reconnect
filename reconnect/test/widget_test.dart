@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:reconnect/Views/main.dart';
+import 'package:reconnect/main.dart';
 
 
 void main() {
