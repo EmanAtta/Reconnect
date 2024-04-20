@@ -20,17 +20,17 @@ class Authentication extends GetxController {
   final controller = Get.put(SignUpController());
 final GoogleSignIn googleSignIn = GoogleSignIn();
   @override
-  //void onReady() {
-    //firebaseuser = Rx<User?>(_auth.currentUser);
-   // firebaseuser.bindStream(_auth.userChanges());
-   // ever(firebaseuser, _setInitialScreen);
- // }
+  void onReady() {
+    firebaseuser = Rx<User?>(_auth.currentUser);
+    firebaseuser.bindStream(_auth.userChanges());
+    //ever(firebaseuser, _setInitialScreen);
+  }
 
-  //_setInitialScreen(User? user) {
-   // user == null
-     //   ? Get.to(() => const WelcomPage())
-       // : Get.to(() => Navigationpage());
- // }
+  _setInitialScreen(User? user) {
+    user == null
+        ? Get.offAll(() => const WelcomPage())
+        : Get.offAll(() => Navigationpage());
+  }
 
 //SIGNIN
   Future<void> createUserWithEmailAndPassword(
@@ -50,6 +50,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
       );
 
       SignUpController.instance.creatuser(user);
+      Get.offAll(() => Navigationpage());
     } on FirebaseAuthException catch (e) {
       final errorMessage = _getFirebaseErrorMessage(e);
       print("error: $errorMessage");
