@@ -6,11 +6,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/authentications/signupcontrollers.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:reconnect/Views/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reconnect/Views/welcom_page.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication extends GetxController {
   static Authentication get instance => Get.find();
@@ -23,7 +21,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
   void onReady() {
     firebaseuser = Rx<User?>(_auth.currentUser);
     firebaseuser.bindStream(_auth.userChanges());
-    //ever(firebaseuser, _setInitialScreen);
+    ever(firebaseuser, _setInitialScreen);
   }
 
   _setInitialScreen(User? user) {

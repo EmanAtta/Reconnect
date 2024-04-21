@@ -173,7 +173,7 @@ class _loginState extends State<login> {
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 170),
+                        padding: const EdgeInsets.only(left: 20, top: 20),
                         child: Text(
                           "Don't have account ?",
                           style: TextStyle(
@@ -183,7 +183,7 @@ class _loginState extends State<login> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 170, left: 20),
+                        padding: const EdgeInsets.only(top: 20, left: 20),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, "signup");
