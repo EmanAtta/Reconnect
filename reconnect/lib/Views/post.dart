@@ -1,13 +1,29 @@
-
- import 'dart:io';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reconnect/Views/color.dart';
 
 import 'postlist.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My App',
+      home: Post(),
+    );
+  }
+}
 
 class Post extends StatefulWidget {
   @override
@@ -24,19 +40,7 @@ class _PostState extends State<Post> {
   List<Map<String, String>> _countryCodes = [
     {"name": " Select Country Code", "code": ""},
     {"name": "+1 (US)", "code": "+1"},
-    {"name": "+44 (UK)", "code": "+44"},
-    {"name": "+49 (Germany)", "code": "+49"},
-    {"name": "+61 (Australia)", "code": "+61"},
-    {"name": "+86 (China)", "code": "+86"},
-    {"name": "+91 (India)", "code": "+91"},
-    {"name": "+81 (Japan)", "code": "+81"},
-    {"name": "+7 (Russia)", "code": "+7"},
-    {"name": "+971 (UAE)", "code": "+971"},
-    {"name": "+90 (Turkey)", "code": "+90"},
-    {"name": "+92 (Pakistan)", "code": "+92"},
-    {"name": "+234 (Nigeria)", "code": "+234"},
-    {"name": "+254 (Kenya)", "code": "+254"},
-    {"name": "+20 (Egypt)", "code": "+20"},
+    // Add more country codes as needed
   ];
 
   String _selectedCountryCode = "";
@@ -52,10 +56,11 @@ class _PostState extends State<Post> {
     }
   }
 
-  void _submitPost() {
+  void _submitPost() async {
+    // Collect post data
     String name = _nameController.text;
     String dateoflost = _dateoflostController.text;
-    String phone = _phoneController.text;
+    String phone = _selectedCountryCode + _phoneController.text;
     String description = _descriptionController.text;
 
     if (name.isEmpty ||
@@ -66,15 +71,20 @@ class _PostState extends State<Post> {
       return;
     }
 
-    PostModel post = PostModel(
-      name: name,
-      dateoflost: dateoflost,
-      phone: phone,
-      description: description,
-      image: _selectedImage!,
-    );
-    allPosts.add(post);
+    // Upload image to Firebase Storage and get download URL
+    String imageUrl = await uploadImageToStorage(_selectedImage!);
 
+    // Add post to Firestore
+    CollectionReference posts = FirebaseFirestore.instance.collection('posts');
+    await posts.add({
+      'name': name,
+      'dateoflost': dateoflost,
+      'phone': phone,
+      'description': description,
+      'image_url': imageUrl,
+    });
+
+    // Reset input fields after posting
     setState(() {
       _selectedImage = null;
       _nameController.clear();
@@ -83,14 +93,36 @@ class _PostState extends State<Post> {
       _descriptionController.clear();
     });
 
+    // Navigate to post list page
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PostListPage(
-          posts: allPosts,
-        ),
+        builder: (context) => PostListPage(posts: allPosts),
       ),
     );
+  }
+
+  Future<String> uploadImageToStorage(File imageFile) async {
+    try {
+      // Create reference to images collection in Firebase Storage
+      Reference storageReference = FirebaseStorage.instance
+          .ref()
+          .child('images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      // Upload image to Firebase Storage
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+
+      // Wait until upload is complete and get download URL
+      TaskSnapshot storageTaskSnapshot =
+          await uploadTask.whenComplete(() => null);
+      String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+
+      // Return download URL for the image
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return '';
+    }
   }
 
   @override
@@ -304,4 +336,3 @@ class DateTextFormatter extends TextInputFormatter {
     return newValue;
   }
 }
-
