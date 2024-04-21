@@ -1,20 +1,25 @@
+
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/post.dart';
 
 class PostModel {
-  late String title;
+  late String name;
+  late String dateoflost;
+  late String phone;
   late String description;
-  late String tags;
-  late String newTextFieldValue;
   late File image;
 
   PostModel({
-    required this.title,
-    required this.description,
-    required this.tags,
+    required this.name,
+    required this.dateoflost,
+    required this.phone,
     required this.image,
-    required this.newTextFieldValue,
+    required this.description,
+   
   });
 }
 
@@ -48,8 +53,7 @@ class PostListPage extends StatelessWidget {
                           child: Image.file(
                             posts[index].image,
                             width: double.infinity,
-                            height: 200,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                         ),
                         SizedBox(height: 12.0),
@@ -58,13 +62,13 @@ class PostListPage extends StatelessWidget {
                             text: 'Name: ',
                             style: TextStyle(
                               color: AppColors
-                                  .secondaryColor, // specify the color for the "Name" text
+                                  .secondaryColor, 
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                             ),
                             children: [
                               TextSpan(
-                                text: '${posts[index].title}',
+                                text: '${posts[index].name}',
                                 style: TextStyle(
                                   color: AppColors.textolor,
                                   fontSize: 18.0,
@@ -85,10 +89,10 @@ class PostListPage extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: '${posts[index].description}',
+                                text: '${posts[index].dateoflost}',
                                 style: TextStyle(
                                   color: AppColors
-                                      .textolor, // specify the color for the "Date Of Lost" text
+                                      .textolor, 
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -102,13 +106,13 @@ class PostListPage extends StatelessWidget {
                             text: 'Phone: ',
                             style: TextStyle(
                               color: AppColors
-                                  .secondaryColor, // specify the color for the "Phone" text
+                                  .secondaryColor, 
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                             ),
                             children: [
                               TextSpan(
-                                text: '${posts[index].tags}',
+                                text: '${posts[index].phone}',
                                 style: TextStyle(
                                   color: AppColors.textolor,
                                   fontSize: 18.0,
@@ -125,14 +129,13 @@ class PostListPage extends StatelessWidget {
                           text: TextSpan(
                             text: 'Descreption: ',
                             style: TextStyle(
-                              color: AppColors
-                                  .secondaryColor, 
+                              color: AppColors.secondaryColor,
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                             ),
                             children: [
                               TextSpan(
-                                text: '${posts[index].newTextFieldValue}',
+                                text: '${posts[index].description}',
                                 style: TextStyle(
                                   color: AppColors.textolor,
                                   fontSize: 18.0,
@@ -149,28 +152,29 @@ class PostListPage extends StatelessWidget {
               },
             ),
           ),
-          // Back arrow
+          
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Back To Add New Post',
-                style: TextStyle(
-                  color: AppColors.secondaryColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+             
               IconButton(
                 icon: Icon(
-                  Icons.arrow_forward,
+                  Icons.arrow_back,
                   color: AppColors.secondaryColor,
                   size: 30,
                 ),
                 onPressed: () {
-                  // Navigate back to the previous page
                   Navigator.pop(context);
                 },
               ),
+               Text(
+                'Add New Post',
+                style: TextStyle(
+                  color: AppColors.secondaryColor,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              SizedBox(height: 13),
             ],
           ),
         ],

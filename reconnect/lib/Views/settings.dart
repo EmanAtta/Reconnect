@@ -21,7 +21,7 @@ class Settings extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-           Get.back();
+            Get.back();
           },
           icon: const Icon(Icons.keyboard_arrow_left,
               color: AppColors.primaryColor),
@@ -31,7 +31,7 @@ class Settings extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.only(top: 70, left: 30),
+                padding: EdgeInsets.only(top: 50),
                 child: Text(
                   'Account Settings',
                   style: TextStyle(
@@ -44,7 +44,7 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.to(()=> Edit());
+                Get.to(() => Edit());
               },
               child: const button_settingpage(
                 button_settingpage_text: "Edit Profile",
@@ -56,12 +56,26 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.to( Change_Password());
+                Get.to(Change_Password());
               },
               child: const button_settingpage(
                 button_settingpage_text: "Change Password",
                 icon: Icons.password_outlined,
               ),
+            ),
+            
+             InkWell(
+          onTap: () {
+            _showDeleteAccountDialog(context);
+          },
+          child: button_settingpage(
+            button_settingpage_text: "Delete account",
+            icon: Icons.delete,
+          ),
+        ),
+            
+            SizedBox(
+              height: 20,
             ),
             const button_settingpage(
               button_settingpage_text: 'Notification',
@@ -83,7 +97,7 @@ class Settings extends StatelessWidget {
 
 class button_settingpage extends StatefulWidget {
   final String button_settingpage_text;
-  final IconData icon; // Add an icon parameter
+  final IconData icon; 
 
   const button_settingpage(
       {Key? key, required this.button_settingpage_text, required this.icon})
@@ -94,19 +108,19 @@ class button_settingpage extends StatefulWidget {
 }
 
 class _button_settingpageState extends State<button_settingpage> {
-  bool switchValue = false; // Add a boolean variable to store switch state
+  bool switchValue = false; 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, left: 30),
+      padding: const EdgeInsets.only(top: 30),
       child: Container(
         height: 60,
         width: 300,
         decoration: BoxDecoration(
           color: AppColors.secondaryColor,
           borderRadius: BorderRadius.circular(15),
-          //border: Border.all(color: Color.fromARGB(255, 27, 144, 124)),
+        
         ),
         child: Padding(
           padding: EdgeInsets.only(top: 1, left: 10, right: 10),
@@ -119,7 +133,7 @@ class _button_settingpageState extends State<button_settingpage> {
                     widget.icon,
                     color: AppColors.primaryColor,
                   ),
-                  SizedBox(width: 10), // Adjust spacing between icon and text
+                  SizedBox(width: 10), 
                   Text(
                     widget.button_settingpage_text,
                     style: const TextStyle(
@@ -148,4 +162,63 @@ class _button_settingpageState extends State<button_settingpage> {
       ),
     );
   }
+}
+
+void _showDeleteAccountDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.transparent, 
+        content: Container(
+           width: MediaQuery.of(context).size.width * 0.4,
+          decoration: BoxDecoration(
+            color: AppColors.primaryColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color:AppColors.secondaryColor, width: 3), 
+          ),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.delete, size: 50, color: Colors.red),
+              SizedBox(height: 16),
+              Text("Are you sure you want to delete your account?", textAlign: TextAlign.center),
+              SizedBox(height: 16),
+              Text("This action cannot be undone.", textAlign: TextAlign.center),
+              SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // Handle delete action here
+                      Navigator.of(context).pop(); 
+                      _deleteAccount(); // Call your delete account function
+                    },
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); 
+                    },
+                    child: Text("Cancel"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+void _deleteAccount() {
+  // Implement account deletion logic here
+  // This function will be called when user confirms deletion
+  // Make sure to handle navigation or state changes accordingly
 }

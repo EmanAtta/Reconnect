@@ -52,7 +52,7 @@ class _DonationState extends State<Donation> {
                     maxLines: null,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.fromLTRB(
-                          16, 30, 16, 16), // Adjust padding as needed
+                          16, 30, 16, 16), 
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                     ),
@@ -171,16 +171,16 @@ class _DonationState extends State<Donation> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors
-                    .secondaryColor, // Change color to your desired color
+                    .secondaryColor,
                 maximumSize:
-                    Size(230, 60), // Set width and height to increase size
+                    Size(230, 60), 
               ),
               child: Text(
                 'Donate now',
                 style: TextStyle(
                     fontSize: 17,
                     color:
-                        AppColors.primaryColor), // Adjust font size as needed
+                        AppColors.primaryColor), 
               ),
             ),
           ],
