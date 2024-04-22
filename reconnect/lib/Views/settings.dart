@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/change_password.dart';
 import 'package:reconnect/Views/edit.dart';
+import 'package:reconnect/delete1.dart';
 
 import 'color.dart';
 
@@ -63,17 +64,15 @@ class Settings extends StatelessWidget {
                 icon: Icons.password_outlined,
               ),
             ),
-            
-             InkWell(
-          onTap: () {
-            _showDeleteAccountDialog(context);
-          },
-          child: button_settingpage(
-            button_settingpage_text: "Delete account",
-            icon: Icons.delete,
-          ),
-        ),
-            
+            InkWell(
+              onTap: () {
+                _showDeleteAccountDialog(context);
+              },
+              child: button_settingpage(
+                button_settingpage_text: "Delete account",
+                icon: Icons.delete,
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
@@ -97,7 +96,7 @@ class Settings extends StatelessWidget {
 
 class button_settingpage extends StatefulWidget {
   final String button_settingpage_text;
-  final IconData icon; 
+  final IconData icon;
 
   const button_settingpage(
       {Key? key, required this.button_settingpage_text, required this.icon})
@@ -108,7 +107,7 @@ class button_settingpage extends StatefulWidget {
 }
 
 class _button_settingpageState extends State<button_settingpage> {
-  bool switchValue = false; 
+  bool switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +119,6 @@ class _button_settingpageState extends State<button_settingpage> {
         decoration: BoxDecoration(
           color: AppColors.secondaryColor,
           borderRadius: BorderRadius.circular(15),
-        
         ),
         child: Padding(
           padding: EdgeInsets.only(top: 1, left: 10, right: 10),
@@ -133,7 +131,7 @@ class _button_settingpageState extends State<button_settingpage> {
                     widget.icon,
                     color: AppColors.primaryColor,
                   ),
-                  SizedBox(width: 10), 
+                  SizedBox(width: 10),
                   Text(
                     widget.button_settingpage_text,
                     style: const TextStyle(
@@ -144,18 +142,18 @@ class _button_settingpageState extends State<button_settingpage> {
                   ),
                 ],
               ),
-              if (widget.button_settingpage_text == 'Notification' ||
-                  widget.button_settingpage_text == 'Dark Mode')
-                Switch(
-                  activeColor: AppColors.primaryColor,
-                  value: switchValue,
-                  onChanged: (value) {
-                    setState(() {
-                      switchValue = value;
-                    });
-                    // Add logic for handling switch state change here
-                  },
-                ),
+              // if (widget.button_settingpage_text == 'Notification' ||
+              //     widget.button_settingpage_text == 'Dark Mode')
+              //   Switch(
+              //     activeColor: AppColors.primaryColor,
+              //     value: switchValue,
+              //     onChanged: (value) {
+              //       setState(() {
+              //         switchValue = value;
+              //       });
+              //       // Add logic for handling switch state change here
+              //     },
+              //   ),
             ],
           ),
         ),
@@ -169,13 +167,13 @@ void _showDeleteAccountDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: Colors.transparent, 
+        backgroundColor: Colors.transparent,
         content: Container(
-           width: MediaQuery.of(context).size.width * 0.4,
+          width: MediaQuery.of(context).size.width * 0.4,
           decoration: BoxDecoration(
             color: AppColors.primaryColor,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color:AppColors.secondaryColor, width: 3), 
+            border: Border.all(color: AppColors.secondaryColor, width: 3),
           ),
           padding: EdgeInsets.all(16),
           child: Column(
@@ -183,18 +181,20 @@ void _showDeleteAccountDialog(BuildContext context) {
             children: [
               Icon(Icons.delete, size: 50, color: Colors.red),
               SizedBox(height: 16),
-              Text("Are you sure you want to delete your account?", textAlign: TextAlign.center),
+              Text("Are you sure you want to delete your account?",
+                  textAlign: TextAlign.center),
               SizedBox(height: 16),
-              Text("This action cannot be undone.", textAlign: TextAlign.center),
+              Text("This action cannot be undone.",
+                  textAlign: TextAlign.center),
               SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
                     onPressed: () {
-                      // Handle delete action here
-                      Navigator.of(context).pop(); 
-                      _deleteAccount(); // Call your delete account function
+                      Get.to(Delete1());
+                      // Navigator.of(context).pop();
+                      // Call your delete account function
                     },
                     child: Text(
                       "Delete",
@@ -203,7 +203,7 @@ void _showDeleteAccountDialog(BuildContext context) {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop(); 
+                      Navigator.of(context).pop();
                     },
                     child: Text("Cancel"),
                   ),
@@ -217,8 +217,3 @@ void _showDeleteAccountDialog(BuildContext context) {
   );
 }
 
-void _deleteAccount() {
-  // Implement account deletion logic here
-  // This function will be called when user confirms deletion
-  // Make sure to handle navigation or state changes accordingly
-}

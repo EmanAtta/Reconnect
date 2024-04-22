@@ -15,6 +15,7 @@ import 'package:reconnect/Views/signup.dart';
 
 
 import 'package:reconnect/Views/welcom_page.dart';
+import 'package:reconnect/delete1.dart';
 
 import 'package:reconnect/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -49,6 +50,7 @@ class Reconnect extends StatelessWidget {
         GetPage(name: '/login', page: () => const login()),
         GetPage(name: '/signup', page: () => const signup()),
         GetPage(name: '/post', page: () =>  Post()),
+        GetPage(name: '/delete1', page: () => const Delete1()),
 
         GetPage(name: '/forgetpassword', page: () => const forgetBassword()),
         GetPage(name: '/resetpassword', page: () => const resetPassword()),
