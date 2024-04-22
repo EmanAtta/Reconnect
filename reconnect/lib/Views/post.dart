@@ -40,7 +40,19 @@ class _PostState extends State<Post> {
   List<Map<String, String>> _countryCodes = [
     {"name": " Select Country Code", "code": ""},
     {"name": "+1 (US)", "code": "+1"},
-    // Add more country codes as needed
+    {"name": "+44 (UK)", "code": "+44"},
+    {"name": "+49 (Germany)", "code": "+49"},
+    {"name": "+61 (Australia)", "code": "+61"},
+    {"name": "+86 (China)", "code": "+86"},
+    {"name": "+91 (India)", "code": "+91"},
+    {"name": "+81 (Japan)", "code": "+81"},
+    {"name": "+7 (Russia)", "code": "+7"},
+    {"name": "+971 (UAE)", "code": "+971"},
+    {"name": "+90 (Turkey)", "code": "+90"},
+    {"name": "+92 (Pakistan)", "code": "+92"},
+    {"name": "+234 (Nigeria)", "code": "+234"},
+    {"name": "+254 (Kenya)", "code": "+254"},
+    {"name": "+20 (Egypt)", "code": "+20"},
   ];
 
   String _selectedCountryCode = "";
