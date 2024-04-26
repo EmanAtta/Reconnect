@@ -24,7 +24,7 @@ import 'package:get/get_core/get_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,name:'reconnect-8f8e9')
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,)
       .then((value) {
         return Get.put(Authentication());
       });

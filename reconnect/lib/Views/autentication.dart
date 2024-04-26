@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:reconnect/Views/authentications/routes/navigation.dart';
@@ -182,6 +183,53 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
         return 'An error occurred while processing your request.';
     }
   }
+ //Delete
+Future<void> deleteUserByEmail(String email, String password) async {
+  try {
+    // Query Firestore to find the user document with the provided email
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    // Check if any documents match the query
+    if (querySnapshot.docs.isNotEmpty) {
+      // Get the user document
+      QueryDocumentSnapshot<Object?> userDoc = querySnapshot.docs.first;
+
+      // Get the user data
+      Map<String, dynamic>? userData = userDoc.data() as Map<String, dynamic>?;
+
+      // Verify the password
+      if (userData != null && userData['password'] == password) {
+        // Get the user ID
+        String userIdToDelete = userDoc.id;
+
+        // Delete the user document from Firestore
+        await FirebaseFirestore.instance.collection('users').doc(userIdToDelete).delete();
+
+        // Delete the user from Firebase Authentication
+        await FirebaseAuth.instance.currentUser!.delete();
+
+        // Navigate to the login screen or any other desired destination
+        
+        Get.offAll(() => const login());
+      } else {
+         Get.snackbar('Error', 'wrong password for : $email',
+          snackPosition: SnackPosition.BOTTOM);
+      }
+    } else {
+       Get.snackbar('Error', 'No user found with email: $email',
+          snackPosition: SnackPosition.BOTTOM);}
+    
+  } catch (error) {
+    print("Error deleting user: $error");
+    // Handle errors here, such as showing an error message to the user
+  }
+}
+
 
   Future<void> logout() async => await _auth.signOut();
+
+  
 }

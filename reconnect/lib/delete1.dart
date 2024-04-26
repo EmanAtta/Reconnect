@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/about.dart';
+import 'package:reconnect/Views/autentication.dart';
 import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/login.dart';
@@ -21,6 +22,8 @@ class Delete1 extends StatefulWidget {
 }
 
 class _Delete1State extends State<Delete1> {
+  final email = TextEditingController();
+final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,6 +218,7 @@ class _Delete1State extends State<Delete1> {
             Container(
               margin: EdgeInsets.only(left: 40, right: 40),
               child: TextFormField(
+                controller: email,
                 cursorColor: AppColors.secondaryColor,
                 decoration: InputDecoration(
                   labelText: "Email",
@@ -232,18 +236,43 @@ class _Delete1State extends State<Delete1> {
                 ),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(left: 40, right: 40,top: 40),
+              child: TextFormField(
+                controller: password,
+                cursorColor: AppColors.secondaryColor,
+                decoration: InputDecoration(
+                  labelText: "password",
+                  labelStyle: const TextStyle(
+                      fontSize: 15, color: AppColors.secondaryColor),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.textolor),
+                      borderRadius: BorderRadius.circular(10)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: AppColors.textolor,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+            ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             CustomRedButton(
               buttonText: 'Delete account',
-              onPressed: () {},
+              onPressed: () {
+                Authentication.instance.deleteUserByEmail(email.text.trim(),password.text.trim());
+                
+              },
               buttonColor: Colors.red.withOpacity(0.3),
             ),
             SizedBox(
               height: 10,
             ),
             CustomRedButton(
+              
               buttonText: '       Cancel       ',
               onPressed: () {
                 Navigator.of(context).pop();
@@ -261,6 +290,7 @@ class CustomRedButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback? onPressed;
   final Color buttonColor;
+  
 
   CustomRedButton({
     required this.buttonText,

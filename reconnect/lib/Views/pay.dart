@@ -1,9 +1,55 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/payment.dart';
+import 'package:reconnect/Views/visa.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
 
-class Pay extends StatelessWidget {
+class Pay extends StatefulWidget {
   const Pay({super.key});
+
+  @override
+  State<Pay> createState() => _PayState();
+}
+
+class _PayState extends State<Pay> {
+ // final totalprice="100";
+  @override
+  
+  Widget build(BuildContext context) {
+    // Implement your widget build method here
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+          onPressed: _continueToPay,
+          child: Text('Continue to Pay'),
+        ),
+      ),
+    );
+  }
+
+  /*void _continueToPay() {
+    // Call your payment function here
+    Paymemt()
+      .getPaymentKey(int.parse(widget.totalprice))
+      .then((paymentKey) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Visa(
+              paymentToken: paymentKey,
+              totalprice: widget.totalprice,
+            ),
+          ),
+        );
+      });
+  }
+}
+*/      
+    
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,4 +228,4 @@ class Pay extends StatelessWidget {
       ),
     );
   }
-}
+

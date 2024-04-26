@@ -1,0 +1,4 @@
+class Constant {
+  static const String api_key =
+      'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1Rjek1qWXpMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkud25KTmhySlJ2OW5NbHNVR0xudUMxY2RWLUdfOTVwbmlidU5TVEluR0xTUkVlOVlINFRsOFNRVlVsaGxtOTc1X0Q4dnQ4NDE5RkZUbGczYndQTnJOaVE=';
+}
