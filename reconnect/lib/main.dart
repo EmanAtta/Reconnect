@@ -1,27 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:reconnect/Views/autentication.dart';
-import 'package:reconnect/Views/authentications/routes/navigation.dart';
-
 import 'package:reconnect/Views/forgetpassword.dart';
-
 import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/post.dart';
-
 import 'package:reconnect/Views/resetpassword.dart';
-
 import 'package:reconnect/Views/signup.dart';
-
-
 import 'package:reconnect/Views/welcom_page.dart';
 import 'package:reconnect/delete1.dart';
-
 import 'package:reconnect/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'package:get/get_core/get_core.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,name:'reconnect-8f8e9')

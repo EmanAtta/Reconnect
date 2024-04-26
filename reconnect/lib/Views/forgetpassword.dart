@@ -1,15 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/autentication.dart';
 
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/login.dart';
-import 'package:reconnect/Views/resetpassword.dart';
+
 import 'package:reconnect/Views/widgets/Button.dart';
 
 class forgetBassword extends StatefulWidget {
@@ -29,7 +25,7 @@ class _forgetBasswordState extends State<forgetBassword> {
       appBar: //PreferredSize(
         //preferredSize: Size.fromHeight(33),
         AppBar(
-            shape: BeveledRectangleBorder(
+            shape: const BeveledRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(200),
                     bottomRight: Radius.circular(200))),
