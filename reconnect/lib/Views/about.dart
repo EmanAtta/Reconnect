@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/color.dart';
 
 class About extends StatelessWidget {
@@ -11,6 +13,13 @@ class About extends StatelessWidget {
       appBar: AppBar(title: Text('About',style:
        TextStyle(fontWeight: FontWeight.bold,color:AppColors.primaryColor ,),
        ),
+       leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(Icons.keyboard_arrow_left,
+              color: AppColors.primaryColor),
+          ),
        backgroundColor: AppColors.secondaryColor,
     ),);
   }

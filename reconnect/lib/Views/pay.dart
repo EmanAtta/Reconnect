@@ -61,8 +61,7 @@ class _PayState extends State<Pay> {
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
-        elevation: 40,
-        shadowColor: Colors.black,
+        
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

@@ -38,12 +38,12 @@ class Settings extends StatelessWidget {
                   style: TextStyle(
                       color: AppColors.secondaryColor,
                       fontSize: 20,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.bold),
                 )),
             SizedBox(
               height: 10,
             ),
-            InkWell(
+           /* InkWell(
               onTap: () {
                 Get.to(() => Edit());
               },
@@ -54,7 +54,7 @@ class Settings extends StatelessWidget {
             ),
             SizedBox(
               height: 20,
-            ),
+            ),*/
             InkWell(
               onTap: () {
                 Get.to(Change_Password());
