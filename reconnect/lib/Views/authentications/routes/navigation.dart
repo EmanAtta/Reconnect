@@ -11,6 +11,7 @@ import 'package:reconnect/Views/login.dart';
 
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/postlist.dart';
+
 import 'package:reconnect/Views/privacy.dart';
 import 'package:reconnect/Views/profile.dart';
 import 'package:reconnect/Views/settings.dart';

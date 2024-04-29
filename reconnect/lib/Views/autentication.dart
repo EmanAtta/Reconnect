@@ -42,6 +42,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
           : Get.offAll(() => const WelcomPage());
 
       final user = UserModel(
+
         firstname: controller.firstname.text.trim(),
         lastname: controller.lastname.text.trim(),
         email: controller.email.text.trim(),
