@@ -1,13 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/login.dart';
-import 'package:reconnect/Views/settings.dart';
-import 'package:reconnect/Views/signup.dart';
-import 'package:reconnect/Views/widgets/Button.dart';
 
 class Change_Password extends StatefulWidget {
   const Change_Password({Key? key}) : super(key: key);
@@ -91,8 +86,7 @@ class _Change_PasswordState extends State<Change_Password> {
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
-        elevation: 40,
-        shadowColor: Colors.black,
+       
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

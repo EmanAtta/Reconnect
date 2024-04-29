@@ -33,7 +33,7 @@ class _loginState extends State<login> {
 
   String? _passwordValidator(String? value) {
     if (value == null || value.isEmpty || value.length <= 7) {
-      return 'Password must be at least 8 characters long';
+      return 'Password must be at least 6 characters long';
     }
 
     return null;
