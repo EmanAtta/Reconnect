@@ -22,7 +22,7 @@ class Navigationpage extends StatelessWidget {
       Get.put(Bottomnavigationcontroller());
   Navigationpage({Key? key}) : super(key: key);
 
-  final screens = [Post(), PostListPage(posts: []),Donation()];
+  final screens = [Post(), PostListPage(posts: [],),Donation()];
 
   @override
   Widget build(BuildContext context) {

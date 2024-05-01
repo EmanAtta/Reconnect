@@ -29,7 +29,7 @@ class _profileState extends State<profile> {
   @override
   void initState() {
     super.initState();
-    //  getProfilePicture();
+    
     getImageUrl();
   }
 
@@ -141,11 +141,12 @@ class _profileState extends State<profile> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                           CircleAvatar(
+                            backgroundColor: AppColors.primaryColor,
                             radius: 70,
                             backgroundImage: imageUrl != null
                                 ? NetworkImage(imageUrl!)
                                 : null,
-                            child: imageUrl == null ? Icon(Icons.person) : null,
+                            child: imageUrl == null ? Image.asset("assets/profile.jpg") : null,
                           )
                         ])),
                     SizedBox(height: 30),
@@ -156,6 +157,7 @@ class _profileState extends State<profile> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
+                        readOnly: true,
                         initialValue: userData.firstname,
                         cursorColor: AppColors.textolor,
                         decoration: InputDecoration(
@@ -177,6 +179,7 @@ class _profileState extends State<profile> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
+                        readOnly: true,
                         initialValue: userData.lastname,
                         cursorColor: AppColors.textolor,
                         decoration: InputDecoration(
@@ -198,6 +201,7 @@ class _profileState extends State<profile> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
+                        readOnly: true,
                         initialValue: userData.email,
                         cursorColor: AppColors.textolor,
                         decoration: InputDecoration(
@@ -211,27 +215,7 @@ class _profileState extends State<profile> {
                                 borderRadius: BorderRadius.circular(25))),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    const Text("Password",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: TextFormField(
-                        initialValue: userData.password,
-                        cursorColor: AppColors.textolor,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
-                      ),
-                    ),
+                    
                     SizedBox(height: 40),
                     InkWell(
                         onTap: () {

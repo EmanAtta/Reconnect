@@ -46,6 +46,7 @@ class PostListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: AppColors.primaryColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
@@ -191,7 +192,7 @@ class PostListPage extends StatelessWidget {
                       size: 30,
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Get.offAll(() => Post());
                     },
                   ),
                   Text(

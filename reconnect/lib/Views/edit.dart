@@ -144,6 +144,7 @@ class _EditState extends State<Edit> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
+                        readOnly:true,
                         controller: email,
                         cursorColor: AppColors.textolor,
                         decoration: InputDecoration(
@@ -158,26 +159,7 @@ class _EditState extends State<Edit> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    const Text("Password",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: TextFormField(
-                        controller: password,
-                        cursorColor: AppColors.textolor,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
-                      ),
-                    ),
+                    
                     SizedBox(height: 40),
                     ElevatedButton(
                         onPressed: () async {
