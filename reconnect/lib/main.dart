@@ -6,10 +6,13 @@ import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/resetpassword.dart';
 import 'package:reconnect/Views/signup.dart';
+import 'package:reconnect/Views/home_page.dart';
 import 'package:reconnect/Views/welcom_page.dart';
 import 'package:reconnect/delete1.dart';
 import 'package:reconnect/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform )
@@ -37,6 +40,7 @@ class Reconnect extends StatelessWidget {
         GetPage(name: '/', page:()=>WelcomPage()),
         GetPage(name: '/login', page: () => const login()),
         GetPage(name: '/signup', page: () => const signup()),
+        GetPage(name: '/myhomepage', page: () => const MyHomePage()),
         GetPage(name: '/post', page: () =>  Post()),
         GetPage(name: '/delete1', page: () => const Delete1()),
 

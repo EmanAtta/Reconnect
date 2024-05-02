@@ -11,6 +11,7 @@ import 'package:reconnect/Views/login.dart';
 
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/postlist.dart';
+import 'package:reconnect/Views/home_page.dart';
 
 import 'package:reconnect/Views/privacy.dart';
 import 'package:reconnect/Views/profile.dart';
@@ -22,7 +23,7 @@ class Navigationpage extends StatelessWidget {
       Get.put(Bottomnavigationcontroller());
   Navigationpage({Key? key}) : super(key: key);
 
-  final screens = [Post(), PostListPage(posts: [],),Donation()];
+  final screens = [MyHomePage(), Post(), PostListPage(posts: [],), Donation()];
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +197,10 @@ class Navigationpage extends StatelessWidget {
         backgroundColor: Color(0xFFFFE8D6),
         color: Color(0xFF4A563E),
         items: [
-          
+          Icon(
+            Icons.face,
+            color: AppColors.primaryColor,
+          ),
           Icon(
             Icons.post_add,
             color: AppColors.primaryColor,

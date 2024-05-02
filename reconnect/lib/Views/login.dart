@@ -97,7 +97,7 @@ class _loginState extends State<login> {
                         cursorColor: AppColors.textolor,
                         obscureText: _obscureText,
                         decoration: InputDecoration(
-                          labelText: "password",
+                          labelText: "Password",
                           labelStyle: const TextStyle(
                               fontSize: 15, color: AppColors.labelStyle),
                           enabledBorder: OutlineInputBorder(
