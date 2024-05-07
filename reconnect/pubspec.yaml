@@ -53,6 +53,7 @@ dependencies:
   duration: ^3.0.13
   http: any
   path_provider: any
+  image_gallery_saver: any
   #dio: ^5.4.3+1
   #webview_flutter: ^4.7.0
   #flutter_inappwebview: ^6.0.0
