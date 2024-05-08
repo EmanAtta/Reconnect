@@ -4,9 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:reconnect/Views/authentications/routes/navigation.dart';
 
 import 'package:reconnect/Views/home_page.dart';
 import 'package:reconnect/Views/post.dart';
+import 'package:get/get.dart';
+import 'authentications/routes/navigationcontroller.dart';
 
 class SecondPage extends StatelessWidget {
   final String? modifiedImageUrl;
@@ -158,7 +161,7 @@ class SecondPage extends StatelessWidget {
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => Post()),
+                                MaterialPageRoute(builder: (context) => Navigationpage()),
                               );
                             },
                             icon: Icon(Icons.share,color: Colors.white,),

@@ -7,6 +7,8 @@ import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/post.dart';
 
 class PostModel {
+  late String? postTime;
+  late String? postDate;
   late String? name;
   late String? dateoflost;
   late String? phone;
@@ -14,6 +16,8 @@ class PostModel {
   late String? description;
 
   PostModel({
+    this.postTime,
+    this.postDate,
     this.name,
     this.dateoflost,
     this.phone,
@@ -22,6 +26,8 @@ class PostModel {
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
+        postTime: json['timestamp'] ?? '',
+        postDate: json['datestamp'] ?? '',
         name: json['name'] ?? '',
         dateoflost: json['dateoflost'] ?? '',
         phone: json['phone'] ?? '',
@@ -30,6 +36,8 @@ class PostModel {
       );
 
   Map<String, dynamic> toJson() => {
+        'datestamp': postDate,
+        'timestamp': postTime,
         'name': name,
         'dateoflost': dateoflost,
         'phone': phone,
@@ -88,6 +96,48 @@ class PostListPage extends StatelessWidget {
                                   : Center(
                                       child: Text('No image'),
                                     ),
+                            ),
+                            SizedBox(height: 5.0),
+                            RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                  color: AppColors.dateColor,
+                                  fontSize: 0.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${posts[index].postDate}',
+                                    style: TextStyle(
+                                      color: AppColors.secondaryColor,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 5.0),
+                            RichText(
+                              text: TextSpan(
+                                text: '',
+                                style: TextStyle(
+                                  color: AppColors.dateColor,
+                                  fontSize: 0.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${posts[index].postTime}',
+                                    style: TextStyle(
+                                      color: AppColors.secondaryColor,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 12.0),
                             RichText(

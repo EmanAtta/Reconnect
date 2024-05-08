@@ -81,59 +81,79 @@ void _stopSubmitting() {
   });
 }
 
-void _submitPost() async {
-  // Start submitting
-  _startSubmitting();
+  void _submitPost() async {
+    // Start submitting
+    _startSubmitting();
 
-  // Collect post data
-  String name = _nameController.text;
-  String dateoflost = _dateoflostController.text;
-  String phone = _selectedCountryCode + _phoneController.text;
-  String description = _descriptionController.text;
+    // Collect post data
+    String name = _nameController.text;
+    String dateoflost = _dateoflostController.text;
+    String phone = _selectedCountryCode + _phoneController.text;
+    String description = _descriptionController.text;
 
-  if (name.isEmpty ||
-      dateoflost.isEmpty ||
-      phone.isEmpty ||
-      _selectedImage == null ||
-      description.isEmpty) {
-    // Stop submitting if validation fails
-    _stopSubmitting();
-    return;
+    if (name.isEmpty ||
+        dateoflost.isEmpty ||
+        phone.isEmpty ||
+        _selectedImage == null ||
+        description.isEmpty) {
+      // Stop submitting if validation fails
+      _stopSubmitting();
+      return;
+    }
+
+    // Upload image to Firebase Storage and get download URL
+    String imageUrl = await uploadImageToStorage(_selectedImage!);
+
+    // Get the current date and time
+    final now = DateTime.now();
+
+    // Format the date and time
+    final dateFormat = DateFormat('yyyy-MM-dd');
+    final timeFormat = DateFormat('HH:mm a');
+    final formattedDate = dateFormat.format(now);
+    final formattedTime = timeFormat.format(now);
+
+    // Create a map of the post data
+    Map<String, dynamic> postData = {
+      'name': name,
+      'dateoflost': dateoflost,
+      'phone': phone,
+      'description': description,
+      'image_url': imageUrl,
+      'datestamp': formattedDate,
+      'timestamp': formattedTime,
+    };
+
+    try {
+      // Add the post data to Firestore
+      await FirebaseFirestore.instance.collection('posts').add(postData);
+
+      // Reset input fields after posting
+      setState(() {
+        _selectedImage = null;
+        _nameController.clear();
+        _dateoflostController.text = '/ / /';
+        _phoneController.clear();
+        _descriptionController.clear();
+      });
+
+      // Stop submitting after successful submission
+      _stopSubmitting();
+
+      // Navigate to post list page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PostListPage(posts: allPosts),
+        ),
+      );
+    } catch (error) {
+      // Handle the error
+      print('Error submitting post: $error');
+      // Stop submitting if an error occurs
+      _stopSubmitting();
+    }
   }
-
-  // Upload image to Firebase Storage and get download URL
-  String imageUrl = await uploadImageToStorage(_selectedImage!);
-
-  // Add post to Firestore
-  CollectionReference posts = FirebaseFirestore.instance.collection('posts');
-  await posts.add({
-    'name': name,
-    'dateoflost': dateoflost,
-    'phone': phone,
-    'description': description,
-    'image_url': imageUrl,
-  });
-
-  // Reset input fields after posting
-  setState(() {
-    _selectedImage = null;
-    _nameController.clear();
-    _dateoflostController.text = '/ / /';
-    _phoneController.clear();
-    _descriptionController.clear();
-  });
-
-  // Stop submitting
-  _stopSubmitting();
-
-  // Navigate to post list page
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => PostListPage(posts: allPosts),
-    ),
-  );
-}
 
   Future<String> uploadImageToStorage(File imageFile) async {
     try {
