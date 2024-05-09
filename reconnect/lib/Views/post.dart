@@ -1,5 +1,5 @@
-
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +17,8 @@ class Post extends StatefulWidget {
 }
 
 class _PostState extends State<Post> {
+  final users = FirebaseAuth.instance.currentUser;
+
   List<PostModel> allPosts = [];
   File? _selectedImage;
   File? pickedImage;
@@ -59,7 +61,7 @@ class _PostState extends State<Post> {
 
   Future<void> pickImage() async {
     final pickedImageFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       pickedImage = File(pickedImageFile!.path);
     });
@@ -69,17 +71,17 @@ class _PostState extends State<Post> {
 
   bool _isSubmitting = false;
 
-void _startSubmitting() {
-  setState(() {
-    _isSubmitting = true;
-  });
-}
+  void _startSubmitting() {
+    setState(() {
+      _isSubmitting = true;
+    });
+  }
 
-void _stopSubmitting() {
-  setState(() {
-    _isSubmitting = false;
-  });
-}
+  void _stopSubmitting() {
+    setState(() {
+      _isSubmitting = false;
+    });
+  }
 
   void _submitPost() async {
     // Start submitting
@@ -90,7 +92,7 @@ void _stopSubmitting() {
     String dateoflost = _dateoflostController.text;
     String phone = _selectedCountryCode + _phoneController.text;
     String description = _descriptionController.text;
-
+    String? userEmail = users?.email;
     if (name.isEmpty ||
         dateoflost.isEmpty ||
         phone.isEmpty ||
@@ -113,18 +115,44 @@ void _stopSubmitting() {
     final formattedDate = dateFormat.format(now);
     final formattedTime = timeFormat.format(now);
 
-    // Create a map of the post data
-    Map<String, dynamic> postData = {
-      'name': name,
-      'dateoflost': dateoflost,
-      'phone': phone,
-      'description': description,
-      'image_url': imageUrl,
-      'datestamp': formattedDate,
-      'timestamp': formattedTime,
-    };
-
     try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: userEmail)
+          .get();
+
+      QueryDocumentSnapshot<Object?> userDoc = querySnapshot.docs.first;
+
+      // Get the user ID
+      String userId = userDoc.id;
+
+      // Retrieve the user document from Firestore
+      DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .get();
+
+      // Retrieve the first name from the user document
+      String firstName = userSnapshot.data()?['firstname'];
+      String lastName = userSnapshot.data()?['lastname'];
+      String userPhoto = userSnapshot.data()?['imageUrl'];
+
+      // Create a map of the post data
+      Map<String, dynamic> postData = {
+        'name': name,
+        'dateoflost': dateoflost,
+        'phone': phone,
+        'description': description,
+        'image_url': imageUrl,
+        'datestamp': formattedDate,
+        'timestamp': formattedTime,
+        'user_email': userEmail,
+        'first_name': firstName, // Add the first name to the postData map
+        'last_name': lastName, // Add the first name to the postData map
+        'user_photo': userPhoto, // Add the first name to the postData map
+      };
+
       // Add the post data to Firestore
       await FirebaseFirestore.instance.collection('posts').add(postData);
 
@@ -178,58 +206,61 @@ void _stopSubmitting() {
     }
   }
 
- @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: AppColors.primaryColor,
-  
-    body: Stack(
-      children: [
-        SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildImagePicker(),
-              SizedBox(height: 16.0),
-              _buildTextField(
-                controller: _nameController,
-                labelText: 'Name',
-              ),
-              SizedBox(height: 16.0),
-              _buildDateField(
-                controller: _dateoflostController,
-                labelText: 'Date of Lost',
-              ),
-              SizedBox(height: 16.0),
-              _buildPhoneNumberField(),
-              SizedBox(height: 16.0),
-              _buildTextField(
-                controller: _descriptionController,
-                labelText: 'Description',
-                maxLines: 3,
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: _submitPost,
-                child: Text('Submit'),
-              ),
-            ],
-          ),
-        ),
-         if (_isSubmitting)
-          Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.3), // Semi-transparent black color
-              child: Center(
-                child: CircularProgressIndicator(valueColor:AlwaysStoppedAnimation<Color>(AppColors.secondaryColor), ), // Loader
-              ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.primaryColor,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildImagePicker(),
+                SizedBox(height: 16.0),
+                _buildTextField(
+                  controller: _nameController,
+                  labelText: 'Name',
+                ),
+                SizedBox(height: 16.0),
+                _buildDateField(
+                  controller: _dateoflostController,
+                  labelText: 'Date of Lost',
+                ),
+                SizedBox(height: 16.0),
+                _buildPhoneNumberField(),
+                SizedBox(height: 16.0),
+                _buildTextField(
+                  controller: _descriptionController,
+                  labelText: 'Description',
+                  maxLines: 3,
+                ),
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: _submitPost,
+                  child: Text('Submit'),
+                ),
+              ],
             ),
           ),
-      ],
-    ),
-  );
-}
+          if (_isSubmitting)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black
+                    .withOpacity(0.3), // Semi-transparent black color
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(AppColors.secondaryColor),
+                  ), // Loader
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildImagePicker() {
     return Column(
@@ -246,17 +277,17 @@ Widget build(BuildContext context) {
             color: Colors.grey[200],
             child: _selectedImage != null
                 ? Image.file(
-              _selectedImage!,
-              fit: BoxFit.cover,
-            )
+                    _selectedImage!,
+                    fit: BoxFit.cover,
+                  )
                 : Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
-              child: Image.asset('assets/upload.png'),
-            ),
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                    ),
+                    child: Image.asset('assets/upload.png'),
+                  ),
           ),
         ),
       ],
@@ -289,55 +320,54 @@ Widget build(BuildContext context) {
         labelText: labelText,
         border: OutlineInputBorder(),
         suffixIcon: IconButton(
-  icon: Icon(Icons.calendar_today),
-  onPressed: () async {
-   final pickedDate = await showDatePicker(
-  context: context,
-  initialDate: DateTime.now(),
-  firstDate: DateTime(2000),
-  lastDate: DateTime.now(),
-  builder: (BuildContext context, Widget? child) {
-    return Theme(
-      data: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.light(
-          primary: AppColors.secondaryColor, // Change the primary color here
-         
-         
+          icon: Icon(Icons.calendar_today),
+          onPressed: () async {
+            final pickedDate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime.now(),
+              builder: (BuildContext context, Widget? child) {
+                return Theme(
+                  data: ThemeData.light().copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: AppColors
+                          .secondaryColor, // Change the primary color here
+                    ),
+                    dialogBackgroundColor: Colors.white,
+                  ),
+                  child: child!,
+                );
+              },
+            );
+            if (pickedDate != null) {
+              final formattedDate = DateFormat('d/M/yyyy').format(pickedDate);
+              controller.text = formattedDate;
+            }
+          },
         ),
-        dialogBackgroundColor: Colors.white,
-      ),
-      child: child!,
-    );
-  },
-);
-    if (pickedDate != null) {
-      final formattedDate = DateFormat('d/M/yyyy').format(pickedDate);
-      controller.text = formattedDate;
-    }
-  },
-),
       ),
     );
   }
 
   Widget _buildPhoneNumberField() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Padding(
-        padding: EdgeInsets.only(bottom: 16.0),
-        child: IntlPhoneField(
-          decoration: InputDecoration(
-            labelText: 'Phone Number',
-            border: OutlineInputBorder(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 16.0),
+          child: IntlPhoneField(
+            decoration: InputDecoration(
+              labelText: 'Phone Number',
+              border: OutlineInputBorder(),
+            ),
+            initialCountryCode: 'EG',
+            onChanged: (phone) {
+              _phoneController.text = phone.completeNumber;
+            },
           ),
-          initialCountryCode: 'EG',
-          onChanged: (phone) {
-            _phoneController.text = phone.completeNumber;
-          },
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 }
