@@ -108,7 +108,7 @@ final password = TextEditingController();
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => Settings());
+                        Get.to(() => settings());
                       },
                     ),
                     const SizedBox(

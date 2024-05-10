@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -7,26 +9,56 @@ import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/donation.dart';
 import 'package:reconnect/Views/login.dart';
-
-
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/postlist.dart';
 import 'package:reconnect/Views/home_page.dart';
-
 import 'package:reconnect/Views/privacy.dart';
 import 'package:reconnect/Views/profile.dart';
 import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/welcom_page.dart';
+import 'package:reconnect/Views/current_user_screen.dart';
+
+
+
 
 class Navigationpage extends StatelessWidget {
   Bottomnavigationcontroller bottomnavigationcontroller =
       Get.put(Bottomnavigationcontroller());
   Navigationpage({Key? key}) : super(key: key);
 
-  final screens = [MyHomePage(), Post(), PostListPage(posts: [],), Donation()];
+
 
   @override
   Widget build(BuildContext context) {
+
+    final user = FirebaseAuth.instance.currentUser;
+    String? userE = user?.email;
+
+    final screens = [
+      MyHomePage(),
+      Post(),
+      PostListPage(posts: []),
+      Donation(),
+      FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        future: getUserData(user?.email),
+        builder: (context, snapshot) {
+            final userData = snapshot.data?.data();
+            final firstName = userData?['firstname'] as String?;
+            final lastName = userData?['lastname'] as String?;
+            final userPhotoUrl = userData?['imageUrl'] as String?;
+
+            return currentUsers(
+              userPhotoUrl: '${userPhotoUrl}',
+              firstName: '${firstName}',
+              lastName: '${lastName}',
+              userEmail: '${userE}',
+            );
+          }
+      ),
+    ];
+
+
+
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight: 35,
@@ -108,7 +140,7 @@ class Navigationpage extends StatelessWidget {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => Settings());
+                        Get.to(() => settings());
                       },
                     ),
                     const SizedBox(
@@ -213,6 +245,10 @@ class Navigationpage extends StatelessWidget {
             Icons.monetization_on_outlined,
             color: AppColors.primaryColor,
           ),
+          Icon(
+            Icons.account_circle,
+            color: AppColors.primaryColor,
+          ),
         ],
         onTap: (index) {
           bottomnavigationcontroller.changeIndex(index);
@@ -220,6 +256,24 @@ class Navigationpage extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(String? userEmail) async {
+  final querySnapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .where('email', isEqualTo: userEmail)
+      .get();
+
+  final userDoc = querySnapshot.docs.first;
+
+  final userId = userDoc.id;
+
+  final userSnapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .get();
+
+  return userSnapshot;
 }
 
 class BottomDiagonalClipper extends CustomClipper<Path> {

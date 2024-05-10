@@ -111,7 +111,7 @@ class _PostState extends State<Post> {
 
     // Format the date and time
     final dateFormat = DateFormat('yyyy-MM-dd');
-    final timeFormat = DateFormat('HH:mm a');
+    final timeFormat = DateFormat('h:mm a');
     final formattedDate = dateFormat.format(now);
     final formattedTime = timeFormat.format(now);
 
