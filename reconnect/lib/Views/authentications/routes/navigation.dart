@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,15 +9,17 @@ import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/donation.dart';
 import 'package:reconnect/Views/login.dart';
-
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/postlist.dart';
 import 'package:reconnect/Views/home_page.dart';
-
 import 'package:reconnect/Views/privacy.dart';
 import 'package:reconnect/Views/profile.dart';
 import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/welcom_page.dart';
+import 'package:reconnect/Views/current_user_screen.dart';
+
+
+
 
 class Navigationpage extends StatefulWidget {
   Navigationpage({Key? key}) : super(key: key);
@@ -31,6 +34,35 @@ class _NavigationpageState extends State<Navigationpage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = FirebaseAuth.instance.currentUser;
+    String? userE = user?.email;
+
+    final screens = [
+      MyHomePage(),
+      Post(),
+      PostListPage(posts: []),
+      Donation(),
+      FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        future: getUserData(user?.email),
+        builder: (context, snapshot) {
+            final userData = snapshot.data?.data();
+            final firstName = userData?['firstname'] as String?;
+            final lastName = userData?['lastname'] as String?;
+            final userPhotoUrl = userData?['imageUrl'] as String?;
+
+            return currentUsers(
+              userPhotoUrl: '${userPhotoUrl}',
+              firstName: '${firstName}',
+              lastName: '${lastName}',
+              userEmail: '${userE}',
+            );
+          }
+      ),
+    ];
+
+
+
     return Scaffold(
       appBar: AppBar(
         // toolbarHeight: 35,
@@ -220,5 +252,43 @@ class _NavigationpageState extends State<Navigationpage> {
         },
       ),
     );
+  }
+}
+
+Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(String? userEmail) async {
+  final querySnapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .where('email', isEqualTo: userEmail)
+      .get();
+
+  final userDoc = querySnapshot.docs.first;
+
+  final userId = userDoc.id;
+
+  final userSnapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .get();
+
+  return userSnapshot;
+}
+
+class BottomDiagonalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.moveTo(0, size.height);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+  
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    throw UnimplementedError();
   }
 }
