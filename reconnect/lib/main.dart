@@ -33,7 +33,7 @@ class Reconnect extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      
+    
       //home: WelcomPage(),
       initialRoute: '/',
       getPages: [

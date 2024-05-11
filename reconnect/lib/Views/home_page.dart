@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:reconnect/Views/modified.dart';
@@ -140,19 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         : () {
                       uploadAndModifyImage(pickedImage!, age);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SecondPage(),
-                        ),
-                      );
+                   Get.to(SecondPage());
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SecondPage(imageFile: pickedImage),
-                        ),
-                      );
+Get.to(SecondPage(imageFile: pickedImage));
 
                     },
                     //     () => uploadAndModifyImage(

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/post.dart';
 
@@ -53,8 +54,9 @@ class PostListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BottomNavigationController bottomnavigationcontroller =
+        Get.put(BottomNavigationController());
     return Scaffold(
-      
       backgroundColor: AppColors.primaryColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
@@ -242,7 +244,8 @@ class PostListPage extends StatelessWidget {
                       size: 30,
                     ),
                     onPressed: () {
-                      Get.offAll(() => Post());
+                      //bottomnavigationcontroller.changeIndex(1);
+                      bottomnavigationcontroller.change(1);
                     },
                   ),
                   Text(

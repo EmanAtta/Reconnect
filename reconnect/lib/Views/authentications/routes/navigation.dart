@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,6 @@ import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/donation.dart';
 import 'package:reconnect/Views/login.dart';
 
-
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/postlist.dart';
 import 'package:reconnect/Views/home_page.dart';
@@ -18,12 +18,16 @@ import 'package:reconnect/Views/profile.dart';
 import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/welcom_page.dart';
 
-class Navigationpage extends StatelessWidget {
-  Bottomnavigationcontroller bottomnavigationcontroller =
-      Get.put(Bottomnavigationcontroller());
+class Navigationpage extends StatefulWidget {
   Navigationpage({Key? key}) : super(key: key);
 
-  final screens = [MyHomePage(), Post(), PostListPage(posts: [],), Donation()];
+  @override
+  State<Navigationpage> createState() => _NavigationpageState();
+}
+
+class _NavigationpageState extends State<Navigationpage> {
+  BottomNavigationController bottomnavigationcontroller =
+      Get.put(BottomNavigationController());
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +112,7 @@ class Navigationpage extends StatelessWidget {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => Settings());
+                        // Get.to(() => settings());
                       },
                     ),
                     const SizedBox(
@@ -184,57 +188,37 @@ class Navigationpage extends StatelessWidget {
           ),
         ),
       ),
-      body: Obx(
-        () => IndexedStack(
-          index: bottomnavigationcontroller.selectedIndex.value,
-          children: screens,
-        ),
+      body: GetX<BottomNavigationController>(
+        builder: (controller) {
+          return bottomnavigationcontroller
+              .pages[bottomnavigationcontroller.selectedIndex.value];
+        },
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        animationCurve: Curves.fastOutSlowIn,
-        height: 60,
-        index: bottomnavigationcontroller.selectedIndex.value,
-        backgroundColor: Color(0xFFFFE8D6),
-        color: Color(0xFF4A563E),
-        items: [
-          Icon(
-            Icons.face,
-            color: AppColors.primaryColor,
-          ),
-          Icon(
-            Icons.post_add,
-            color: AppColors.primaryColor,
-          ),
-          Icon(
-            Icons.public_rounded,
-            color: AppColors.primaryColor,
-          ),
-          Icon(
-            Icons.monetization_on_outlined,
-            color: AppColors.primaryColor,
-          ),
-        ],
-        onTap: (index) {
-          bottomnavigationcontroller.changeIndex(index);
+      bottomNavigationBar: GetBuilder<BottomNavigationController>(
+        builder: (controller) {
+          return CurvedNavigationBar(
+            animationCurve: Curves.fastOutSlowIn,
+            height: 60,
+            backgroundColor: Color(0xFFFFE8D6),
+            color: Color(0xFF4A563E),
+            key: bottomnavigationcontroller.curvedNavigationKey,
+            index: bottomnavigationcontroller.selectedIndex.value,
+            onTap: (index) =>
+                BottomNavigationController.instance.changeIndex(index),
+            items: List.generate(
+              bottomnavigationcontroller.icons.length,
+              (index) {
+                IconData icon = bottomnavigationcontroller.icons[index]['icon'];
+                Color color = bottomnavigationcontroller.icons[index]['color'];
+                return Icon(
+                  icon,
+                  color: color,
+                );
+              },
+            ),
+          );
         },
       ),
     );
   }
-}
-
-class BottomDiagonalClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-
-    path.moveTo(0, size.height);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0.0);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

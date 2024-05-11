@@ -1,11 +1,60 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:reconnect/Views/payment.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:reconnect/Views/color.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/pay.dart';
+import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
+
+class PaymobInterface extends StatefulWidget {
+  final String paymentToken;
+
+  PaymobInterface({required this.paymentToken});
+
+  @override
+  _PaymobInterfaceState createState() => _PaymobInterfaceState();
+}
+
+class _PaymobInterfaceState extends State<PaymobInterface> {
+  @override
+  Widget build(BuildContext context) {
+    BottomNavigationController bottomnavigationcontroller =
+        Get.put(BottomNavigationController());
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.secondaryColor,
+          title: Text(
+            ' Payment',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: AppColors.primaryColor),
+          ),
+        ),
+        body: WebViewWidget(
+            controller: WebViewController()
+              ..setJavaScriptMode(JavaScriptMode.unrestricted)
+              ..setBackgroundColor(const Color(0x00000000))
+              ..setNavigationDelegate(
+                NavigationDelegate(
+                  onProgress: (int progress) {
+                    // Update loading bar.
+                  },
+                  onPageStarted: (String url) {},
+                  onPageFinished: (String url) {},
+                  onWebResourceError: (WebResourceError error) {},
+                  onNavigationRequest: (NavigationRequest request) {
+                    if (request.url.startsWith('https://www.youtube.com/')) {
+                      return NavigationDecision.prevent;
+                    }
+                    return NavigationDecision.navigate;
+                  },
+                ),
+              )
+              ..loadRequest(Uri.parse(
+                'https://accept.paymob.com/api/acceptance/iframes/841120?payment_token=${widget.paymentToken}',
+              ))));
+  }
+}
 
 class Donation extends StatefulWidget {
   const Donation({super.key});
@@ -15,6 +64,9 @@ class Donation extends StatefulWidget {
 }
 
 class _DonationState extends State<Donation> {
+  final amountController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +104,7 @@ class _DonationState extends State<Donation> {
                     maxLines: null,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.fromLTRB(
-                          16, 30, 16, 16), 
+                          16, 30, 16, 16), // Adjust padding as needed
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                     ),
@@ -81,13 +133,14 @@ class _DonationState extends State<Donation> {
                           child: Container(
                             height: 43,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(20)),
+                              border:
+                                  Border.all(color: AppColors.secondaryColor),
+                            ),
                             child: Container(
                               height: 20,
                               padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
                               child: TextFormField(
+                                controller: nameController,
                                 cursorColor: AppColors.secondaryColor,
                                 decoration: InputDecoration(
                                   hintText: 'Name',
@@ -111,12 +164,13 @@ class _DonationState extends State<Donation> {
                           child: Container(
                             height: 43,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(20)),
+                              border:
+                                  Border.all(color: AppColors.secondaryColor),
+                            ),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(5, 20, 3, 3),
                               child: TextFormField(
+                                controller: emailController,
                                 cursorColor: AppColors.secondaryColor,
                                 decoration: InputDecoration(
                                   hintText: 'Email',
@@ -140,13 +194,14 @@ class _DonationState extends State<Donation> {
                           child: Container(
                             height: 43,
                             decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(20)),
+                              border:
+                                  Border.all(color: AppColors.secondaryColor),
+                            ),
                             child: Container(
                               height: 20,
                               padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
                               child: TextFormField(
+                                controller: amountController,
                                 cursorColor: AppColors.secondaryColor,
                                 decoration: InputDecoration(
                                   hintText: 'Amount',
@@ -167,25 +222,63 @@ class _DonationState extends State<Donation> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.to(()=>Pay());
+                _pay();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors
-                    .secondaryColor,
+                    .secondaryColor, // Change color to your desired color
                 maximumSize:
-                    Size(230, 60), 
+                    Size(230, 60), // Set width and height to increase size
               ),
               child: Text(
                 'Donate now',
                 style: TextStyle(
                     fontSize: 17,
                     color:
-                        AppColors.primaryColor), 
+                        AppColors.primaryColor), // Adjust font size as needed
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _pay() {
+    String amountString = amountController.text;
+    int amount = int.tryParse(amountString) ?? 0;
+    String name = nameController.text;
+    String email = emailController.text;
+    if (amount > 0) {
+      PaymobManager()
+          .getPaymentKey(amount, "EGP", name, email)
+          .then((String paymentKey) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PaymobInterface(paymentToken: paymentKey),
+          ),
+        );
+      });
+    } else {
+      // Handle invalid amount
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Invalid Amount'),
+            content: Text('Please enter a valid amount.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

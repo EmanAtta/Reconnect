@@ -6,6 +6,7 @@ import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/payment.dart';
 import 'package:reconnect/Views/visa.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Pay extends StatefulWidget {
   const Pay({super.key});
@@ -15,13 +16,11 @@ class Pay extends StatefulWidget {
 }
 
 class _PayState extends State<Pay> {
-  // final totalprice="100";
+  final _amountcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     // Implement your widget build method here
-    return Scaffold(
-      body:Text("hi")
-      );
+    return Scaffold(body: Text("hi"));
   }
 
   /*void _continueToPay() {
@@ -218,3 +217,5 @@ Widget build(BuildContext context) {
     ),
   );
 }
+
+

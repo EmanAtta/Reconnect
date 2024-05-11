@@ -79,16 +79,17 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     BottomNavigationController bottomnavigationcontroller =
+      Get.put(BottomNavigationController());
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Modified Image'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
-            );
+           Get.back();
+            
           },
         ),
       ),
@@ -142,10 +143,7 @@ class SecondPage extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => MyHomePage()),
-                              );
+                              bottomnavigationcontroller.change(0);
                             },
                             icon: Icon(Icons.restart_alt_sharp,color: Colors.white,),
                           ),
@@ -159,10 +157,7 @@ class SecondPage extends StatelessWidget {
                           SizedBox(width: 15,),
                           IconButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => Navigationpage()),
-                              );
+                            bottomnavigationcontroller.change(1);
                             },
                             icon: Icon(Icons.share,color: Colors.white,),
                           ),
@@ -183,4 +178,3 @@ class SecondPage extends StatelessWidget {
     );
   }
 }
-
