@@ -144,7 +144,7 @@ class _NavigationpageState extends State<Navigationpage> {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        // Get.to(() => settings());
+                         Get.to(() => settings());
                       },
                     ),
                     const SizedBox(

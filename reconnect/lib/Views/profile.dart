@@ -219,7 +219,7 @@ class _profileState extends State<profile> {
                     SizedBox(height: 40),
                     InkWell(
                         onTap: () {
-                          //Get.to(() => Edit());
+                          Get.to(() => Edit());
                           
                         },
                         child: button(button_text: "Edit profile"))
