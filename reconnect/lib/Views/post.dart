@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'postlist.dart';
 import 'package:intl/intl.dart';
@@ -56,7 +59,8 @@ class _PostState extends State<Post> {
       });
     }
   }
-
+ BottomNavigationController bottomnavigationcontroller =
+      Get.put(BottomNavigationController());
   ////////////////////////////////////////////////////////
 
   Future<void> pickImage() async {
@@ -169,12 +173,7 @@ class _PostState extends State<Post> {
       _stopSubmitting();
 
       // Navigate to post list page
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PostListPage(posts: allPosts),
-        ),
-      );
+     bottomnavigationcontroller.change(2);
     } catch (error) {
       // Handle the error
       print('Error submitting post: $error');
