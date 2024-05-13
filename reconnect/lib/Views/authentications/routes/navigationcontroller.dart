@@ -60,8 +60,8 @@ class BottomNavigationController extends GetxController {
 
   final List<Map<String, dynamic>> icons = [
     {'icon': Icons.home, 'color': AppColors.primaryColor},
-    {'icon': Icons.public_rounded, 'color': AppColors.primaryColor},
     {'icon': Icons.post_add, 'color': AppColors.primaryColor},
+    {'icon': Icons.public_rounded, 'color': AppColors.primaryColor},
     {'icon': Icons.monetization_on_outlined, 'color': AppColors.primaryColor},
     {'icon': Icons.person, 'color': AppColors.primaryColor},
   ];
