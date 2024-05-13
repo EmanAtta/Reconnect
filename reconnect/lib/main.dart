@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:reconnect/Views/autentication.dart';
 import 'package:reconnect/Views/forgetpassword.dart';
 import 'package:reconnect/Views/login.dart';
+import 'package:reconnect/Views/modified.dart';
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/resetpassword.dart';
 import 'package:reconnect/Views/signup.dart';
@@ -43,7 +44,7 @@ class Reconnect extends StatelessWidget {
         GetPage(name: '/myhomepage', page: () => const MyHomePage()),
         GetPage(name: '/post', page: () =>  Post()),
         GetPage(name: '/delete1', page: () => const Delete1()),
-
+        GetPage(name: '/secondPage', page: () => SecondPage()),
         GetPage(name: '/forgetpassword', page: () => const forgetBassword()),
         GetPage(name: '/resetpassword', page: () => const resetPassword()),
       ],

@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> uploadAndModifyImage(File imageFile, int ages) async {
     //اللينك ده بتاع السيرفر و بيتغير لما نفتح السيرفر
-    final url = Uri.parse('https://d93a-156-197-156-237.ngrok-free.app/modify');
+    final url = Uri.parse('https://229e-156-197-238-166.ngrok-free.app/modify');
     final request = http.MultipartRequest('POST', url);
     request.files.add(await http.MultipartFile.fromPath(
       'image',
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       final responseJson = jsonDecode(await response.stream.bytesToString());
       setState(() {
         rotatedImageUrl =
-            'https://d93a-156-197-156-237.ngrok-free.app' +
+            'https://229e-156-197-238-166.ngrok-free.app' +
                 responseJson['modified_image_url'];
       });
       Navigator.push(

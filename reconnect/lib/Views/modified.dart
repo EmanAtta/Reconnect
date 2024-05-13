@@ -144,6 +144,8 @@ class SecondPage extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               bottomnavigationcontroller.change(0);
+                              Get.close(2);
+                              // Perform any action when the button is pressed
                             },
                             icon: Icon(Icons.restart_alt_sharp,color: Colors.white,),
                           ),
@@ -158,6 +160,8 @@ class SecondPage extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                             bottomnavigationcontroller.change(1);
+                            Get.close(2);
+                              // Perform any action when the button is pressed
                             },
                             icon: Icon(Icons.share,color: Colors.white,),
                           ),
