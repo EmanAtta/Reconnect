@@ -74,10 +74,11 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
         title: Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.only(bottom: 1),
           child: const Text(
             'Reconnect',
             style: TextStyle(
@@ -86,9 +87,20 @@ class UserProfileScreen extends StatelessWidget {
             ),
           ),
         ),
+        leading: Padding(
+          padding: const EdgeInsets.only(bottom: 1),
+          child: Container(
+            child: Image.asset(
+              'assets/logo.png',
+              width: 50, // Adjust the size as needed
+              height: 50, // Adjust the size as needed
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
+          SizedBox(height: 20),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

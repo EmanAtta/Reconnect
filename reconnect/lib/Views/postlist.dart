@@ -78,7 +78,7 @@ class PostListPage extends StatelessWidget {
     BottomNavigationController bottomnavigationcontroller =
         Get.put(BottomNavigationController());
     return Scaffold(
-      
+      backgroundColor: AppColors.primaryColor,
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context, snapshot) {

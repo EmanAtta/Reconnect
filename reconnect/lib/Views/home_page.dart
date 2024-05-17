@@ -1,13 +1,11 @@
-
-
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/modified.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -103,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
             flex: 2,
             child: Container(
               width: double.infinity,
-              color: Color(0xFFFFE8D6),
+              color: AppColors.primaryColor,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20),

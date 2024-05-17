@@ -235,10 +235,20 @@ class _PostState extends State<Post> {
                   labelText: 'Description',
                   maxLines: 3,
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _submitPost,
-                  child: Text('Submit'),
+                  onPressed: _getImage,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(AppColors.secondaryColor),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.post_add,color: AppColors.primaryColor),
+                      SizedBox(width: 8),
+                      Text('Post',style: TextStyle(color: AppColors.primaryColor)),
+                   ],
+                  ),
                 ),
               ],
             ),
@@ -266,14 +276,24 @@ class _PostState extends State<Post> {
       children: [
         ElevatedButton(
           onPressed: _getImage,
-          child: Text('Choose Image'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(AppColors.secondaryColor),
+            ),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.image,color: AppColors.primaryColor),
+              SizedBox(width: 8),
+              Text('Pick Image',style: TextStyle(color: AppColors.primaryColor)),
+            ],
+          ),
         ),
         SizedBox(height: 16),
         GestureDetector(
           onTap: _getImage,
           child: Container(
+            color: Color(0xFF4A563E),
             height: 200,
-            color: Colors.grey[200],
             child: _selectedImage != null
                 ? Image.file(
                     _selectedImage!,

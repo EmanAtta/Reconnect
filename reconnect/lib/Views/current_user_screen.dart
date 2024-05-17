@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reconnect/Views/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:reconnect/Views/color.dart';
 
 class PostModel {
   late String? postTime;
@@ -59,230 +58,298 @@ class PostModel {
   };
 }
 
-class currentUsers extends StatelessWidget {
-
+class currentUsers extends StatefulWidget {
   final String userPhotoUrl;
   final String firstName;
   final String lastName;
   final String userEmail;
 
-  const currentUsers({Key? key, required this.userPhotoUrl,
+  const currentUsers({
+    Key? key,
+    required this.userPhotoUrl,
     required this.firstName,
     required this.lastName,
-    required this.userEmail,}) : super(key: key);
+    required this.userEmail,
+  }) : super(key: key);
+
+  @override
+  _currentUsersState createState() => _currentUsersState();
+}
+
+class _currentUsersState extends State<currentUsers> {
+  Future<void> _deletePost(String postId) async {
+    try {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Delete Post'),
+            content: Text('Are you sure you want to delete this post?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection('posts')
+                      .doc(postId)
+                      .delete();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Post deleted successfully.'),
+                      duration: Duration(seconds: 3),
+                    ),
+                  );
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: Text('Delete'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error deleting post: $e'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
-      Center(
-      child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 120,
-            backgroundImage: NetworkImage(userPhotoUrl),
-          ),
-          SizedBox(height: 16.0),
-          Text(
-            '$firstName $lastName',
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-              color: AppColors.secondaryColor,
+          SizedBox(height: 20),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 120,
+                  backgroundImage: NetworkImage(widget.userPhotoUrl),
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  '${widget.firstName} ${widget.lastName}',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.secondaryColor,
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-    ),
-    Expanded(
-    child: StreamBuilder<QuerySnapshot>(
-    stream: FirebaseFirestore.instance
-        .collection('posts')
-        .where('user_email', isEqualTo: userEmail)
-        .snapshots(),
-    builder: (context, snapshot) {
-    if (!snapshot.hasData) {
-    return Center(child: CircularProgressIndicator());
-    }
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                // نضيف هنا هيتم تحديث البوستات ازاي واسترجاعها من فايربيز
+              },
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('posts')
+                    .where('user_email', isEqualTo: widget.userEmail)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
 
-    List<PostModel> posts = snapshot.data!.docs
-        .map((doc) => PostModel.fromJson(
-    doc.data() as Map<String, dynamic>,
-    ))
-        .toList();
+                  List<PostModel> posts = snapshot.data!.docs
+                      .map((doc) =>
+                      PostModel.fromJson(
+                        doc.data() as Map<String, dynamic>,
+                      ))
+                      .toList();
 
-    return ListView.builder(
-    itemCount: posts.length,
-    itemBuilder: (context, index) {
-    return Card(
-    elevation: 30,
-    shadowColor: AppColors.textolor,
-    color: AppColors.primaryColor,
-    margin: EdgeInsets.all(8.0),
-    child: Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    Row(
-    children: [
-    CircleAvatar(
-    radius: 20,
-    backgroundImage:
-    NetworkImage(posts[index].userP ?? ''),
-    ),
-    SizedBox(width: 8.0),
-    GestureDetector(
-    onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => currentUsers(
-    userPhotoUrl: posts[index].userP ?? '',
-    firstName: posts[index].firstN ?? '',
-    lastName: posts[index].lastN ?? '',
-    userEmail: posts[index].userEmail ?? '',
-    ),
-    ),
-    );
-    },
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    Text(
-    '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
-    style: TextStyle(
-    color: AppColors.secondaryColor,
-    fontSize: 16.0,
-    fontWeight: FontWeight.bold,
-    ),
-    ),
-    SizedBox(height: 5.0),
-    RichText(
-    text: TextSpan(
-    text:
-    '${posts[index].postDate}    |    ${posts[index].postTime}',
-    style: TextStyle(
-    color: AppColors.secondaryColor,
-    fontSize: 12.0,
-    fontWeight: FontWeight.bold,
-    ),
-    ),
-    ),
-    ],
-    ),
-    ),
-    ],
-    ),
-    SizedBox(height: 10.0),
-    SizedBox(
-    width: double.infinity,
-    height: 200,
-    child: posts[index].image_url != null &&
-    posts[index].image_url!.isNotEmpty
-    ? Image.network(
-    posts[index].image_url!,
-    fit: BoxFit.contain,
-    )
-        : Center(
-    child: Text('No image'),
-    ),
-    ),
-    SizedBox(height: 12.0),
-    RichText(
-    text: TextSpan(
-    text: 'Name: ',
-    style: TextStyle(
-    color: AppColors.secondaryColor,
-    fontSize: 18.0,
-    fontWeight: FontWeight.bold,
-    ),
-    children: [
-    TextSpan(
-    text: '${posts[index].name}',
-    style: TextStyle(
-    color: AppColors.textolor,
-    fontSize: 18.0,
-    fontWeight: FontWeight.bold,
-    ),
-    ),
-    ],
-    ),
-    ),
-    SizedBox(height: 12.0),
-    RichText(
-    text: TextSpan(
-    text: 'Date Of Lost: ',
-      style: TextStyle(
-        color: AppColors.secondaryColor,
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-      ),
-      children: [
-        TextSpan(
-          text: '${posts[index].dateoflost}',
-          style: TextStyle(
-            color: AppColors.textolor,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    ),
-    ),
-      SizedBox(height: 10.0),
-      RichText(
-        text: TextSpan(
-          text: 'Phone: ',
-          style: TextStyle(
-            color: AppColors.secondaryColor,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-          children: [
-            TextSpan(
-              text: '${posts[index].phone}',
-              style: TextStyle(
-                color: AppColors.textolor,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
+                  return ListView.builder(
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 30,
+                        shadowColor: AppColors.textolor,
+                        color: AppColors.primaryColor,
+                        margin: EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundImage: NetworkImage(
+                                            posts[index].userP ?? ''),
+                                      ),
+                                      SizedBox(width: 8.0),
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '${posts[index].firstN ??
+                                                  ''} ${posts[index].lastN ??
+                                                  ''}',
+                                              style: TextStyle(
+                                                color: AppColors.secondaryColor,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 5.0),
+                                            RichText(
+                                              text: TextSpan(
+                                                text:
+                                                '${posts[index]
+                                                    .postDate}    |    ${posts[index]
+                                                    .postTime}',
+                                                style: TextStyle(
+                                                  color:
+                                                  AppColors.secondaryColor,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      _deletePost(
+                                          snapshot.data!.docs[index].id);
+                                    },
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10.0),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 200,
+                                child: posts[index].image_url != null &&
+                                    posts[index].image_url!.isNotEmpty
+                                    ? Image.network(
+                                  posts[index].image_url!,
+                                  fit: BoxFit.contain,
+                                )
+                                    : Center(
+                                  child: Text('No image'),
+                                ),
+                              ),
+                              SizedBox(height: 12.0),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Name: ',
+                                  style: TextStyle(
+                                    color: AppColors.secondaryColor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '${posts[index].name}',
+                                      style: TextStyle(
+                                        color: AppColors.textolor,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 12.0),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Date Of Lost: ',
+                                  style: TextStyle(
+                                    color: AppColors.secondaryColor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '${posts[index].dateoflost}',
+                                      style: TextStyle(
+                                        color: AppColors.textolor,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 10.0),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Phone: ',
+                                  style: TextStyle(
+                                    color: AppColors.secondaryColor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '${posts[index].phone}',
+                                      style: TextStyle(
+                                        color: AppColors.textolor,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 10.0),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Description: ',
+                                  style: TextStyle(
+                                    color: AppColors.secondaryColor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '${posts[index].description}',
+                                      style: TextStyle(
+                                        color: AppColors.textolor,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
-          ],
-        ),
-      ),
-      SizedBox(height: 10.0),
-      RichText(
-        text: TextSpan(
-          text: 'Description: ',
-          style: TextStyle(
-            color: AppColors.secondaryColor,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
           ),
-          children: [
-            TextSpan(
-              text: '${posts[index].description}',
-              style: TextStyle(
-                color: AppColors.textolor,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ],
-    ),
-    ),
-    );
-    },
-    );
-    },
-    ),
-    ),
         ],
       ),
     );

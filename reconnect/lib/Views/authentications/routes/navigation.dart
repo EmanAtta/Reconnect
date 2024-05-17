@@ -69,7 +69,7 @@ class _NavigationpageState extends State<Navigationpage> {
         backgroundColor: AppColors.secondaryColor,
 
         title: Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.only(bottom: 1),
           child: const Text(
             'Reconnect',
             style: TextStyle(
@@ -77,11 +77,13 @@ class _NavigationpageState extends State<Navigationpage> {
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.keyboard_arrow_left,
-                color: AppColors.primaryColor),
+          padding: const EdgeInsets.only(bottom: 1),
+          child: Container(
+            child: Image.asset(
+              'assets/logo.png',
+              width: 50, // Adjust the size as needed
+              height: 50, // Adjust the size as needed
+            ),
           ),
         ),
       ),
