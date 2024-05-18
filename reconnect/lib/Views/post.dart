@@ -6,13 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
-import 'postlist.dart';
+import 'package:reconnect/Views/postlist.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class Post extends StatefulWidget {
   @override
@@ -118,6 +118,20 @@ class _PostState extends State<Post> {
     final timeFormat = DateFormat('h:mm a');
     final formattedDate = dateFormat.format(now);
     final formattedTime = timeFormat.format(now);
+    String generateRandom12DigitNumber() {
+      Random random = Random();
+      String randomNumber = '';
+
+      // Generate 12 random digits.
+      for (int i = 0; i < 12; i++) {
+        randomNumber += random.nextInt(10).toString();
+      }
+
+      return randomNumber;
+    }
+
+
+    final String postId = generateRandom12DigitNumber();
 
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -155,6 +169,7 @@ class _PostState extends State<Post> {
         'first_name': firstName, // Add the first name to the postData map
         'last_name': lastName, // Add the first name to the postData map
         'user_photo': userPhoto, // Add the first name to the postData map
+        'id': postId,
       };
 
       // Add the post data to Firestore
@@ -237,7 +252,7 @@ class _PostState extends State<Post> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _getImage,
+                  onPressed: _submitPost,
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(AppColors.secondaryColor),
                   ),

@@ -234,7 +234,7 @@ class _currentUsersState extends State<currentUsers> {
                                   ),
                                   IconButton(
                                     icon: Icon(Icons.delete),
-                                    color: Colors.red,
+                                    color: AppColors.secondaryColor,
                                     onPressed: () {
                                       _deletePost(
                                           snapshot.data!.docs[index].id);
