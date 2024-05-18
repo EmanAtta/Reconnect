@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             flex: 3,
             child: Container(
-              color: Color(0xFF4A563E),
+              color: AppColors.secondaryColor,
               child:
 
               Center(
@@ -110,9 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.image,color: Color(0xFF4A563E)),
+                        Icon(Icons.image,color: AppColors.secondaryColor),
                         SizedBox(width: 8),
-                        Text('Pick Image',style: TextStyle(color: Color(0xFF4A563E))),
+                        Text('Pick Image',style: TextStyle(color: AppColors.secondaryColor)),
                       ],
                     ),
                   ),
@@ -152,9 +152,9 @@ Get.to(SecondPage(imageFile: pickedImage));
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.edit,color: Color(0xFF4A563E)),
+                        Icon(Icons.edit,color: AppColors.secondaryColor),
                         SizedBox(width: 8),
-                        Text('Modify Image',style: TextStyle(color: Color(0xFF4A563E))),
+                        Text('Modify Image',style: TextStyle(color:AppColors.secondaryColor)),
                       ],
                     ),
                   ),

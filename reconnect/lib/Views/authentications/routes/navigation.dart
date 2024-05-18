@@ -3,7 +3,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/about.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
@@ -41,7 +40,7 @@ class _NavigationpageState extends State<Navigationpage> {
     final screens = [
       MyHomePage(),
       Post(),
-      PostListPage(posts: []),
+      const PostListPage(posts: []),
       Donation(),
       FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         future: getUserData(user?.email),
@@ -233,8 +232,8 @@ class _NavigationpageState extends State<Navigationpage> {
           return CurvedNavigationBar(
             animationCurve: Curves.fastOutSlowIn,
             height: 60,
-            backgroundColor: Color(0xFFFFE8D6),
-            color: Color(0xFF4A563E),
+            backgroundColor: AppColors.primaryColor,
+            color: AppColors.secondaryColor,
             key: bottomnavigationcontroller.curvedNavigationKey,
             index: bottomnavigationcontroller.selectedIndex.value,
             onTap: (index) =>

@@ -45,7 +45,7 @@ class _resetPasswordState extends State<resetPassword> {
         
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          color: Color.fromARGB(221, 255, 255, 255),
+          color: AppColors.primaryColor,
           onPressed: () {
             Get.back();
           },
@@ -62,12 +62,12 @@ class _resetPasswordState extends State<resetPassword> {
         children: [
            const Padding(
             padding: EdgeInsets.only(top:10),
-            child:Text("verivication ",style: TextStyle(color: Color.fromRGBO(2, 56, 7, 1),fontSize: 35,fontWeight: FontWeight.bold,fontFamily: 'Poppins'),),
+            child:Text("verivication ",style: TextStyle(color: AppColors.secondaryColor,fontSize: 35,fontWeight: FontWeight.bold,fontFamily: 'Poppins'),),
           ),
         const Padding(
           padding: EdgeInsets.only(top: 20,right: 4,left:30),
           child: Text('we have just send email verification link in your email. please check email and click on link to verify your emai if not auto redirected after verification,click on continue button',
-          style: TextStyle(color: Color.fromARGB(255, 7, 63, 19),fontSize: 22,fontWeight: FontWeight.bold,)),
+          style: TextStyle(color: AppColors.secondaryColor,fontSize: 22,fontWeight: FontWeight.bold,)),
         ),
         
         Padding(

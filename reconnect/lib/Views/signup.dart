@@ -133,7 +133,7 @@ class _signupState extends State<signup> {
                 child: Text("Already have account ?",style: TextStyle(color: AppColors.secondaryColor,fontSize: 16,fontWeight: FontWeight.bold),),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20,left:5),
                 child: GestureDetector(onTap: (){Get.offAll(()=>login());},child: const Text("Login",style: TextStyle(color:AppColors.textolor,fontSize:18,fontWeight: FontWeight.bold))),
               ),
              ],)

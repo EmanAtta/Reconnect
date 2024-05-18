@@ -1,18 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reconnect/Views/authentications/profile_controller.dart';
-import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/imageprofile.dart';
-import 'package:reconnect/Views/pickimage.dart';
 import 'package:reconnect/Views/profile.dart';
-import 'package:reconnect/Views/widgets/Button.dart';
 
 class Edit extends StatefulWidget {
   const Edit({super.key});

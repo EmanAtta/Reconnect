@@ -1,16 +1,12 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/user_profile_screen.dart';
 
-import 'package:flutter/material.dart';
-import 'package:reconnect/Views/color.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class PostModel {
   late String? postTime;
@@ -97,7 +93,7 @@ class PostListPage extends StatelessWidget {
               return Card(
                 elevation: 30,
                 shadowColor: AppColors.textolor,
-                color: Color.fromARGB(255, 255, 243, 235),
+                color: AppColors.primaryColor,
                 margin: EdgeInsets.all(8.0),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/about.dart';
 import 'package:reconnect/Views/autentication.dart';
-import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/login.dart';
 import 'package:reconnect/Views/privacy.dart';

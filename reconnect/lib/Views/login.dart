@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/autentication.dart';
 
 import 'package:reconnect/Views/authentications/logincontroller.dart';
@@ -183,7 +181,7 @@ class _loginState extends State<login> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20, left: 20),
+                        padding: const EdgeInsets.only(top: 20, left:5),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, "signup");

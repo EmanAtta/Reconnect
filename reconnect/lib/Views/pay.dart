@@ -1,12 +1,9 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/payment.dart';
-import 'package:reconnect/Views/visa.dart';
 import 'package:reconnect/Views/widgets/Button.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class Pay extends StatefulWidget {
   const Pay({super.key});

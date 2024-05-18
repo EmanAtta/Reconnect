@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/change_password.dart';
-import 'package:reconnect/Views/edit.dart';
+
 import 'package:reconnect/delete1.dart';
 
 import 'color.dart';
