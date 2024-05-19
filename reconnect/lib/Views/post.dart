@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -58,13 +59,13 @@ class _PostState extends State<Post> {
       });
     }
   }
- BottomNavigationController bottomnavigationcontroller =
-      Get.put(BottomNavigationController());
+  BottomNavigationController bottomnavigationcontroller =
+  Get.put(BottomNavigationController());
   ////////////////////////////////////////////////////////
 
   Future<void> pickImage() async {
     final pickedImageFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       pickedImage = File(pickedImageFile!.path);
     });
@@ -145,10 +146,10 @@ class _PostState extends State<Post> {
 
       // Retrieve the user document from Firestore
       DocumentSnapshot<Map<String, dynamic>> userSnapshot =
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
-              .get();
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
 
       // Retrieve the first name from the user document
       String firstName = userSnapshot.data()?['firstname'];
@@ -187,7 +188,7 @@ class _PostState extends State<Post> {
       _stopSubmitting();
 
       // Navigate to post list page
-     bottomnavigationcontroller.change(2);
+      bottomnavigationcontroller.change(2);
     } catch (error) {
       // Handle the error
       print('Error submitting post: $error');
@@ -208,7 +209,7 @@ class _PostState extends State<Post> {
 
       // Wait until upload is complete and get download URL
       TaskSnapshot storageTaskSnapshot =
-          await uploadTask.whenComplete(() => null);
+      await uploadTask.whenComplete(() => null);
       String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
 
       // Return download URL for the image
@@ -261,7 +262,7 @@ class _PostState extends State<Post> {
                       Icon(Icons.post_add,color: AppColors.primaryColor),
                       SizedBox(width: 8),
                       Text('Post',style: TextStyle(color: AppColors.primaryColor)),
-                   ],
+                    ],
                   ),
                 ),
               ],
@@ -275,7 +276,7 @@ class _PostState extends State<Post> {
                 child: Center(
                   child: CircularProgressIndicator(
                     valueColor:
-                        AlwaysStoppedAnimation<Color>(AppColors.secondaryColor),
+                    AlwaysStoppedAnimation<Color>(AppColors.secondaryColor),
                   ), // Loader
                 ),
               ),
@@ -292,7 +293,7 @@ class _PostState extends State<Post> {
           onPressed: _getImage,
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(AppColors.secondaryColor),
-            ),
+          ),
           child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -310,17 +311,17 @@ class _PostState extends State<Post> {
             height: 200,
             child: _selectedImage != null
                 ? Image.file(
-                    _selectedImage!,
-                    fit: BoxFit.cover,
-                  )
+              _selectedImage!,
+              fit: BoxFit.cover,
+            )
                 : Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Image.asset('assets/upload.png'),
-                  ),
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+              ),
+              child: Image.asset('assets/upload.png'),
+            ),
           ),
         ),
       ],

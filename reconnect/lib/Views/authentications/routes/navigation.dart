@@ -16,6 +16,7 @@ import 'package:reconnect/Views/profile.dart';
 import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/welcom_page.dart';
 import 'package:reconnect/Views/current_user_screen.dart';
+import 'package:reconnect/Views/search.dart';
 
 
 
@@ -29,11 +30,11 @@ class Navigationpage extends StatefulWidget {
 
 class _NavigationpageState extends State<Navigationpage> {
   BottomNavigationController bottomnavigationcontroller =
-      Get.put(BottomNavigationController());
+  Get.put(BottomNavigationController());
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-
     final user = FirebaseAuth.instance.currentUser;
     String? userE = user?.email;
 
@@ -43,8 +44,8 @@ class _NavigationpageState extends State<Navigationpage> {
       const PostListPage(posts: []),
       Donation(),
       FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-        future: getUserData(user?.email),
-        builder: (context, snapshot) {
+          future: getUserData(user?.email),
+          builder: (context, snapshot) {
             final userData = snapshot.data?.data();
             final firstName = userData?['firstname'] as String?;
             final lastName = userData?['lastname'] as String?;
@@ -56,23 +57,21 @@ class _NavigationpageState extends State<Navigationpage> {
               lastName: '${lastName}',
               userEmail: '${userE}',
             );
-          }
-      ),
+          }),
     ];
 
-
-
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
-        // toolbarHeight: 35,
         backgroundColor: AppColors.secondaryColor,
-
         title: Padding(
           padding: const EdgeInsets.only(bottom: 1),
           child: const Text(
             'Reconnect',
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: AppColors.primaryColor),
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryColor,
+            ),
           ),
         ),
         leading: Padding(
@@ -80,11 +79,32 @@ class _NavigationpageState extends State<Navigationpage> {
           child: Container(
             child: Image.asset(
               'assets/logo.png',
-              width: 50, // Adjust the size as needed
-              height: 50, // Adjust the size as needed
+              width: 50,
+              height: 50,
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: AppColors.primaryColor,
+            ),
+            onPressed: () {
+              // Navigate to SearchPage
+              Get.to(() => SearchPage());
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.menu, // Hamburger icon for endDrawer
+              color: AppColors.primaryColor, // Set the icon color to primary
+            ),
+            onPressed: () {
+              _scaffoldKey.currentState?.openEndDrawer();
+            },
+          ),
+        ],
       ),
       endDrawer: Opacity(
         opacity: 0.9,
@@ -93,8 +113,6 @@ class _NavigationpageState extends State<Navigationpage> {
           backgroundColor: AppColors.secondaryColor,
           child: Container(
             padding: const EdgeInsets.only(top: 0),
-            //color: AppColors.secondaryColor,
-
             child: Stack(
               children: [
                 Align(
@@ -105,7 +123,7 @@ class _NavigationpageState extends State<Navigationpage> {
                       decoration: const BoxDecoration(
                         color: AppColors.primaryColor,
                         borderRadius:
-                            BorderRadius.only(bottomLeft: Radius.circular(4)),
+                        BorderRadius.only(bottomLeft: Radius.circular(4)),
                       ),
                       height: 100,
                       width: double.infinity,
@@ -145,7 +163,7 @@ class _NavigationpageState extends State<Navigationpage> {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                         Get.to(() => settings());
+                        Get.to(() => settings());
                       },
                     ),
                     const SizedBox(
@@ -223,8 +241,7 @@ class _NavigationpageState extends State<Navigationpage> {
       ),
       body: GetX<BottomNavigationController>(
         builder: (controller) {
-          return bottomnavigationcontroller
-              .pages[bottomnavigationcontroller.selectedIndex.value];
+          return controller.pages[controller.selectedIndex.value];
         },
       ),
       bottomNavigationBar: GetBuilder<BottomNavigationController>(
@@ -234,19 +251,15 @@ class _NavigationpageState extends State<Navigationpage> {
             height: 60,
             backgroundColor: AppColors.primaryColor,
             color: AppColors.secondaryColor,
-            key: bottomnavigationcontroller.curvedNavigationKey,
-            index: bottomnavigationcontroller.selectedIndex.value,
-            onTap: (index) =>
-                BottomNavigationController.instance.changeIndex(index),
+            key: controller.curvedNavigationKey,
+            index: controller.selectedIndex.value,
+            onTap: (index) => controller.changeIndex(index),
             items: List.generate(
-              bottomnavigationcontroller.icons.length,
-              (index) {
-                IconData icon = bottomnavigationcontroller.icons[index]['icon'];
-                Color color = bottomnavigationcontroller.icons[index]['color'];
-                return Icon(
-                  icon,
-                  color: color,
-                );
+              controller.icons.length,
+                  (index) {
+                IconData icon = controller.icons[index]['icon'];
+                Color color = controller.icons[index]['color'];
+                return Icon(icon, color: color);
               },
             ),
           );
@@ -274,6 +287,7 @@ Future<DocumentSnapshot<Map<String, dynamic>>> getUserData(String? userEmail) as
   return userSnapshot;
 }
 
+
 class BottomDiagonalClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -286,7 +300,7 @@ class BottomDiagonalClipper extends CustomClipper<Path> {
     path.close();
     return path;
   }
-  
+
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     // TODO: implement shouldReclip
