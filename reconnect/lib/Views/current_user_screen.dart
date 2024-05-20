@@ -128,7 +128,7 @@ class _currentUsersState extends State<currentUsers> {
       backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -136,6 +136,7 @@ class _currentUsersState extends State<currentUsers> {
                 CircleAvatar(
                   radius: 120,
                   backgroundImage: NetworkImage(widget.userPhotoUrl),
+                  backgroundColor:Colors.transparent,
                 ),
                 SizedBox(height: 16.0),
                 Text(

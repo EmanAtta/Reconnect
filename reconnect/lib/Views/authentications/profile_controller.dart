@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:reconnect/Views/autentication.dart';
 import 'package:reconnect/Views/authentications/user_repo.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
+import 'package:reconnect/Views/profile.dart';
 
 class Profilecontroller extends GetxController {
   static Profilecontroller get to => Get.find();
@@ -34,10 +35,10 @@ class Profilecontroller extends GetxController {
 
 
    Future<void> updateRecord(UserModel user, {bool updateAuth = false}) async {
-  // Get the current user's email
+ 
   final email = FirebaseAuth.instance.currentUser!.email;
 
-  // Query Firestore to find the user document with the provided email
+ 
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
       .collection('users')
       .where('email', isEqualTo: email)
@@ -70,17 +71,16 @@ class Profilecontroller extends GetxController {
           await FirebaseAuth.instance.currentUser!.updatePassword(user.password);
         }
       }
-
-      // Navigate to the desired screen after successful update
-      // You need to implement the navigation logic here
+      Get.offAll(() => profile());
+      
 
     } catch (e) {
       print('Error updating user data: $e');
-      // Handle error appropriately
+     
     }
   } else {
     print('No user found with email: $email');
-    // Handle the case where no user is found with the provided email
+  
   }
 }
 

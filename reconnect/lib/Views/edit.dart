@@ -163,11 +163,11 @@ class _EditState extends State<Edit> {
                               firstname: firstname.text.trim(),
                               lastname: lastname.text.trim(),
                               email: email.text.trim(),
-                              password: password.text.trim());
+                              password: password.text.trim(), imageUrl: '');
                           try {
                             // Update the document
                             await controller.updateRecord(userData);
-                            Get.offAll(() => profile());
+                            
                           } catch (e) {
                             print('Error updating document: $e');
                             // Handle the error, such as showing a dialog or logging it.

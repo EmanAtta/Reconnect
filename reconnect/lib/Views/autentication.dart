@@ -8,7 +8,7 @@ import 'package:reconnect/Views/authentications/usermodle.dart';
 import 'package:reconnect/Views/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reconnect/Views/welcom_page.dart';
-
+import 'package:reconnect/Views/resetpassword.dart';
 class Authentication extends GetxController {
   static Authentication get instance => Get.find();
   final _auth = FirebaseAuth.instance;
@@ -20,13 +20,18 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
   void onReady() {
     firebaseuser = Rx<User?>(_auth.currentUser);
     firebaseuser.bindStream(_auth.userChanges());
-    ever(firebaseuser, _setInitialScreen);
+
+    setInitialScreen(firebaseuser.value);
   }
 
-  _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => const WelcomPage())
-        : Get.offAll(() => Navigationpage());
+  void setInitialScreen(User? user) {
+    if (user == null) {
+      Get.offAll(() => const WelcomPage());
+    } else if (user.emailVerified) {
+      Get.offAll(() => Navigationpage());
+    } else {
+      Get.offAll(() => resetPassword());
+    }
   }
 
 //SIGNIN
@@ -35,20 +40,40 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseuser.value != null
-          ? Get.offAll(() => Navigationpage())
-          : Get.offAll(() => const WelcomPage());
+     
+          
 
       final user = UserModel(
 
         firstname: controller.firstname.text.trim(),
         lastname: controller.lastname.text.trim(),
         email: controller.email.text.trim(),
-        password: controller.password.text.trim(),
+        password: controller.password.text.trim(), imageUrl: 'https://firebasestorage.googleapis.com/v0/b/reconnect-8f8e9.appspot.com/o/profileImage%2Fprofile.jpg?alt=media&token=3fc644e0-6eb9-4145-921e-277327a67e93',
       );
 
       SignUpController.instance.creatuser(user);
-      Get.offAll(() => Navigationpage());
+      setInitialScreen(_auth.currentUser);
+     
+    } on FirebaseAuthException catch (e) {
+      final errorMessage = _getFirebaseErrorMessage(e);
+      print("error: $errorMessage");
+      // Display error in snackbar
+      Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
+      throw Exception(errorMessage);
+    } catch (_) {
+      const errorMessage = "An error occurred";
+      print("error: $errorMessage");
+      // Display error in snackbar
+      Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+
+
+
+   Future<void> sendverificationemail() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
       final errorMessage = _getFirebaseErrorMessage(e);
       print("error: $errorMessage");
@@ -201,31 +226,68 @@ Future<void> deleteUserByEmail(String email, String password) async {
 
       // Verify the password
       if (userData != null && userData['password'] == password) {
-        // Get the user ID
-        String userIdToDelete = userDoc.id;
+        // Sign in the user with email and password to reauthenticate
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-        // Delete the user document from Firestore
-        await FirebaseFirestore.instance.collection('users').doc(userIdToDelete).delete();
+        User? user = userCredential.user;
 
-        // Delete the user from Firebase Authentication
-        await FirebaseAuth.instance.currentUser!.delete();
+        if (user != null) {
+          // Delete the user document from Firestore
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userDoc.id)
+              .delete();
 
-        // Navigate to the login screen or any other desired destination
-        
-        Get.offAll(() => const login());
+          // Delete the user from Firebase Authentication
+          await user.delete();
+
+          // Navigate to the login screen or any other desired destination
+          Get.offAll(() =>  login());
+        }
       } else {
-         Get.snackbar('Error', 'wrong password for : $email',
-          snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('Error', 'Wrong password for: $email',
+            snackPosition: SnackPosition.BOTTOM);
       }
     } else {
-       Get.snackbar('Error', 'No user found with email: $email',
-          snackPosition: SnackPosition.BOTTOM);}
-    
+      Get.snackbar('Error', 'No user found with email: $email',
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  } on FirebaseAuthException catch (e) {
+    // Log the error code and message for debugging purposes
+    print("FirebaseAuthException code: ${e.code}, message: ${e.message}");
+
+    String errorMessage;
+    switch (e.code) {
+      case 'user-not-found':
+        errorMessage = 'No user found for that email.';
+        break;
+      case 'wrong-password':
+        errorMessage = 'Wrong password provided for that user.';
+        break;
+      case 'invalid-email':
+        errorMessage = 'The email address is not valid.';
+        break;
+      case 'user-disabled':
+        errorMessage = 'The user account has been disabled.';
+        break;
+      case 'too-many-requests':
+        errorMessage = 'Too many requests. Try again later.';
+        break;
+      default:
+        errorMessage = e.message ?? 'An unknown error occurred.';
+    }
+
+    Get.snackbar('Error', errorMessage, snackPosition: SnackPosition.BOTTOM);
   } catch (error) {
     print("Error deleting user: $error");
-    // Handle errors here, such as showing an error message to the user
+    Get.snackbar('Error', 'An error occurred: $error',
+        snackPosition: SnackPosition.BOTTOM);
   }
 }
+
 
 
   Future<void> logout() async => await _auth.signOut();
