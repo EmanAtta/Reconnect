@@ -75,7 +75,7 @@ class PostListPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+        stream: FirebaseFirestore.instance.collection('posts').orderBy('datestamp', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
