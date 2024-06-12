@@ -21,7 +21,7 @@ class _signupState extends State<signup> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(32),
+        preferredSize: const Size.fromHeight(32),
         child: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -48,8 +48,8 @@ class _signupState extends State<signup> {
                           fontWeight: FontWeight.bold,
                           color: AppColors.secondaryColor),
                     ),
-           textfield(label_Text: 'first name', controller: controller.firstname,),
-          textfield(label_Text: 'last name', controller: controller.lastname),
+           textfield(label_Text: 'first name', controller: controller.firstName,),
+          textfield(label_Text: 'last name', controller: controller.lastName),
             textfield(label_Text: 'email', controller: controller.email),
             // Padding(
             Padding(
@@ -60,9 +60,9 @@ class _signupState extends State<signup> {
                 decoration: InputDecoration(
                 
                   labelText: "password",
-                  labelStyle: TextStyle(fontSize: 15,color: AppColors.labelStyle),
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
-                  focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30)),
+                  labelStyle: const TextStyle(fontSize: 15,color: AppColors.labelStyle),
+                  enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                  focusedBorder:OutlineInputBorder(borderSide: const BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30)),
                   suffixIcon: IconButton(onPressed: (){setState(() {
                                   _obscureText = !_obscureText;
                                 });}, icon: _obscureText
@@ -79,13 +79,13 @@ class _signupState extends State<signup> {
             Padding(
               padding: const EdgeInsets.only(top: 12,left:15,right: 15),
               child: TextFormField(
-                controller: controller.confirmpasswordr,
+                controller: controller.confirmPassword,
                 cursorColor: AppColors.textolor,obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: "Confirm password",
-                  labelStyle: TextStyle(fontSize: 15,color: AppColors.labelStyle),
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
-                  focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30)),
+                  labelStyle: const TextStyle(fontSize: 15,color: AppColors.labelStyle),
+                  enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                  focusedBorder:OutlineInputBorder(borderSide: const BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30)),
                   suffixIcon: IconButton(onPressed: (){setState(() {
                                   _obscureText = !_obscureText;
                                 });}, icon: _obscureText
@@ -104,15 +104,15 @@ class _signupState extends State<signup> {
                child: GestureDetector(
                             onTap: () {
                               if (controller.password.text.trim() ==
-                          controller.confirmpasswordr.text.trim()) {
-                        SignUpController.instance.regester(
+                          controller.confirmPassword.text.trim()) {
+                        SignUpController.instance.register(
                             controller.email.text.trim(),
                             controller.password.text.trim());
                       }
                       else{
                         Get.snackbar("Error", "Password not match",
                         snackPosition: SnackPosition.BOTTOM
-                        ,backgroundColor: Color.fromARGB(255, 216, 130, 124),
+                        ,backgroundColor: const Color.fromARGB(255, 216, 130, 124),
                         snackStyle: SnackStyle.FLOATING,
                         borderRadius: 10,
                         margin: const EdgeInsets.all(15),
@@ -121,7 +121,7 @@ class _signupState extends State<signup> {
                         isDismissible: true,
                         forwardAnimationCurve: Curves.easeOutBack,
                         reverseAnimationCurve: Curves.easeInBack,);
-                    };
+                    }
                             },
                child: const button(
                           button_text: "Sign up",
@@ -134,7 +134,7 @@ class _signupState extends State<signup> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20,left:5),
-                child: GestureDetector(onTap: (){Get.offAll(()=>login());},child: const Text("Login",style: TextStyle(color:AppColors.textolor,fontSize:18,fontWeight: FontWeight.bold))),
+                child: GestureDetector(onTap: (){Get.offAll(()=>const login());},child: const Text("Login",style: TextStyle(color:AppColors.textolor,fontSize:18,fontWeight: FontWeight.bold))),
               ),
              ],)
           ],

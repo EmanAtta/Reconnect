@@ -17,7 +17,7 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   bool _obscureText = true;
   final controller = Get.put(LoginController());
-  GlobalKey<FormState> formstate = new GlobalKey<FormState>();
+  GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
   String? _emailValidator(String? value) {
     String pattern =
@@ -76,7 +76,7 @@ class _loginState extends State<login> {
                             fontSize: 15, color: AppColors.labelStyle),
                         enabledBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: AppColors.secondaryColor),
+                                const BorderSide(color: AppColors.secondaryColor),
                             borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -100,7 +100,7 @@ class _loginState extends State<login> {
                               fontSize: 15, color: AppColors.labelStyle),
                           enabledBorder: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: AppColors.secondaryColor),
+                                  const BorderSide(color: AppColors.secondaryColor),
                               borderRadius: BorderRadius.circular(30)),
                           focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -141,7 +141,7 @@ class _loginState extends State<login> {
                         alignment: Alignment.topLeft,
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(forgetBassword());
+                            Get.to(const forgetBassword());
                           },
                           child: const Text(
                             "Forget password ?",
@@ -154,7 +154,7 @@ class _loginState extends State<login> {
                   ),
                   InkWell(
                     onTap: () {
-                      Authentication.instance.logInWithEmailandPassword(
+                      Authentication.instance.logInWithEmailAndPassword(
                           controller.email.text.trim(),
                           controller.password.text.trim());
                       var formdata = formstate.currentState;
@@ -170,8 +170,8 @@ class _loginState extends State<login> {
                   ),
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, top: 20),
                         child: Text(
                           "Don't have account ?",
                           style: TextStyle(

@@ -16,7 +16,7 @@ class _verfiyCodeState extends State<verfiyCode> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(33),
+        preferredSize: const Size.fromHeight(33),
         child: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -35,7 +35,7 @@ class _verfiyCodeState extends State<verfiyCode> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
            Padding(
-            padding: EdgeInsets.only(bottom:20),
+            padding: const EdgeInsets.only(bottom:20),
             //child: Icon(Icons.password_outlined,color:AppColors.secondaryColor,size:110,),
             child:SvgPicture.asset("assets/verify.svg",color: AppColors.secondaryColor,height:120,width:110,),
           ),
@@ -60,11 +60,11 @@ class _verfiyCodeState extends State<verfiyCode> {
         ],),
         Padding(
           padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-          child: TextFormField(cursorColor: AppColors.primaryColor,decoration: InputDecoration(hintText: 'enter code',hintStyle: TextStyle(color: AppColors.labelStyle,fontSize: 12),
+          child: TextFormField(cursorColor: AppColors.primaryColor,decoration: InputDecoration(hintText: 'enter code',hintStyle: const TextStyle(color: AppColors.labelStyle,fontSize: 12),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(25),
+          focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(25),
           ),enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.secondaryColor),
+                  borderSide: const BorderSide(color: AppColors.secondaryColor),
                   borderRadius: BorderRadius.circular(25),
                 ),
           ),
@@ -76,7 +76,7 @@ class _verfiyCodeState extends State<verfiyCode> {
                 onTap: () {
                   Navigator.pushNamed(context, "resetPassword");
                 },
-                child: button(button_text: "verify")),
+                child: const button(button_text: "verify")),
           ),
        // Center(child: GestureDetector(onTap: (){Navigator.pushNamed(context,"resetPassword");},child: button(button_text: '')))
       ]),

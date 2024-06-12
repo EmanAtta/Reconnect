@@ -28,9 +28,9 @@ final password = TextEditingController();
         // toolbarHeight: 35,
         backgroundColor: AppColors.secondaryColor,
 
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: const Text(
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 15),
+          child: Text(
             'Reconnect',
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: AppColors.primaryColor),
@@ -73,7 +73,7 @@ final password = TextEditingController();
                 ),
                 Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 215,
                     ),
                     ListTile(
@@ -87,7 +87,7 @@ final password = TextEditingController();
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => profile());
+                        Get.to(() => const profile());
                       },
                     ),
                     const SizedBox(
@@ -104,7 +104,7 @@ final password = TextEditingController();
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => settings());
+                        Get.to(() => const settings());
                       },
                     ),
                     const SizedBox(
@@ -121,7 +121,7 @@ final password = TextEditingController();
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => Privacy());
+                        Get.to(() => const Privacy());
                       },
                     ),
                     const SizedBox(
@@ -138,7 +138,7 @@ final password = TextEditingController();
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => About());
+                        Get.to(() => const About());
                       },
                     ),
                   ],
@@ -159,7 +159,7 @@ final password = TextEditingController();
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(() => login());
+                              Get.to(() => const login());
                             },
                             child: const Text(
                               'Sign Out',
@@ -189,7 +189,7 @@ final password = TextEditingController();
                 height: 300,
               ),
             ),
-            Center(
+            const Center(
               child: Text(
                 'Delete your account',
                 style: TextStyle(
@@ -198,7 +198,7 @@ final password = TextEditingController();
                     color: AppColors.secondaryColor),
               ),
             ),
-            Center(
+            const Center(
               child: Text(
                 'You will lose all of your data by deleting \n            your account this action \n                     cannt be undo',
                 style: TextStyle(
@@ -208,11 +208,11 @@ final password = TextEditingController();
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              margin: EdgeInsets.only(left: 40, right: 40),
+              margin: const EdgeInsets.only(left: 40, right: 40),
               child: TextFormField(
                 controller: email,
                 cursorColor: AppColors.secondaryColor,
@@ -221,7 +221,7 @@ final password = TextEditingController();
                   labelStyle: const TextStyle(
                       fontSize: 15, color: AppColors.secondaryColor),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.textolor),
+                      borderSide: const BorderSide(color: AppColors.textolor),
                       borderRadius: BorderRadius.circular(10)),
                   focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
@@ -233,7 +233,7 @@ final password = TextEditingController();
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 40, right: 40,top: 40),
+              margin: const EdgeInsets.only(left: 40, right: 40,top: 40),
               child: TextFormField(
                 controller: password,
                 cursorColor: AppColors.secondaryColor,
@@ -242,7 +242,7 @@ final password = TextEditingController();
                   labelStyle: const TextStyle(
                       fontSize: 15, color: AppColors.secondaryColor),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.textolor),
+                      borderSide: const BorderSide(color: AppColors.textolor),
                       borderRadius: BorderRadius.circular(10)),
                   focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
@@ -253,7 +253,7 @@ final password = TextEditingController();
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomRedButton(
@@ -264,7 +264,7 @@ final password = TextEditingController();
               },
               buttonColor: Colors.red.withOpacity(0.3),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             CustomRedButton(
@@ -288,7 +288,7 @@ class CustomRedButton extends StatelessWidget {
   final Color buttonColor;
   
 
-  CustomRedButton({
+  const CustomRedButton({super.key, 
     required this.buttonText,
     required this.onPressed,
     required this.buttonColor,
@@ -311,7 +311,7 @@ class CustomRedButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
           child: Text(
             buttonText,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
               color: Colors.white,

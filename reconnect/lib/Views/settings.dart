@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/change_password.dart';
 
@@ -9,13 +7,15 @@ import 'package:reconnect/delete1.dart';
 import 'color.dart';
 
 class settings extends StatelessWidget {
+  const settings({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
@@ -31,7 +31,7 @@ class settings extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Padding(
+            const Padding(
                 padding: EdgeInsets.only(top: 50),
                 child: Text(
                   'Account Settings',
@@ -40,7 +40,7 @@ class settings extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
            /* InkWell(
@@ -57,7 +57,7 @@ class settings extends StatelessWidget {
             ),*/
             InkWell(
               onTap: () {
-                Get.to(Change_Password());
+                Get.to(const Change_Password());
               },
               child: const button_settingpage(
                 button_settingpage_text: "Change Password",
@@ -68,19 +68,19 @@ class settings extends StatelessWidget {
               onTap: () {
                 _showDeleteAccountDialog(context);
               },
-              child: button_settingpage(
+              child: const button_settingpage(
                 button_settingpage_text: "Delete account",
                 icon: Icons.delete,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             const button_settingpage(
               button_settingpage_text: 'Notification',
               icon: Icons.notifications,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             const button_settingpage(
@@ -99,8 +99,7 @@ class button_settingpage extends StatefulWidget {
   final IconData icon;
 
   const button_settingpage(
-      {Key? key, required this.button_settingpage_text, required this.icon})
-      : super(key: key);
+      {super.key, required this.button_settingpage_text, required this.icon});
 
   @override
   State<button_settingpage> createState() => _button_settingpageState();
@@ -121,7 +120,7 @@ class _button_settingpageState extends State<button_settingpage> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 1, left: 10, right: 10),
+          padding: const EdgeInsets.only(top: 1, left: 10, right: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -131,7 +130,7 @@ class _button_settingpageState extends State<button_settingpage> {
                     widget.icon,
                     color: AppColors.primaryColor,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     widget.button_settingpage_text,
                     style: const TextStyle(
@@ -175,28 +174,28 @@ void _showDeleteAccountDialog(BuildContext context) {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: AppColors.secondaryColor, width: 3),
           ),
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.delete, size: 50, color: Colors.red),
-              SizedBox(height: 16),
-              Text("Are you sure you want to delete your account?",
+              const Icon(Icons.delete, size: 50, color: Colors.red),
+              const SizedBox(height: 16),
+              const Text("Are you sure you want to delete your account?",
                   textAlign: TextAlign.center),
-              SizedBox(height: 16),
-              Text("This action cannot be undone.",
+              const SizedBox(height: 16),
+              const Text("This action cannot be undone.",
                   textAlign: TextAlign.center),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
                     onPressed: () {
-                      Get.to(Delete1());
+                      Get.to(const Delete1());
                       // Navigator.of(context).pop();
                       // Call your delete account function
                     },
-                    child: Text(
+                    child: const Text(
                       "Delete",
                       style: TextStyle(color: Colors.red),
                     ),
@@ -205,7 +204,7 @@ void _showDeleteAccountDialog(BuildContext context) {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text("Cancel"),
+                    child: const Text("Cancel"),
                   ),
                 ],
               ),

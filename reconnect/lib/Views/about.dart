@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/color.dart';
 
 class About extends StatelessWidget {
@@ -10,7 +9,7 @@ class About extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
        backgroundColor:AppColors.primaryColor ,
-      appBar: AppBar(title: Text('About',style:
+      appBar: AppBar(title: const Text('About',style:
        TextStyle(fontWeight: FontWeight.bold,color:AppColors.primaryColor ,),
        ),
        leading: IconButton(

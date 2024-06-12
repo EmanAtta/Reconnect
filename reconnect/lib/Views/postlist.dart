@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/user_profile_screen.dart';
@@ -67,7 +66,7 @@ class PostModel {
 class PostListPage extends StatelessWidget {
   final List<PostModel> posts;
 
-  const PostListPage({Key? key, required this.posts}) : super(key: key);
+  const PostListPage({super.key, required this.posts});
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +75,10 @@ class PostListPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('posts').orderBy('datestamp', descending: true).snapshots(),
+        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           List<PostModel> posts = snapshot.data!.docs
@@ -94,7 +93,7 @@ class PostListPage extends StatelessWidget {
                 elevation: 30,
                 shadowColor: AppColors.textolor,
                 color: AppColors.primaryColor,
-                margin: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(8.0),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
@@ -107,7 +106,7 @@ class PostListPage extends StatelessWidget {
                             backgroundImage:
                                 NetworkImage(posts[index].userP ?? ''),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           GestureDetector(
                             onTap: () {
                               // Navigate to user profile screen
@@ -128,18 +127,18 @@ class PostListPage extends StatelessWidget {
                               children: [
                                 Text(
                                   '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.secondaryColor,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 RichText(
                                   text: TextSpan(
                                     text:
                                         '${posts[index].postDate}    |    ${posts[index].postTime}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.secondaryColor,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold,
@@ -151,7 +150,7 @@ class PostListPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       SizedBox(
                         width: double.infinity,
                         height: 200,
@@ -161,15 +160,15 @@ class PostListPage extends StatelessWidget {
                                 posts[index].image_url!,
                                 fit: BoxFit.contain,
                               )
-                            : Center(
+                            : const Center(
                                 child: Text('No image'),
                               ),
                       ),
-                      SizedBox(height: 12.0),
+                      const SizedBox(height: 12.0),
                       RichText(
                         text: TextSpan(
                           text: 'Name: ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.secondaryColor,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -177,7 +176,7 @@ class PostListPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: '${posts[index].name}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.textolor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -186,11 +185,11 @@ class PostListPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 12.0),
+                      const SizedBox(height: 12.0),
                       RichText(
                         text: TextSpan(
                           text: 'Date Of Lost: ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.secondaryColor,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -198,7 +197,7 @@ class PostListPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: '${posts[index].dateoflost}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.textolor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -207,11 +206,11 @@ class PostListPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       RichText(
                         text: TextSpan(
                           text: 'Phone: ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.secondaryColor,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -219,7 +218,7 @@ class PostListPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: '${posts[index].phone}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.textolor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -228,11 +227,11 @@ class PostListPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       RichText(
                         text: TextSpan(
                           text: 'Description: ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.secondaryColor,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -240,7 +239,7 @@ class PostListPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: '${posts[index].description}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.textolor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -261,12 +260,15 @@ class PostListPage extends StatelessWidget {
         onPressed: () {
           bottomnavigationcontroller.change(1);
         },
-        child: Icon(
+        backgroundColor: AppColors.primaryColor,
+        child: const Icon(
           Icons.add,
           color: AppColors.secondaryColor,
         ),
-        backgroundColor: AppColors.primaryColor,
       ),
     );
+
+
+
   }
 }

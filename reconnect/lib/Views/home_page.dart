@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/modified.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -74,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ? Container(
                   width: 300,
                   height: 300,
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 7.0),
                   ),
@@ -104,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: AppColors.primaryColor,
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextButton(
                     onPressed: pickImage,
                     child: const Row(
@@ -116,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: DropdownButton<int>(
@@ -140,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         : () {
                       uploadAndModifyImage(pickedImage!, age);
 
-                   Get.to(SecondPage());
+                   Get.to(const SecondPage());
 
 Get.to(SecondPage(imageFile: pickedImage));
 

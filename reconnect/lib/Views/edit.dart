@@ -2,13 +2,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reconnect/Views/authentications/profile_controller.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/imageprofile.dart';
-import 'package:reconnect/Views/profile.dart';
 
 class Edit extends StatefulWidget {
   const Edit({super.key});
@@ -53,7 +51,7 @@ class _EditState extends State<Edit> {
         backgroundColor: AppColors.secondaryColor,
       ),
       body: FutureBuilder(
-        future: controller.getuserdata(),
+        future: controller.getUserData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
@@ -75,20 +73,20 @@ class _EditState extends State<Edit> {
                                   backgroundImage: MemoryImage(_image!),
                                 )
                               : CircleAvatar(
+                                  backgroundColor: AppColors.primaryColor,
+                                  minRadius: 75,
                                   child: Image.asset(
                                     "assets/profile.jpg",
                                     width: 180,
                                   ),
-                                  backgroundColor: AppColors.primaryColor,
-                                  minRadius: 75,
                                 ),
                           Positioned(
+                            left: 80,
                             child: IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.add_a_photo,
                                 ),
                                 onPressed: selectimage),
-                            left: 80,
                           )
                         ])),
                     const Text("First name",
@@ -111,7 +109,7 @@ class _EditState extends State<Edit> {
                                 borderRadius: BorderRadius.circular(25))),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     const Text("last name",
                         style: TextStyle(
                             color: AppColors.secondaryColor, fontSize: 20),
@@ -132,7 +130,7 @@ class _EditState extends State<Edit> {
                                 borderRadius: BorderRadius.circular(25))),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     const Text("Email",
                         style: TextStyle(
                             color: AppColors.secondaryColor, fontSize: 20),
@@ -154,9 +152,9 @@ class _EditState extends State<Edit> {
                                 borderRadius: BorderRadius.circular(25))),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     ElevatedButton(
                         onPressed: () async {
                           final userData = UserModel(
@@ -173,17 +171,17 @@ class _EditState extends State<Edit> {
                             // Handle the error, such as showing a dialog or logging it.
                           }
                         },
-                        child: Text("save changes"))
+                        child: const Text("save changes"))
                   ],
                 ),
               );
             } else if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             } else {
-              return Center(child: Text("Something went wrong"));
+              return const Center(child: Text("Something went wrong"));
             }
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

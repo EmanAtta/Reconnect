@@ -31,13 +31,13 @@ class WelcomPage extends StatelessWidget {
               ),
             ),
           ),
-          Center(
+          const Center(
               child: Row(
             children: [
-              Container(
+              SizedBox(
                   width: 150,
                   child: Image(image: AssetImage("assets/logo.png"))),
-              const Align(
+              Align(
                 alignment: Alignment.center,
                 child: Text(
                   'Reconnect',
@@ -66,7 +66,7 @@ class WelcomPage extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(()=> login());
+                        Get.to(()=> const login());
                       },
                       child: const Text(
                         'Get started',

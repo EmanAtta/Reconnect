@@ -5,7 +5,7 @@ import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/login.dart';
 
 class Change_Password extends StatefulWidget {
-  const Change_Password({Key? key}) : super(key: key);
+  const Change_Password({super.key});
 
   @override
   State<Change_Password> createState() => _Change_PasswordState();
@@ -40,7 +40,7 @@ class _Change_PasswordState extends State<Change_Password> {
       print('Reauthentication successful');
       if (newpassword == oldpassword) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('New password must be different from old password'),
             backgroundColor: Colors.red,
           ),
@@ -51,14 +51,14 @@ class _Change_PasswordState extends State<Change_Password> {
          Get.snackbar('success', 'Password updated successfully',
             snackPosition: SnackPosition.BOTTOM);
       }
-       await Future.delayed(Duration(seconds: 2));
-        Get.off(() => login());
+       await Future.delayed(const Duration(seconds: 2));
+        Get.off(() => const login());
     } catch (error) {
       print('Error during password change: $error');
       if (error is FirebaseAuthException) {
         if (error.code == 'wrong-password') {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Wrong password. Please try again.'),
               backgroundColor: Colors.red,
             ),
@@ -81,7 +81,7 @@ class _Change_PasswordState extends State<Change_Password> {
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
-        title: Text(
+        title: const Text(
           'Change Password',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
@@ -114,11 +114,11 @@ class _Change_PasswordState extends State<Change_Password> {
               cursorColor: AppColors.secondaryColor,
               decoration: InputDecoration(
                   hintText: 'old password',
-                  hintStyle: TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
+                  hintStyle: const TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.secondaryColor),
+                      borderSide: const BorderSide(color: AppColors.secondaryColor),
                       borderRadius: BorderRadius.circular(25))),
             ),
           ),
@@ -129,11 +129,11 @@ class _Change_PasswordState extends State<Change_Password> {
               cursorColor: AppColors.secondaryColor,
               decoration: InputDecoration(
                   hintText: 'new password',
-                  hintStyle: TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
+                  hintStyle: const TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.secondaryColor),
+                      borderSide: const BorderSide(color: AppColors.secondaryColor),
                       borderRadius: BorderRadius.circular(25))),
             ),
           ),
@@ -144,11 +144,11 @@ class _Change_PasswordState extends State<Change_Password> {
               cursorColor: AppColors.secondaryColor,
               decoration: InputDecoration(
                   hintText: 'confirm password',
-                  hintStyle: TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
+                  hintStyle: const TextStyle(color: Color(0xFFA7A4A4), fontSize: 12),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.secondaryColor),
+                      borderSide: const BorderSide(color: AppColors.secondaryColor),
                       borderRadius: BorderRadius.circular(25))),
             ),
           ),
@@ -162,14 +162,14 @@ class _Change_PasswordState extends State<Change_Password> {
                 );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text('Passwords do not match'),
                     backgroundColor: Colors.red,
                   ),
                 );
               }
             },
-            icon: Icon(Icons.check),
+            icon: const Icon(Icons.check),
           )
         ],
       ),

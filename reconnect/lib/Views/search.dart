@@ -69,6 +69,8 @@ class PostModel {
 }
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -167,14 +169,14 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Search',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
         leading: IconButton(
           onPressed: () {
-            Get.offAll(() => Navigationpage());
+            Get.offAll(() => const Navigationpage());
           },
           icon: const Icon(Icons.keyboard_arrow_left,
               color: AppColors.primaryColor),
@@ -200,7 +202,7 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           if (_image != null)
             SizedBox(
               height: 200,
@@ -210,12 +212,12 @@ class _SearchPageState extends State<SearchPage> {
               ),
             )
           else
-            SizedBox.shrink(),
+            const SizedBox.shrink(),
 
           if (_isLoading)
-            Center(child: CircularProgressIndicator())
+            const Center(child: CircularProgressIndicator())
           else if (_noResultsFound)
-            Center(
+            const Center(
               child: Text(
                 'No results found.',
                 style: TextStyle(fontSize: 18),
@@ -231,7 +233,7 @@ class _SearchPageState extends State<SearchPage> {
                     elevation: 30,
                     shadowColor: AppColors.textolor,
                     color: AppColors.primaryColor,
-                    margin: EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
@@ -243,7 +245,7 @@ class _SearchPageState extends State<SearchPage> {
                                 radius: 20,
                                 backgroundImage: NetworkImage(post.userP ?? ''),
                               ),
-                              SizedBox(width: 8.0),
+                              const SizedBox(width: 8.0),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -263,18 +265,18 @@ class _SearchPageState extends State<SearchPage> {
                                   children: [
                                     Text(
                                       '${post.firstN ?? ''} ${post.lastN ?? ''}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppColors.secondaryColor,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(height: 5.0),
+                                    const SizedBox(height: 5.0),
                                     RichText(
                                       text: TextSpan(
                                         text:
                                         '${post.postDate}    |    ${post.postTime}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: AppColors.secondaryColor,
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
@@ -286,7 +288,7 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           SizedBox(
                             width: double.infinity,
                             height: 200,
@@ -296,15 +298,15 @@ class _SearchPageState extends State<SearchPage> {
                               post.image_url!,
                               fit: BoxFit.contain,
                             )
-                                : Center(
+                                : const Center(
                               child: Text('No image'),
                             ),
                           ),
-                          SizedBox(height: 12.0),
+                          const SizedBox(height: 12.0),
                           RichText(
                             text: TextSpan(
                               text: 'Name: ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.secondaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -312,7 +314,7 @@ class _SearchPageState extends State<SearchPage> {
                               children: [
                                 TextSpan(
                                   text: '${post.name}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.textolor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -321,11 +323,11 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 12.0),
+                          const SizedBox(height: 12.0),
                           RichText(
                             text: TextSpan(
                               text: 'Date Of Lost: ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.secondaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -333,7 +335,7 @@ class _SearchPageState extends State<SearchPage> {
                               children: [
                                 TextSpan(
                                   text: '${post.dateoflost}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.textolor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -342,11 +344,11 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           RichText(
                             text: TextSpan(
                               text: 'Phone: ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.secondaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -354,7 +356,7 @@ class _SearchPageState extends State<SearchPage> {
                               children: [
                                 TextSpan(
                                   text: '${post.phone}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.textolor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -363,11 +365,11 @@ class _SearchPageState extends State<SearchPage> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           RichText(
                             text: TextSpan(
                               text: 'Description: ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.secondaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -375,7 +377,7 @@ class _SearchPageState extends State<SearchPage> {
                               children: [
                                 TextSpan(
                                   text: '${post.description}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.textolor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,

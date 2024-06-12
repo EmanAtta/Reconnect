@@ -22,7 +22,7 @@ class _resetPasswordState extends State<resetPassword> {
 
         flexibleSpace: Container(
             width: 10.0,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.elliptical(8000, 8000),
                     bottomRight: Radius.elliptical(8000, 8000)),
@@ -87,7 +87,7 @@ class _resetPasswordState extends State<resetPassword> {
                 )),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30),
             child: Container(
                 height: 50,
                 decoration: BoxDecoration(

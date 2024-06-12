@@ -65,12 +65,12 @@ class currentUsers extends StatefulWidget {
   final String userEmail;
 
   const currentUsers({
-    Key? key,
+    super.key,
     required this.userPhotoUrl,
     required this.firstName,
     required this.lastName,
     required this.userEmail,
-  }) : super(key: key);
+  });
 
   @override
   _currentUsersState createState() => _currentUsersState();
@@ -83,14 +83,14 @@ class _currentUsersState extends State<currentUsers> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Delete Post'),
-            content: Text('Are you sure you want to delete this post?'),
+            title: const Text('Delete Post'),
+            content: const Text('Are you sure you want to delete this post?'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () async {
@@ -99,14 +99,14 @@ class _currentUsersState extends State<currentUsers> {
                       .doc(postId)
                       .delete();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text('Post deleted successfully.'),
                       duration: Duration(seconds: 3),
                     ),
                   );
                   Navigator.of(context).pop(); // Close the dialog
                 },
-                child: Text('Delete'),
+                child: const Text('Delete'),
               ),
             ],
           );
@@ -116,7 +116,7 @@ class _currentUsersState extends State<currentUsers> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error deleting post: $e'),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         ),
       );
     }
@@ -128,7 +128,7 @@ class _currentUsersState extends State<currentUsers> {
       backgroundColor: AppColors.primaryColor,
       body: Column(
         children: [
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -138,10 +138,10 @@ class _currentUsersState extends State<currentUsers> {
                   backgroundImage: NetworkImage(widget.userPhotoUrl),
                   backgroundColor:Colors.transparent,
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 Text(
                   '${widget.firstName} ${widget.lastName}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                     color: AppColors.secondaryColor,
@@ -162,7 +162,7 @@ class _currentUsersState extends State<currentUsers> {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   List<PostModel> posts = snapshot.data!.docs
@@ -179,7 +179,7 @@ class _currentUsersState extends State<currentUsers> {
                         elevation: 30,
                         shadowColor: AppColors.textolor,
                         color: AppColors.primaryColor,
-                        margin: EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Column(
@@ -196,7 +196,7 @@ class _currentUsersState extends State<currentUsers> {
                                         backgroundImage: NetworkImage(
                                             posts[index].userP ?? ''),
                                       ),
-                                      SizedBox(width: 8.0),
+                                      const SizedBox(width: 8.0),
                                       GestureDetector(
                                         onTap: () {},
                                         child: Column(
@@ -207,20 +207,20 @@ class _currentUsersState extends State<currentUsers> {
                                               '${posts[index].firstN ??
                                                   ''} ${posts[index].lastN ??
                                                   ''}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: AppColors.secondaryColor,
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            SizedBox(height: 5.0),
+                                            const SizedBox(height: 5.0),
                                             RichText(
                                               text: TextSpan(
                                                 text:
                                                 '${posts[index]
                                                     .postDate}    |    ${posts[index]
                                                     .postTime}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color:
                                                   AppColors.secondaryColor,
                                                   fontSize: 12.0,
@@ -234,7 +234,7 @@ class _currentUsersState extends State<currentUsers> {
                                     ],
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete),
                                     color: AppColors.secondaryColor,
                                     onPressed: () {
                                       _deletePost(
@@ -243,7 +243,7 @@ class _currentUsersState extends State<currentUsers> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               SizedBox(
                                 width: double.infinity,
                                 height: 200,
@@ -253,15 +253,15 @@ class _currentUsersState extends State<currentUsers> {
                                   posts[index].image_url!,
                                   fit: BoxFit.contain,
                                 )
-                                    : Center(
+                                    : const Center(
                                   child: Text('No image'),
                                 ),
                               ),
-                              SizedBox(height: 12.0),
+                              const SizedBox(height: 12.0),
                               RichText(
                                 text: TextSpan(
                                   text: 'Name: ',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.secondaryColor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -269,7 +269,7 @@ class _currentUsersState extends State<currentUsers> {
                                   children: [
                                     TextSpan(
                                       text: '${posts[index].name}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppColors.textolor,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -278,11 +278,11 @@ class _currentUsersState extends State<currentUsers> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 12.0),
+                              const SizedBox(height: 12.0),
                               RichText(
                                 text: TextSpan(
                                   text: 'Date Of Lost: ',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.secondaryColor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -290,7 +290,7 @@ class _currentUsersState extends State<currentUsers> {
                                   children: [
                                     TextSpan(
                                       text: '${posts[index].dateoflost}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppColors.textolor,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -299,11 +299,11 @@ class _currentUsersState extends State<currentUsers> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               RichText(
                                 text: TextSpan(
                                   text: 'Phone: ',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.secondaryColor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -311,7 +311,7 @@ class _currentUsersState extends State<currentUsers> {
                                   children: [
                                     TextSpan(
                                       text: '${posts[index].phone}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppColors.textolor,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -320,11 +320,11 @@ class _currentUsersState extends State<currentUsers> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               RichText(
                                 text: TextSpan(
                                   text: 'Description: ',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColors.secondaryColor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -332,7 +332,7 @@ class _currentUsersState extends State<currentUsers> {
                                   children: [
                                     TextSpan(
                                       text: '${posts[index].description}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppColors.textolor,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,

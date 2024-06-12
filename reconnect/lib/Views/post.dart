@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -15,6 +13,8 @@ import 'package:intl/intl.dart';
 import 'dart:math';
 
 class Post extends StatefulWidget {
+  const Post({super.key});
+
   @override
   _PostState createState() => _PostState();
 }
@@ -25,11 +25,11 @@ class _PostState extends State<Post> {
   List<PostModel> allPosts = [];
   File? _selectedImage;
   File? pickedImage;
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _dateoflostController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  List<Map<String, String>> _countryCodes = [
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _dateoflostController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final List<Map<String, String>> _countryCodes = [
     {"name": " Select Country Code", "code": ""},
     {"name": "+1 (US)", "code": "+1"},
     {"name": "+44 (UK)", "code": "+44"},
@@ -47,7 +47,7 @@ class _PostState extends State<Post> {
     {"name": "+20 (Egypt)", "code": "+20"},
   ];
 
-  String _selectedCountryCode = "";
+  final String _selectedCountryCode = "";
 
   Future<void> _getImage() async {
     final picker = ImagePicker();
@@ -227,30 +227,30 @@ class _PostState extends State<Post> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _buildImagePicker(),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 _buildTextField(
                   controller: _nameController,
                   labelText: 'Name',
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 _buildDateField(
                   controller: _dateoflostController,
                   labelText: 'Date of Lost',
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 _buildPhoneNumberField(),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
                 _buildTextField(
                   controller: _descriptionController,
                   labelText: 'Description',
                   maxLines: 3,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _submitPost,
                   style: ButtonStyle(
@@ -273,7 +273,7 @@ class _PostState extends State<Post> {
               child: Container(
                 color: Colors.black
                     .withOpacity(0.3), // Semi-transparent black color
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(
                     valueColor:
                     AlwaysStoppedAnimation<Color>(AppColors.secondaryColor),
@@ -303,11 +303,11 @@ class _PostState extends State<Post> {
             ],
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         GestureDetector(
           onTap: _getImage,
           child: Container(
-            color: Color(0xFF4A563E),
+            color: const Color(0xFF4A563E),
             height: 200,
             child: _selectedImage != null
                 ? Image.file(
@@ -338,7 +338,7 @@ class _PostState extends State<Post> {
       maxLines: maxLines,
       decoration: InputDecoration(
         labelText: labelText,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
       ),
     );
   }
@@ -352,9 +352,9 @@ class _PostState extends State<Post> {
       readOnly: true,
       decoration: InputDecoration(
         labelText: labelText,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         suffixIcon: IconButton(
-          icon: Icon(Icons.calendar_today),
+          icon: const Icon(Icons.calendar_today),
           onPressed: () async {
             final pickedDate = await showDatePicker(
               context: context,
@@ -364,7 +364,7 @@ class _PostState extends State<Post> {
               builder: (BuildContext context, Widget? child) {
                 return Theme(
                   data: ThemeData.light().copyWith(
-                    colorScheme: ColorScheme.light(
+                    colorScheme: const ColorScheme.light(
                       primary: AppColors
                           .secondaryColor, // Change the primary color here
                     ),
@@ -389,9 +389,9 @@ class _PostState extends State<Post> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: 16.0),
+          padding: const EdgeInsets.only(bottom: 16.0),
           child: IntlPhoneField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Phone Number',
               border: OutlineInputBorder(),
             ),

@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reconnect/Views/Chat/HomeChat.dart';
 import 'package:reconnect/Views/about.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
@@ -22,11 +23,13 @@ import 'package:reconnect/Views/search.dart';
 
 
 class Navigationpage extends StatefulWidget {
-  Navigationpage({Key? key}) : super(key: key);
+  const Navigationpage({super.key});
 
   @override
   State<Navigationpage> createState() => _NavigationpageState();
 }
+
+
 
 class _NavigationpageState extends State<Navigationpage> {
   BottomNavigationController bottomnavigationcontroller =
@@ -39,10 +42,10 @@ class _NavigationpageState extends State<Navigationpage> {
     String? userE = user?.email;
 
     final screens = [
-      MyHomePage(),
-      Post(),
+      const MyHomePage(),
+      const Post(),
       const PostListPage(posts: []),
-      Donation(),
+      const Donation(),
       FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           future: getUserData(user?.email),
           builder: (context, snapshot) {
@@ -52,21 +55,23 @@ class _NavigationpageState extends State<Navigationpage> {
             final userPhotoUrl = userData?['imageUrl'] as String?;
 
             return currentUsers(
-              userPhotoUrl: '${userPhotoUrl}',
-              firstName: '${firstName}',
-              lastName: '${lastName}',
-              userEmail: '${userE}',
+              userPhotoUrl: '$userPhotoUrl',
+              firstName: '$firstName',
+              lastName: '$lastName',
+              userEmail: '$userE',
             );
           }),
+      const HomeChat(),
+
     ];
 
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 1),
-          child: const Text(
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 1),
+          child: Text(
             'Reconnect',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -86,19 +91,19 @@ class _NavigationpageState extends State<Navigationpage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.search,
-              color: AppColors.primaryColor,
+              icon: const Icon(
+                Icons.search,
+                color: AppColors.primaryColor,
+              ),
+              onPressed: () {
+                // Navigate to SearchPage
+                Get.to(() => const SearchPage());
+              },
             ),
-            onPressed: () {
-              // Navigate to SearchPage
-              Get.to(() => SearchPage());
-            },
-          ),
           IconButton(
-            icon: Icon(
-              Icons.menu, // Hamburger icon for endDrawer
-              color: AppColors.primaryColor, // Set the icon color to primary
+            icon: const Icon(
+              Icons.menu,
+              color: AppColors.primaryColor,
             ),
             onPressed: () {
               _scaffoldKey.currentState?.openEndDrawer();
@@ -132,7 +137,7 @@ class _NavigationpageState extends State<Navigationpage> {
                 ),
                 Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 215,
                     ),
                     ListTile(
@@ -146,7 +151,7 @@ class _NavigationpageState extends State<Navigationpage> {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => profile());
+                        Get.to(() => const profile());
                       },
                     ),
                     const SizedBox(
@@ -163,7 +168,7 @@ class _NavigationpageState extends State<Navigationpage> {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => settings());
+                        Get.to(() => const settings());
                       },
                     ),
                     const SizedBox(
@@ -180,7 +185,7 @@ class _NavigationpageState extends State<Navigationpage> {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => Privacy());
+                        Get.to(() => const Privacy());
                       },
                     ),
                     const SizedBox(
@@ -197,7 +202,7 @@ class _NavigationpageState extends State<Navigationpage> {
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => About());
+                        Get.to(() => const About());
                       },
                     ),
                   ],
@@ -218,7 +223,7 @@ class _NavigationpageState extends State<Navigationpage> {
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(() => login());
+                              Get.to(() => const login());
                             },
                             child: const Text(
                               'Sign Out',
@@ -303,7 +308,6 @@ class BottomDiagonalClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    // TODO: implement shouldReclip
     throw UnimplementedError();
   }
 }

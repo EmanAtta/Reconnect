@@ -17,7 +17,7 @@ class _PayState extends State<Pay> {
   @override
   Widget build(BuildContext context) {
     // Implement your widget build method here
-    return Scaffold(body: Text("hi"));
+    return const Scaffold(body: Text("hi"));
   }
 
   /*void _continueToPay() {
@@ -63,7 +63,7 @@ Widget build(BuildContext context) {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 100,
               left: 10,
               right: 10,
@@ -71,21 +71,21 @@ Widget build(BuildContext context) {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(right: 0),
+                  padding: const EdgeInsets.only(right: 0),
                   child: Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(right: 0),
+                      padding: const EdgeInsets.only(right: 0),
                       child: TextFormField(
                         cursorColor: AppColors.secondaryColor,
                         decoration: InputDecoration(
                           labelText: 'Enter your Visa Number *',
-                          labelStyle: TextStyle(color: AppColors.textolor),
+                          labelStyle: const TextStyle(color: AppColors.textolor),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: AppColors.secondaryColor),
+                                const BorderSide(color: AppColors.secondaryColor),
                             borderRadius: BorderRadius.circular(25),
                           ),
                         ),
@@ -96,46 +96,46 @@ Widget build(BuildContext context) {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
             children: [
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: TextFormField(
                     cursorColor: AppColors.secondaryColor,
                     decoration: InputDecoration(
                       labelText: 'Expiry month *',
-                      labelStyle: TextStyle(color: AppColors.textolor),
+                      labelStyle: const TextStyle(color: AppColors.textolor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.secondaryColor),
+                        borderSide: const BorderSide(color: AppColors.secondaryColor),
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 10),
                   child: TextFormField(
                     cursorColor: AppColors.secondaryColor,
                     decoration: InputDecoration(
                       labelText: 'Expiry year *',
-                      labelStyle: TextStyle(color: AppColors.textolor),
+                      labelStyle: const TextStyle(color: AppColors.textolor),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.secondaryColor),
+                        borderSide: const BorderSide(color: AppColors.secondaryColor),
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
@@ -144,11 +144,11 @@ Widget build(BuildContext context) {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               right: 10,
               left: 10,
             ),
@@ -156,19 +156,19 @@ Widget build(BuildContext context) {
               cursorColor: AppColors.secondaryColor,
               decoration: InputDecoration(
                 labelText: 'Cardholder Name *',
-                labelStyle: TextStyle(color: AppColors.textolor),
+                labelStyle: const TextStyle(color: AppColors.textolor),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.secondaryColor),
+                  borderSide: const BorderSide(color: AppColors.secondaryColor),
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 30,
               right: 10,
               left: 10,
@@ -177,21 +177,21 @@ Widget build(BuildContext context) {
               cursorColor: AppColors.secondaryColor,
               decoration: InputDecoration(
                 labelText: 'Security code *',
-                labelStyle: TextStyle(color: AppColors.textolor),
+                labelStyle: const TextStyle(color: AppColors.textolor),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.secondaryColor),
+                  borderSide: const BorderSide(color: AppColors.secondaryColor),
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
@@ -205,10 +205,10 @@ Widget build(BuildContext context) {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          button(button_text: "Pay Now")
+          const button(button_text: "Pay Now")
         ],
       ),
     ),

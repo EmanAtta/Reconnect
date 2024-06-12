@@ -12,7 +12,7 @@ class StorageService {
   Future<void> uploadfle(String filename, XFile file) async {
     try {
       final imageRef = ref.child(filename);
-      final _db = FirebaseFirestore.instance;
+      final db = FirebaseFirestore.instance;
       final email = FirebaseAuth.instance.currentUser!.email;
 
       // Upload the file to Firebase Storage
@@ -24,7 +24,7 @@ class StorageService {
       print('Image uploaded. URL: $imageUrl');
 
       // Update the user document in Firestore with the imageUrl
-      CollectionReference users = _db.collection('users');
+      CollectionReference users = db.collection('users');
       QuerySnapshot querySnapshot =
           await users.where('email', isEqualTo: email).get();
       if (querySnapshot.docs.isNotEmpty) {

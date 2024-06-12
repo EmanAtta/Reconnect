@@ -3,13 +3,12 @@ import 'package:reconnect/Views/payment.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 
 class PaymobInterface extends StatefulWidget {
   final String paymentToken;
 
-  PaymobInterface({required this.paymentToken});
+  const PaymobInterface({super.key, required this.paymentToken});
 
   @override
   _PaymobInterfaceState createState() => _PaymobInterfaceState();
@@ -23,7 +22,7 @@ class _PaymobInterfaceState extends State<PaymobInterface> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.secondaryColor,
-          title: Text(
+          title: const Text(
             ' Payment',
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: AppColors.primaryColor),
@@ -78,20 +77,20 @@ class _DonationState extends State<Donation> {
                 image: AssetImage("assets/donation.jpg"),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             Container(
-              margin: EdgeInsets.only(right: 10, left: 10),
+              margin: const EdgeInsets.only(right: 10, left: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 border: Border.all(color: AppColors.secondaryColor),
               ),
-              child: Stack(
+              child: const Stack(
                 alignment: Alignment.topLeft,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
+                    padding: EdgeInsets.fromLTRB(16, 8, 16, 80),
                     child: Text(
                       'About',
                       style: TextStyle(color: AppColors.textolor, fontSize: 16),
@@ -111,11 +110,11 @@ class _DonationState extends State<Donation> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               height: 190,
               decoration: BoxDecoration(
                 border: Border.all(color: AppColors.secondaryColor),
@@ -127,7 +126,7 @@ class _DonationState extends State<Donation> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 20, left: 10, bottom: 10, right: 60),
                           child: Container(
                             height: 43,
@@ -137,11 +136,11 @@ class _DonationState extends State<Donation> {
                             ),
                             child: Container(
                               height: 20,
-                              padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
+                              padding: const EdgeInsets.fromLTRB(5, 20, 5, 5),
                               child: TextFormField(
                                 controller: nameController,
                                 cursorColor: AppColors.secondaryColor,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Name',
                                   hintStyle: TextStyle(
                                       color: AppColors.textolor, fontSize: 15),
@@ -158,7 +157,7 @@ class _DonationState extends State<Donation> {
                     children: [
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 2, bottom: 3, left: 10, right: 60),
                           child: Container(
                             height: 43,
@@ -167,11 +166,11 @@ class _DonationState extends State<Donation> {
                                   Border.all(color: AppColors.secondaryColor),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(5, 20, 3, 3),
+                              padding: const EdgeInsets.fromLTRB(5, 20, 3, 3),
                               child: TextFormField(
                                 controller: emailController,
                                 cursorColor: AppColors.secondaryColor,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Email',
                                   hintStyle: TextStyle(
                                       color: AppColors.textolor, fontSize: 15),
@@ -188,7 +187,7 @@ class _DonationState extends State<Donation> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 10, left: 10, bottom: 10, right: 150),
                           child: Container(
                             height: 43,
@@ -198,11 +197,11 @@ class _DonationState extends State<Donation> {
                             ),
                             child: Container(
                               height: 20,
-                              padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
+                              padding: const EdgeInsets.fromLTRB(5, 20, 5, 5),
                               child: TextFormField(
                                 controller: amountController,
                                 cursorColor: AppColors.secondaryColor,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Amount',
                                   hintStyle: TextStyle(
                                       color: AppColors.textolor, fontSize: 15),
@@ -218,7 +217,7 @@ class _DonationState extends State<Donation> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 _pay();
@@ -227,9 +226,9 @@ class _DonationState extends State<Donation> {
                 backgroundColor: AppColors
                     .secondaryColor, // Change color to your desired color
                 maximumSize:
-                    Size(230, 60), // Set width and height to increase size
+                    const Size(230, 60), // Set width and height to increase size
               ),
-              child: Text(
+              child: const Text(
                 'Donate now',
                 style: TextStyle(
                     fontSize: 17,
@@ -265,14 +264,14 @@ class _DonationState extends State<Donation> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Invalid Amount'),
-            content: Text('Please enter a valid amount.'),
+            title: const Text('Invalid Amount'),
+            content: const Text('Please enter a valid amount.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );

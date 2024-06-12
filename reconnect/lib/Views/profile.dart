@@ -1,19 +1,19 @@
-import 'dart:io';
-import 'dart:typed_data';
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-//import 'package:firebase_core/firebase_core.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:reconnect/Views/authentications/profile_controller.dart';
 import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
 
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/edit.dart';
-import 'package:reconnect/Views/imageprofile.dart';
+
 import 'package:reconnect/Views/widgets/Button.dart';
 
 class profile extends StatefulWidget {
@@ -117,7 +117,7 @@ class _profileState extends State<profile> {
         ),
         leading: IconButton(
           onPressed: () {
-            Get.offAll(() => Navigationpage());
+            Get.offAll(() => const Navigationpage());
           },
           icon: const Icon(Icons.keyboard_arrow_left,
               color: AppColors.primaryColor),
@@ -125,7 +125,7 @@ class _profileState extends State<profile> {
         backgroundColor: AppColors.secondaryColor,
       ),
       body: FutureBuilder(
-        future: controller.getuserdata(),
+        future: controller.getUserData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
@@ -133,8 +133,8 @@ class _profileState extends State<profile> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 300, top: 5),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 300, top: 5),
                     ),
                     Container(
                         child: Column(
@@ -149,7 +149,7 @@ class _profileState extends State<profile> {
                             child: imageUrl == null ? Image.asset("assets/profile.jpg") : null,
                           )
                         ])),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     const Text("First name",
                         style: TextStyle(
                             color: AppColors.secondaryColor, fontSize: 20),
@@ -171,7 +171,7 @@ class _profileState extends State<profile> {
                                 borderRadius: BorderRadius.circular(25))),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     const Text("last name",
                         style: TextStyle(
                             color: AppColors.secondaryColor, fontSize: 20),
@@ -193,7 +193,7 @@ class _profileState extends State<profile> {
                                 borderRadius: BorderRadius.circular(25))),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     const Text("Email",
                         style: TextStyle(
                             color: AppColors.secondaryColor, fontSize: 20),
@@ -216,23 +216,23 @@ class _profileState extends State<profile> {
                       ),
                     ),
                     
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     InkWell(
                         onTap: () {
-                          Get.to(() => Edit());
+                          Get.to(() => const Edit());
                           
                         },
-                        child: button(button_text: "Edit profile"))
+                        child: const button(button_text: "Edit profile"))
                   ],
                 ),
               );
             } else if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             } else {
-              return Center(child: Text("Something went wrong"));
+              return const Center(child: Text("Something went wrong"));
             }
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

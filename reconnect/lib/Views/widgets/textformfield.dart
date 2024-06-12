@@ -22,8 +22,8 @@ class _textfieldState extends State<textfield> {
             labelText: widget.label_Text,
             labelStyle: const TextStyle(
                             fontSize: 15, color: AppColors.labelStyle),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
-                           focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30))
+                            enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                           focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30))
                        
           ),
         ),

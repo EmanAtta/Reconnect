@@ -12,7 +12,7 @@ class LoginController extends GetxController {
 
   void regester(String email, String password) {
     String? error = Authentication.instance
-        .logInWithEmailandPassword(email, password) as String?;
+        .logInWithEmailAndPassword(email, password) as String?;
     if (error != null) {
       Get.showSnackbar(GetSnackBar(message: error.toString()));
     }

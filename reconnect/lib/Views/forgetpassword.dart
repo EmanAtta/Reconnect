@@ -31,7 +31,7 @@ class _forgetBasswordState extends State<forgetBassword> {
                     bottomRight: Radius.circular(200))),
              backgroundColor: Colors.transparent,
         leading: IconButton(
-          color: Color.fromARGB(221, 44, 39, 39),
+          color: const Color.fromARGB(221, 44, 39, 39),
           onPressed: () {
             Get.back(
                   closeOverlays: true,
@@ -50,7 +50,7 @@ class _forgetBasswordState extends State<forgetBassword> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 40),
+            padding: const EdgeInsets.only(bottom: 40),
             child: SvgPicture.asset(
               "assets/password.svg",
               color: AppColors.secondaryColor,
@@ -86,15 +86,15 @@ class _forgetBasswordState extends State<forgetBassword> {
               cursorColor: AppColors.primaryColor,
               decoration: InputDecoration(
                 hintText: 'enter email',
-                hintStyle: TextStyle(color: AppColors.labelStyle, fontSize: 12),
+                hintStyle: const TextStyle(color: AppColors.labelStyle, fontSize: 12),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.textolor),
+                  borderSide: const BorderSide(color: AppColors.textolor),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.secondaryColor),
+                  borderSide: const BorderSide(color: AppColors.secondaryColor),
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
@@ -107,7 +107,7 @@ class _forgetBasswordState extends State<forgetBassword> {
                   Authentication.instance.resetPasswordAndUpdateFirestore(_emailcontroller.text.trim());
                  // Get.to(()=>resetPassword());
                 },
-                child: button(
+                child: const button(
                   button_text: "send email",
                 )),
           )

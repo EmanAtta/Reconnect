@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:reconnect/Views/Chat/Pages/ChatPage.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -64,7 +66,7 @@ class UserProfileScreen extends StatelessWidget {
   final String lastName;
   final String userEmail;
 
-  UserProfileScreen({
+  const UserProfileScreen({super.key,
     required this.userPhotoUrl,
     required this.firstName,
     required this.lastName,
@@ -73,13 +75,18 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: AppColors.primaryColor,
+        ),
         backgroundColor: AppColors.secondaryColor,
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 1),
-          child: const Text(
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 1),
+          child: Text(
             'Reconnect',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -89,18 +96,33 @@ class UserProfileScreen extends StatelessWidget {
         ),
         leading: Padding(
           padding: const EdgeInsets.only(bottom: 1),
-          child: Container(
-            child: Image.asset(
-              'assets/logo.png',
-              width: 50, // Adjust the size as needed
-              height: 50, // Adjust the size as needed
-            ),
+          child: Row(
+            children: [
+              Expanded(
+                // flex: 1,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios_new_outlined), // Back arrow icon
+                  onPressed: () {
+                    Navigator.of(context).pop(); // This will pop the current route
+                  },
+                ),
+              ),
+              SizedBox(width: 10), // Adjust the space between the back arrow and logo
+              // Expanded(
+              //   flex: 1,
+              //   child: Image.asset(
+              //     'assets/logo.png',
+              //     width: 50, // Adjust the size as needed
+              //     height: 50, // Adjust the size as needed
+              //   ),
+              // ),
+            ],
           ),
         ),
       ),
       body: Column(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -109,14 +131,34 @@ class UserProfileScreen extends StatelessWidget {
                   radius: 120,
                   backgroundImage: NetworkImage(userPhotoUrl),
                 ),
-                SizedBox(height: 16.0),
-                Text(
-                  '$firstName $lastName',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.secondaryColor,
-                  ),
+                const SizedBox(height: 16.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '$firstName $lastName',
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.secondaryColor,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChatPage(
+                          receivedUserID: user!.uid,
+                          receivedUserEmail: userEmail,
+                        )
+                        ),
+                      );
+                      },
+                      icon: const Icon(Icons.message_rounded),
+                    )
+
+
+
+                  ],
                 ),
               ],
             ),
@@ -129,7 +171,7 @@ class UserProfileScreen extends StatelessWidget {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 List<PostModel> posts = snapshot.data!.docs
@@ -145,7 +187,7 @@ class UserProfileScreen extends StatelessWidget {
                       elevation: 30,
                       shadowColor: AppColors.textolor,
                       color: AppColors.primaryColor,
-                      margin: EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.all(8.0),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
@@ -158,7 +200,7 @@ class UserProfileScreen extends StatelessWidget {
                                   backgroundImage:
                                   NetworkImage(posts[index].userP ?? ''),
                                 ),
-                                SizedBox(width: 8.0),
+                                const SizedBox(width: 8.0),
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -178,18 +220,18 @@ class UserProfileScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: AppColors.secondaryColor,
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 5.0),
+                                      const SizedBox(height: 5.0),
                                       RichText(
                                         text: TextSpan(
                                           text:
                                           '${posts[index].postDate}    |    ${posts[index].postTime}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: AppColors.secondaryColor,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.bold,
@@ -201,7 +243,7 @@ class UserProfileScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
                             SizedBox(
                               width: double.infinity,
                               height: 200,
@@ -211,15 +253,15 @@ class UserProfileScreen extends StatelessWidget {
                                 posts[index].image_url!,
                                 fit: BoxFit.contain,
                               )
-                                  : Center(
+                                  : const Center(
                                 child: Text('No image'),
                               ),
                             ),
-                            SizedBox(height: 12.0),
+                            const SizedBox(height: 12.0),
                             RichText(
                               text: TextSpan(
                                 text: 'Name: ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppColors.secondaryColor,
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
@@ -227,7 +269,7 @@ class UserProfileScreen extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: '${posts[index].name}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.textolor,
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold,
@@ -236,11 +278,11 @@ class UserProfileScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 12.0),
+                            const SizedBox(height: 12.0),
                             RichText(
                               text: TextSpan(
                                 text: 'Date Of Lost: ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppColors.secondaryColor,
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
@@ -248,7 +290,7 @@ class UserProfileScreen extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: '${posts[index].dateoflost}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.textolor,
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold,
@@ -257,11 +299,11 @@ class UserProfileScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
                             RichText(
                               text: TextSpan(
                                 text: 'Phone: ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppColors.secondaryColor,
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
@@ -269,7 +311,7 @@ class UserProfileScreen extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: '${posts[index].phone}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.textolor,
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold,
@@ -278,11 +320,11 @@ class UserProfileScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
                             RichText(
                               text: TextSpan(
                                 text: 'Description: ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppColors.secondaryColor,
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
@@ -290,7 +332,7 @@ class UserProfileScreen extends StatelessWidget {
                                 children: [
                                   TextSpan(
                                     text: '${posts[index].description}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.textolor,
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold,

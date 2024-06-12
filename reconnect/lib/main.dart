@@ -27,27 +27,29 @@ void main() async {
 }
 
 class Reconnect extends StatelessWidget {
-  const Reconnect({Key? key}) : super(key: key);
-  
+  const Reconnect({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-    
-      //home: WelcomPage(),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page:()=>WelcomPage()),
+        GetPage(name: '/', page:()=>const WelcomPage()),
         GetPage(name: '/login', page: () => const login()),
         GetPage(name: '/signup', page: () => const signup()),
         GetPage(name: '/myhomepage', page: () => const MyHomePage()),
-        GetPage(name: '/post', page: () =>  Post()),
+        GetPage(name: '/post', page: () =>  const Post()),
         GetPage(name: '/delete1', page: () => const Delete1()),
-        GetPage(name: '/secondPage', page: () => SecondPage()),
+        GetPage(name: '/secondPage', page: () => const SecondPage()),
         GetPage(name: '/forgetpassword', page: () => const forgetBassword()),
         GetPage(name: '/resetpassword', page: () => const resetPassword()),
       ],
-      
+
     );
   }
 }
+
+
+
+
