@@ -155,6 +155,7 @@ class _PostState extends State<Post> {
       String firstName = userSnapshot.data()?['firstname'];
       String lastName = userSnapshot.data()?['lastname'];
       String userPhoto = userSnapshot.data()?['imageUrl'];
+      String uniqueLink = FirebaseFirestore.instance.collection('posts').doc().id;
 
       // Create a map of the post data
       Map<String, dynamic> postData = {
@@ -170,6 +171,7 @@ class _PostState extends State<Post> {
         'last_name': lastName, // Add the first name to the postData map
         'user_photo': userPhoto, // Add the first name to the postData map
         'id': postId,
+        'uniqueLink': uniqueLink,
       };
 
       // Add the post data to Firestore
