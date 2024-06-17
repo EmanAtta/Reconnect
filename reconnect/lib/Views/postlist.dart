@@ -288,7 +288,7 @@ class PostListPage extends StatelessWidget {
     final String webUrl = 'https://reconnect-8f8e9.web.app/?id=$uniqueLink';  // رابط صفحة الويب
 
     await Share.share(
-      'Check out this lost item!\n\n$webUrl',
+      '$webUrl',
       subject: 'Lost Item Post',
     );
   }
