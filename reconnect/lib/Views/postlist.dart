@@ -289,7 +289,7 @@ class PostListPage extends StatelessWidget {
 
     await Share.share(
       '$webUrl',
-      subject: 'Lost Item Post',
+      subject: 'Lost Person Post',
     );
   }
 }
