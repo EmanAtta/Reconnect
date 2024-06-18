@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:reconnect/Views/authentications/mailcontroller.dart';
 import 'package:reconnect/Views/color.dart';
+import 'package:reconnect/Views/signup.dart';
 
-class resetPassword extends StatefulWidget {
-  const resetPassword({super.key});
+class verification extends StatefulWidget {
+  const verification({super.key});
 
   @override
-  State<resetPassword> createState() => _resetPasswordState();
+  State<verification> createState() => _resetPasswordState();
 }
 
-class _resetPasswordState extends State<resetPassword> {
+class _resetPasswordState extends State<verification> {
   final controller = Get.put(MailVerificationController());
   @override
   Widget build(BuildContext context) {
@@ -23,25 +25,14 @@ class _resetPasswordState extends State<resetPassword> {
         flexibleSpace: Container(
             width: 10.0,
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.elliptical(8000, 8000),
-                    bottomRight: Radius.elliptical(8000, 8000)),
-                gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xff546642),
-                      Color(0xffA8CC84),
-                      Color(0xff546642),
-                    ])),
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.elliptical(8000, 8000),
+                  bottomRight: Radius.elliptical(8000, 8000)),
+            ),
             child: Center(
               child: Padding(
                   padding: const EdgeInsets.only(top: 5),
-                  child: SvgPicture.asset(
-                    "assets/22.svg",
-                    height: 170,
-                    width: 170,
-                  )),
+                  child: Lottie.asset('assets/verivication.json', height: 200)),
             )),
 
         //shape: RoundedRectangleBorder(
@@ -51,9 +42,9 @@ class _resetPasswordState extends State<resetPassword> {
 
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          color: AppColors.primaryColor,
+          color: const Color.fromARGB(255, 230, 124, 49),
           onPressed: () {
-            Get.back();
+            Get.to(signup());
           },
           icon: const Icon(
             Icons.keyboard_arrow_left,

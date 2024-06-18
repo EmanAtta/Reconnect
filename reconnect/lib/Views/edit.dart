@@ -61,100 +61,110 @@ class _EditState extends State<Edit> {
               final email = TextEditingController(text: user.email);
               final password = TextEditingController(text: user.password);
               return SingleChildScrollView(
-                child: Column(
+                child:  Column(
                   children: [
+                      Padding(
+                      padding: const EdgeInsets.only(left: 300, top: 20),
+                    ),
                     Container(
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                           _image != null
                               ? CircleAvatar(
-                                  radius: 75,
+                                  radius: 70,
                                   backgroundImage: MemoryImage(_image!),
                                 )
                               : CircleAvatar(
-                                  backgroundColor: AppColors.primaryColor,
-                                  minRadius: 75,
                                   child: Image.asset(
                                     "assets/profile.jpg",
                                     width: 180,
                                   ),
+                                  backgroundColor: Colors.transparent,
+                                   radius: 70,
                                 ),
                           Positioned(
-                            left: 80,
                             child: IconButton(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.add_a_photo,
                                 ),
                                 onPressed: selectimage),
+                            left: 80,
                           )
                         ])),
-                    const Text("First name",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
+                
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
                         controller: firstname,
                         cursorColor: AppColors.textolor,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
+                      decoration: InputDecoration(
+                    labelText: "firstName",
+                    labelStyle: const TextStyle(
+                        fontSize: 15, color: AppColors.labelStyle),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondaryColor),
+                        borderRadius: BorderRadius.circular(30)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.textolor,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Text("last name",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
+                    SizedBox(height: 40),
+                    
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
                         controller: lastname,
                         cursorColor: AppColors.textolor,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
+                    
+                           decoration: InputDecoration(
+                    labelText: "lastName",
+                    labelStyle: const TextStyle(
+                        fontSize: 15, color: AppColors.labelStyle),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondaryColor),
+                        borderRadius: BorderRadius.circular(30)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.textolor,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Text("Email",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
+                    SizedBox(height: 40),
+                    
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
                         readOnly:true,
                         controller: email,
                         cursorColor: AppColors.textolor,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
+                       decoration: InputDecoration(
+                    labelText: "Email",
+                    labelStyle: const TextStyle(
+                        fontSize: 15, color: AppColors.labelStyle),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.secondaryColor),
+                        borderRadius: BorderRadius.circular(30)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: AppColors.textolor,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(30)),
+                  ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                     
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40),
                     ElevatedButton(
                         onPressed: () async {
                           final userData = UserModel(
@@ -171,7 +181,7 @@ class _EditState extends State<Edit> {
                             // Handle the error, such as showing a dialog or logging it.
                           }
                         },
-                        child: const Text("save changes"))
+                        child: Text("save changes"))
                   ],
                 ),
               );

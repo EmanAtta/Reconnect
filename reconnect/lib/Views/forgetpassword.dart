@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/autentication.dart';
-
+import 'package:lottie/lottie.dart';
 import 'package:reconnect/Views/color.dart';
 
 import 'package:reconnect/Views/widgets/Button.dart';
@@ -50,13 +50,8 @@ class _forgetBasswordState extends State<forgetBassword> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 40),
-            child: SvgPicture.asset(
-              "assets/password.svg",
-              color: AppColors.secondaryColor,
-              height: 120,
-              width: 100,
-            ),
+            padding: const EdgeInsets.only(bottom: 10),
+            child:Lottie.asset('assets/forget.json',height: 230)
           ),
           const Center(
               child: Padding(

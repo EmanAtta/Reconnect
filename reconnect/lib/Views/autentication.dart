@@ -512,8 +512,9 @@ import 'package:reconnect/Views/authentications/routes/navigation.dart';
 import 'package:reconnect/Views/authentications/signupcontrollers.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:reconnect/Views/vrification_email.dart';
 import 'package:reconnect/Views/welcom_page.dart';
-import 'package:reconnect/Views/resetpassword.dart';
+
 import 'package:reconnect/Views/login.dart';
 
 class Authentication extends GetxController {
@@ -539,7 +540,7 @@ class Authentication extends GetxController {
     } else if (user.emailVerified) {
       Get.offAll(() => const Navigationpage());
     } else {
-      Get.offAll(() => const resetPassword());
+      Get.offAll(() => const verification());
     }
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reconnect/Views/autentication.dart';
-
+import 'package:lottie/lottie.dart';
 import 'package:reconnect/Views/authentications/logincontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/forgetpassword.dart';
@@ -53,7 +53,7 @@ class _loginState extends State<login> {
                 children: [
                   Container(
                       margin: const EdgeInsets.only(top: 70),
-                      child: const Image(image: AssetImage("assets/logo.png"))),
+                      child:  Lottie.asset('assets/login.json',height: 280)),
                   const Text(
                     "Welcome",
                     style: TextStyle(

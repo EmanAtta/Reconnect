@@ -131,29 +131,27 @@ class _profileState extends State<profile> {
             if (snapshot.hasData) {
               UserModel userData = snapshot.data as UserModel;
               return SingleChildScrollView(
-                child: Column(
+                child:Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 300, top: 5),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 300, top: 20),
                     ),
                     Container(
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                           CircleAvatar(
-                            backgroundColor: AppColors.primaryColor,
+                            backgroundColor: Colors.transparent,
                             radius: 70,
                             backgroundImage: imageUrl != null
                                 ? NetworkImage(imageUrl!)
                                 : null,
-                            child: imageUrl == null ? Image.asset("assets/profile.jpg") : null,
+                            child: imageUrl == null
+                                ? Image.asset("assets/profile.jpg")
+                                : null,
                           )
                         ])),
-                    const SizedBox(height: 30),
-                    const Text("First name",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
+                    SizedBox(height: 50),
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
@@ -161,43 +159,46 @@ class _profileState extends State<profile> {
                         initialValue: userData.firstname,
                         cursorColor: AppColors.textolor,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
+                          labelText: "firstName",
+                          labelStyle: const TextStyle(
+                              fontSize: 15, color: AppColors.labelStyle),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.secondaryColor),
+                              borderRadius: BorderRadius.circular(30)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: AppColors.textolor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(30)),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    const Text("last name",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
+                    SizedBox(height: 40),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: TextFormField(
-                        readOnly: true,
-                        initialValue: userData.lastname,
-                        cursorColor: AppColors.textolor,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: TextFormField(
+                          readOnly: true,
+                          initialValue: userData.lastname,
+                          cursorColor: AppColors.textolor,
+                          decoration: InputDecoration(
+                            labelText: "lastName",
+                            labelStyle: const TextStyle(
+                                fontSize: 15, color: AppColors.labelStyle),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: AppColors.secondaryColor),
+                                borderRadius: BorderRadius.circular(30)),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text("Email",
-                        style: TextStyle(
-                            color: AppColors.secondaryColor, fontSize: 20),
-                        textAlign: TextAlign.left),
+                                  color: AppColors.textolor,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(30)),
+                          ),
+                        )),
+                    SizedBox(height: 40),
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: TextFormField(
@@ -205,24 +206,28 @@ class _profileState extends State<profile> {
                         initialValue: userData.email,
                         cursorColor: AppColors.textolor,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.secondaryColor),
-                                borderRadius: BorderRadius.circular(25))),
+                          labelText: "email",
+                          labelStyle: const TextStyle(
+                              fontSize: 15, color: AppColors.labelStyle),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.secondaryColor),
+                              borderRadius: BorderRadius.circular(30)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: AppColors.textolor,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(30)),
+                        ),
                       ),
                     ),
-                    
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40),
                     InkWell(
                         onTap: () {
-                          Get.to(() => const Edit());
-                          
+                          Get.to(() => Edit());
                         },
-                        child: const button(button_text: "Edit profile"))
+                        child: button(button_text: "Edit profile"))
                   ],
                 ),
               );

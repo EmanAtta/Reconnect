@@ -5,8 +5,6 @@ import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/user_profile_screen.dart';
 
-
-
 class PostModel {
   late String? postTime;
   late String? postDate;
@@ -66,187 +64,131 @@ class PostModel {
 class PostListPage extends StatelessWidget {
   final List<PostModel> posts;
 
-  const PostListPage({super.key, required this.posts});
+  const PostListPage({Key? key, required this.posts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     BottomNavigationController bottomnavigationcontroller =
         Get.put(BottomNavigationController());
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: const Text('Posts', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        elevation: 1,
+        centerTitle: true,
+      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('posts').orderBy('datestamp', descending: true).snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text('No posts available'));
           }
 
           List<PostModel> posts = snapshot.data!.docs
-              .map((doc) =>
-                  PostModel.fromJson(doc.data() as Map<String, dynamic>))
+              .map((doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
               .toList();
 
           return ListView.builder(
             itemCount: posts.length,
             itemBuilder: (context, index) {
               return Card(
-                elevation: 30,
-                shadowColor: AppColors.textolor,
-                color: AppColors.primaryColor,
-                margin: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 5,
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundImage:
-                                NetworkImage(posts[index].userP ?? ''),
-                          ),
-                          const SizedBox(width: 8.0),
-                          GestureDetector(
-                            onTap: () {
-                              // Navigate to user profile screen
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UserProfileScreen(
-                                    userPhotoUrl: posts[index].userP ?? '',
-                                    firstName: posts[index].firstN ?? '',
-                                    lastName: posts[index].lastN ?? '',
-                                    userEmail: posts[index].userEmail ?? '',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Column(
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserProfileScreen(
+                                userPhotoUrl: posts[index].userP ?? '',
+                                firstName: posts[index].firstN ?? '',
+                                lastName: posts[index].lastN ?? '',
+                                userEmail: posts[index].userEmail ?? '',
+                              ),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(posts[index].userP ?? ''),
+                              radius: 25,
+                            ),
+                            const SizedBox(width: 12.0),
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
                                   style: const TextStyle(
-                                    color: AppColors.secondaryColor,
-                                    fontSize: 16.0,
+                                    color: Colors.black,
+                                    fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(height: 5.0),
-                                RichText(
-                                  text: TextSpan(
-                                    text:
-                                        '${posts[index].postDate}    |    ${posts[index].postTime}',
-                                    style: const TextStyle(
-                                      color: AppColors.secondaryColor,
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                const SizedBox(height: 4.0),
+                                Text(
+                                  '${posts[index].postDate} | ${posts[index].postTime}',
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14.0,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 10.0),
-                      SizedBox(
+                      const SizedBox(height: 12.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          image: DecorationImage(
+                            image: NetworkImage(posts[index].image_url ?? ''),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         width: double.infinity,
                         height: 200,
-                        child: posts[index].image_url != null &&
-                                posts[index].image_url!.isNotEmpty
-                            ? Image.network(
-                                posts[index].image_url!,
-                                fit: BoxFit.contain,
-                              )
-                            : const Center(
-                                child: Text('No image'),
-                              ),
                       ),
                       const SizedBox(height: 12.0),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Name: ',
-                          style: const TextStyle(
-                            color: AppColors.secondaryColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: '${posts[index].name}',
-                              style: const TextStyle(
-                                color: AppColors.textolor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                      Text(
+                        posts[index].description ?? '',
+                        style: const TextStyle(
+                          color: Colors.black87,
+                          fontSize: 16.0,
                         ),
                       ),
                       const SizedBox(height: 12.0),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Date Of Lost: ',
-                          style: const TextStyle(
-                            color: AppColors.secondaryColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.thumb_up_alt_outlined, color: Colors.grey[600]),
+                            onPressed: () {
+                              // Like button action
+                            },
                           ),
-                          children: [
-                            TextSpan(
-                              text: '${posts[index].dateoflost}',
-                              style: const TextStyle(
-                                color: AppColors.textolor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10.0),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Phone: ',
-                          style: const TextStyle(
-                            color: AppColors.secondaryColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                          IconButton(
+                            icon: Icon(Icons.comment_outlined, color: Colors.grey[600]),
+                            onPressed: () {
+                              // Comment button action
+                            },
                           ),
-                          children: [
-                            TextSpan(
-                              text: '${posts[index].phone}',
-                              style: const TextStyle(
-                                color: AppColors.textolor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10.0),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Description: ',
-                          style: const TextStyle(
-                            color: AppColors.secondaryColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: '${posts[index].description}',
-                              style: const TextStyle(
-                                color: AppColors.textolor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
                     ],
                   ),
@@ -256,19 +198,7 @@ class PostListPage extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          bottomnavigationcontroller.change(1);
-        },
-        backgroundColor: AppColors.primaryColor,
-        child: const Icon(
-          Icons.add,
-          color: AppColors.secondaryColor,
-        ),
-      ),
+     
     );
-
-
-
   }
 }
