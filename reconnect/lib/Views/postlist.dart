@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/user_profile_screen.dart';
+import 'package:share_plus/share_plus.dart';
+
+
 
 class PostModel {
   late String? postTime;
@@ -17,6 +20,7 @@ class PostModel {
   late String? lastN;
   late String? userP;
   late String? userEmail;
+  late String? uniqueLink;
 
   PostModel({
     this.postTime,
@@ -30,6 +34,7 @@ class PostModel {
     this.lastN,
     this.userP,
     this.userEmail,
+    this.uniqueLink,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
@@ -44,6 +49,7 @@ class PostModel {
         lastN: json['last_name'] ?? '',
         userP: json['user_photo'] ?? '',
         userEmail: json['user_email'] ?? '',
+        uniqueLink: json['uniqueLink'] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,147 +64,240 @@ class PostModel {
         'last_name': lastN,
         'user_photo': userP,
         'user_email': userEmail,
+        'uniqueLink': uniqueLink,
       };
 }
 
 class PostListPage extends StatelessWidget {
   final List<PostModel> posts;
 
-  const PostListPage({Key? key, required this.posts}) : super(key: key);
+  const PostListPage({super.key, required this.posts});
 
   @override
   Widget build(BuildContext context) {
     BottomNavigationController bottomnavigationcontroller =
         Get.put(BottomNavigationController());
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: const Text('Posts', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        centerTitle: true,
-      ),
+      backgroundColor: AppColors.primaryColor,
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('posts').orderBy('datestamp', descending: true).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('posts')
+            .orderBy('datestamp', descending: true)
+            .snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No posts available'));
           }
 
           List<PostModel> posts = snapshot.data!.docs
-              .map((doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
+              .map((doc) =>
+                  PostModel.fromJson(doc.data() as Map<String, dynamic>))
               .toList();
 
           return ListView.builder(
             itemCount: posts.length,
             itemBuilder: (context, index) {
-              return Card(
-                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UserProfileScreen(
-                                userPhotoUrl: posts[index].userP ?? '',
-                                firstName: posts[index].firstN ?? '',
-                                lastName: posts[index].lastN ?? '',
-                                userEmail: posts[index].userEmail ?? '',
+              return Stack(
+                children: [
+                  Card(
+                    elevation: 30,
+                    shadowColor: AppColors.textolor,
+                    color: AppColors.primaryColor,
+                    margin: const EdgeInsets.all(8.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 40.0), // Space for profile icon
+                          Text(
+                            '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
+                            style: const TextStyle(
+                              color: AppColors.secondaryColor,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 5.0),
+                          Text(
+                            '${posts[index].postDate} | ${posts[index].postTime}',
+                            style: const TextStyle(
+                              color: AppColors.secondaryColor,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: posts[index].image_url != null &&
+                                    posts[index].image_url!.isNotEmpty
+                                ? Image.network(
+                                    posts[index].image_url!,
+                                    fit: BoxFit.contain,
+                                  )
+                                : const Center(
+                                    child: Text('No image'),
+                                  ),
+                          ),
+                          const SizedBox(height: 12.0),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Name: ',
+                              style: const TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
                               ),
-                            ),
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(posts[index].userP ?? ''),
-                              radius: 25,
-                            ),
-                            const SizedBox(width: 12.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
+                                TextSpan(
+                                  text: '${posts[index].name}',
                                   style: const TextStyle(
-                                    color: Colors.black,
+                                    color: AppColors.textolor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(height: 4.0),
-                                Text(
-                                  '${posts[index].postDate} | ${posts[index].postTime}',
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 12.0),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Date Of Lost: ',
+                              style: const TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '${posts[index].dateoflost}',
                                   style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 14.0,
+                                    color: AppColors.textolor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 12.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: DecorationImage(
-                            image: NetworkImage(posts[index].image_url ?? ''),
-                            fit: BoxFit.cover,
                           ),
-                        ),
-                        width: double.infinity,
-                        height: 200,
-                      ),
-                      const SizedBox(height: 12.0),
-                      Text(
-                        posts[index].description ?? '',
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      const SizedBox(height: 12.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.thumb_up_alt_outlined, color: Colors.grey[600]),
-                            onPressed: () {
-                              // Like button action
-                            },
+                          const SizedBox(height: 10.0),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Phone: ',
+                              style: const TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '${posts[index].phone}',
+                                  style: const TextStyle(
+                                    color: AppColors.textolor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10.0),
+                          RichText(
+                            text: TextSpan(
+                              text: 'Description: ',
+                              style: const TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '${posts[index].description}',
+                                  style: const TextStyle(
+                                    color: AppColors.textolor,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.comment_outlined, color: Colors.grey[600]),
                             onPressed: () {
-                              // Comment button action
+                              sharePost(posts[index]);
                             },
+                            icon: const Icon(Icons.share),
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  Positioned(
+                    top: 8,
+                    left: 16,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfileScreen(
+                              userPhotoUrl: posts[index].userP ?? '',
+                              firstName: posts[index].firstN ?? '',
+                              lastName: posts[index].lastN ?? '',
+                              userEmail: posts[index].userEmail ?? '',
+                            ),
+                          ),
+                        );
+                      },
+                      child: ClipOval(
+                        child: Container(
+                          color: Colors.white,
+                          padding: const EdgeInsets.all(2.0),
+                          child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(posts[index].userP ?? ''),
+                            radius: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               );
             },
           );
         },
       ),
-     
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          bottomnavigationcontroller.change(1);
+        },
+        backgroundColor: AppColors.primaryColor,
+        child: const Icon(
+          Icons.add,
+          color: AppColors.secondaryColor,
+        ),
+      ),
+    );
+  }
+
+  Future<void> sharePost(PostModel post) async {
+    final String uniqueLink = post.uniqueLink ?? '';
+    final String webUrl =
+        'https://reconnect-8f8e9.web.app/?id=$uniqueLink'; // رابط صفحة الويب
+
+    await Share.share(
+      '$webUrl',
+      subject: 'Lost Person Post',
     );
   }
 }
+
+
+

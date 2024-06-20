@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reconnect Post</title>
+
+  <!-- Firebase Scripts -->
+  <script defer src="/__/firebase/10.12.2/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-performance-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <img src="logo.png" alt="My Website Logo" class="logo">
+    <h1>Reconnect</h1>
+  </header>
+
+  <main>
+    <div class="post-container" id="post-container">
+      </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('id');
+      console.log('Post ID:', postId);
+
+      if (postId) {
+        const db = firebase.firestore();
+        db.collection('posts').where('uniqueLink', '==', postId).get()
+          .then(querySnapshot => {
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach(doc => {
+                const post = doc.data();
+                document.getElementById('post-container').innerHTML = `
+                  <div class="user-info">
+                    <img src="${post.user_photo || 'default-profile-pic.png'}" alt="User Photo" class="user-photo">
+                    <h2><strong>${post.first_name} ${post.last_name}</strong></h2>
+                  </div>
+                  <div class="post-content">
+                    <h3>Name: ${post.name}</h3>
+                    <p><strong>Date of Lost:</strong> ${post.dateoflost}</p>
+                    <p><strong>Phone:</strong> ${post.phone}</p>
+                    <p><strong>Description:</strong> ${post.description}</p>
+                    <img src="${post.image_url}" alt="Post Image" style="max-width: 80%; height: auto;">
+                `;
+              });
+            } else {
+              document.getElementById('post-container').innerHTML = '<p>No post found.</p>';
+            }
+          })
+          .catch(error => {
+            console.error('Error getting post:', error);
+            document.getElementById('post-container').innerHTML = '<p>Error loading post.</p>';
+          });
+      } else {
+        document.getElementById('post-container').innerHTML = '<p>Post ID not provided.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
