@@ -6,7 +6,7 @@ import 'package:reconnect/Views/Chat/Chat/Chat_service.dart';
 import 'package:reconnect/Views/Chat/Model/message.dart';
 import 'package:reconnect/Views/Chat/Pages/ChatPage.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
-
+import 'package:reconnect/Views/color.dart';
 class HomeChat extends StatefulWidget {
   const HomeChat({Key? key}) : super(key: key);
 
@@ -52,15 +52,18 @@ class _HomeChatState extends State<HomeChat> {
     return Scaffold(
       body: Column(
         children: [
-          if (isChecked)
-            Padding(
+          Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: _searchController,
+                cursorColor: AppColors.textolor,
                 decoration: InputDecoration(
                   hintText: 'Search . . .',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: _searchController.text.isNotEmpty
@@ -145,24 +148,6 @@ class _HomeChatState extends State<HomeChat> {
                                   fontFamily: 'Times New Roman',
                                 ),
                               ),
-                              TextButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isChecked = !isChecked;
-                                    });
-                                  },
-                                  child: Text('Tap to start ',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Times New Roman'))),
-                              // IconButton(
-                              //   onPressed: () {
-                              //     setState(() {
-                              //       isChecked = !isChecked;
-                              //     });
-                              //   },
-                              //   icon: const Icon(Icons.manage_search),
-                              // ),
                             ],
                           ),
                         );
@@ -318,22 +303,6 @@ class _UserListState extends State<UserList> {
                     fontFamily: 'Times New Roman',
                   ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.toggleSearch();
-                      });
-                    },
-                    child: Text('Tap to start ',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Times New Roman'))),
-                // IconButton(
-                //   onPressed: () {
-                //     widget.toggleSearch(); // Call toggleSearch function from HomeChat
-                //   },
-                //   icon: const Icon(Icons.manage_search),
-                // ),
               ],
             ),
           );

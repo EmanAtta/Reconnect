@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:reconnect/Views/color.dart';
 import 'package:get/get.dart';
 import 'authentications/routes/navigationcontroller.dart';
 
@@ -41,7 +41,7 @@ class SecondPage extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.transparent,
-              content: Text('Image saved to: $path/image_$timestamp.jpg',style: const TextStyle(color: Colors.white)),
+              content: Text('Image saved to: $path/image_$timestamp.jpg',style: const TextStyle(color: AppColors.textolor)),
             ),
           );
         } else {
@@ -49,7 +49,7 @@ class SecondPage extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: Colors.transparent,
-              content: Text('Failed to save image',style: TextStyle(color: Colors.white),),
+              content: Text('Failed to save image',style: TextStyle(color: AppColors.textolor),),
             ),
           );
         }
@@ -58,7 +58,7 @@ class SecondPage extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.transparent,
-            content: Text('Failed to download image',style: TextStyle(color: Colors.white)),
+            content: Text('Failed to download image',style: TextStyle(color: AppColors.textolor)),
           ),
         );
       }
@@ -67,7 +67,7 @@ class SecondPage extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.transparent,
-          content: Text('Error saving image',style: TextStyle(color: Colors.white)),
+          content: Text('Error saving image',style: TextStyle(color: AppColors.textolor)),
         ),
       );
     }
@@ -81,14 +81,20 @@ class SecondPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Modified Image'),
+
+        title: const Text('Modified Image',
+        style: TextStyle(
+          fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.keyboard_arrow_left,
+              color: AppColors.primaryColor),
           onPressed: () {
            Get.back();
             
           },
         ),
+        backgroundColor: AppColors.secondaryColor,
+
       ),
       body: Center(
         child: Column(
@@ -97,7 +103,7 @@ class SecondPage extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                color: const Color(0xFF4A563E),
+                color: AppColors.primaryColor,
                 child: Center(
                   child: modifiedImageUrl != null
                       ? Column(
@@ -108,7 +114,7 @@ class SecondPage extends StatelessWidget {
                         height: 300,
                         padding: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 3),
+                          border: Border.all(color: AppColors.textolor, width: 3),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -144,14 +150,14 @@ class SecondPage extends StatelessWidget {
                               Get.close(0);
                               // Perform any action when the button is pressed
                             },
-                            icon: const Icon(Icons.restart_alt_sharp,color: Colors.white,),
+                            icon: const Icon(Icons.restart_alt_sharp,color: AppColors.textolor,),
                           ),
                           const SizedBox(width: 15,),
                           IconButton(
                             onPressed: () async {
                               await _saveImageToDevice(context);
                             },
-                            icon: const Icon(Icons.download, color: Colors.white),
+                            icon: const Icon(Icons.download, color: AppColors.textolor),
                           ),
                           const SizedBox(width: 15,),
                           IconButton(
@@ -160,7 +166,7 @@ class SecondPage extends StatelessWidget {
                             Get.close(2);
                               // Perform any action when the button is pressed
                             },
-                            icon: const Icon(Icons.share,color: Colors.white,),
+                            icon: const Icon(Icons.share,color: AppColors.textolor),
                           ),
                         ],
                       ),
@@ -168,7 +174,7 @@ class SecondPage extends StatelessWidget {
                   )
                       : const Text(
                     'Modified image will appear here ...',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: AppColors.textolor, fontSize: 20),
                   ),
                 ),
               ),
