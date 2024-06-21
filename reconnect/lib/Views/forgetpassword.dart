@@ -47,11 +47,13 @@ class _forgetBasswordState extends State<forgetBassword> {
             )),
       
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child:Lottie.asset('assets/forget.json',height: 230)
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10,left: 50),
+              child:Lottie.asset('assets/forget.json',height: 230)
+            ),
           ),
           const Center(
               child: Padding(

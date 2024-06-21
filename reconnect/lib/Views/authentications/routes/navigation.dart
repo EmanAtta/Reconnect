@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:reconnect/Views/Chat/HomeChat.dart';
 import 'package:reconnect/Views/about.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
+import 'package:reconnect/Views/change_password.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/donation.dart';
 import 'package:reconnect/Views/login.dart';
@@ -18,6 +19,7 @@ import 'package:reconnect/Views/settings.dart';
 import 'package:reconnect/Views/welcom_page.dart';
 import 'package:reconnect/Views/current_user_screen.dart';
 import 'package:reconnect/Views/search.dart';
+import 'package:reconnect/delete1.dart';
 
 
 
@@ -43,7 +45,7 @@ class _NavigationpageState extends State<Navigationpage> {
 
     final screens = [
       const MyHomePage(),
-      const Post(),
+      //const Post(),
       const PostListPage(posts: []),
       const Donation(),
       FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -159,16 +161,33 @@ class _NavigationpageState extends State<Navigationpage> {
                     ),
                     ListTile(
                       leading: const Icon(
-                        Icons.settings,
+                        Icons.change_circle,
                         color: AppColors.primaryColor,
                       ),
                       title: const Text(
-                        'Settings',
+                        'change password',
                         style: TextStyle(
                             color: AppColors.primaryColor, fontSize: 20),
                       ),
                       onTap: () {
-                        Get.to(() => const settings());
+                        Get.to(() => const Change_Password());
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        Icons.delete,
+                        color: AppColors.primaryColor,
+                      ),
+                      title: const Text(
+                        'delet account',
+                        style: TextStyle(
+                            color: AppColors.primaryColor, fontSize: 20),
+                      ),
+                      onTap: () {
+                        Get.to(() => const Delete1());
                       },
                     ),
                     const SizedBox(
@@ -220,17 +239,18 @@ class _NavigationpageState extends State<Navigationpage> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 30, bottom: 15),
                         child: Align(
+                          
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(() => const login());
+                              Get.offAll(() => const login());
                             },
                             child: const Text(
                               'Sign Out',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.secondaryColor,
-                                fontSize: 25,
+                                fontSize: 20,
                               ),
                             ),
                           ),

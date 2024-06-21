@@ -8,7 +8,7 @@ import 'package:reconnect/Views/Chat/Pages/ChatPage.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
 
 class HomeChat extends StatefulWidget {
-  const HomeChat({super.key});
+  const HomeChat({Key? key}) : super(key: key);
 
   @override
   State<HomeChat> createState() => _HomeChatState();
@@ -17,7 +17,7 @@ class HomeChat extends StatefulWidget {
 class _HomeChatState extends State<HomeChat> {
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = "";
-
+  bool isChecked = false;
 
   Future<Map<String, dynamic>?> _fetchUserData(String userEmail) async {
     try {
@@ -38,121 +38,204 @@ class _HomeChatState extends State<HomeChat> {
     }
   }
 
+  void _clearSearchField() {
+    setState(() {
+      _searchController.clear();
+      _searchQuery = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFE8D6),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search . . .',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+          if (isChecked)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Search . . .',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            setState(() {
+                              _searchController.clear();
+                              _searchQuery = '';
+                            });
+                          },
+                        )
+                      : null,
                 ),
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    setState(() {
-                      _searchController.clear();
-                      _searchQuery = '';
-                    });
-                  },
-                )
-                    : null,
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value.toLowerCase();
+                  });
+                },
               ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value.toLowerCase();
-                });
-              },
             ),
-          ),
           Expanded(
             child: _searchQuery.isEmpty
                 ? UserList(
-              user: user,
-              fetchUserData: _fetchUserData,
-            )
+                    key: UniqueKey(), // Ensure key is unique
+                    user: user,
+                    fetchUserData: _fetchUserData,
+                    isChecked: isChecked,
+                    toggleSearch: () {
+                      setState(() {
+                        isChecked = !isChecked;
+                      });
+                    },
+                    clearSearchField: _clearSearchField,
+                  )
                 : StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-                final users = snapshot.data!.docs
-                    .map((doc) => UserModel.fromSnapshot(
-                    doc as DocumentSnapshot<Map<String, dynamic>>))
-                    .where((user) => user.fullName.toLowerCase().contains(_searchQuery))
-                    .toList();
+                      final users = snapshot.data!.docs
+                          .map((doc) => UserModel.fromSnapshot(
+                              doc as DocumentSnapshot<Map<String, dynamic>>))
+                          .where((user) => user.fullName
+                              .toLowerCase()
+                              .contains(_searchQuery))
+                          .toList();
 
-                if (users.isEmpty) {
-                  return const Center(child: Text('No users found.'));
-                }
-
-                return ListView.builder(
-                  itemCount: users.length,
-                  itemBuilder: (context, index) {
-                    final user = users[index];
-                    return FutureBuilder<Map<String, dynamic>?>(
-                      future: _fetchUserData(user.email),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasData && snapshot.data != null) {
-                            var userData = snapshot.data!;
-                            return ListTile(
-                              title: Text(
-                                '${userData['firstname']} ${userData['lastname']}',
+                      if (users.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/chat.png',
+                                width: 100,
                               ),
-                              subtitle: Text(user.email),
-                              leading: userData['imageUrl'] != null
-                                  ? CircleAvatar(
-                                backgroundImage:
-                                NetworkImage(userData['imageUrl']),
-                              )
-                                  : CircleAvatar(
-                                radius: 20,
-                                child: Icon(Icons.person),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChatPage(
-                                      receivedUserID: user.id!,
-                                      receivedUserEmail: user.email,
-                                    ),
+                              const SizedBox(height: 20),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You don't have any chat messages yet , tap to connect with others",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 23,
+                                    fontFamily: 'Times New Roman',
                                   ),
+                                ),
+                              ),
+                              const Text(
+                                'Your chat list will be shown here .. ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 18,
+                                  fontFamily: 'Times New Roman',
+                                ),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isChecked = !isChecked;
+                                    });
+                                  },
+                                  child: Text('Tap to start ',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Times New Roman'))),
+                              // IconButton(
+                              //   onPressed: () {
+                              //     setState(() {
+                              //       isChecked = !isChecked;
+                              //     });
+                              //   },
+                              //   icon: const Icon(Icons.manage_search),
+                              // ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      return ListView.builder(
+                        itemCount: users.length,
+                        itemBuilder: (context, index) {
+                          final user = users[index];
+                          return FutureBuilder<Map<String, dynamic>?>(
+                            future: _fetchUserData(user.email),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData && snapshot.data != null) {
+                                  var userData = snapshot.data!;
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          '${userData['firstname']} ${userData['lastname']}',
+                                        ),
+                                        subtitle: Text(user.email),
+                                        leading: userData['imageUrl'] != null
+                                            ? CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    userData['imageUrl']),
+                                              )
+                                            : const CircleAvatar(
+                                                radius: 20,
+                                                child: Icon(Icons.person),
+                                              ),
+                                        onTap: () {
+                                          _clearSearchField(); // Clear search field
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ChatPage(
+                                                receivedUserID: user.id!,
+                                                receivedUserEmail: user.email,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      const Divider(
+                                        height: 1,
+                                        thickness: 0.7,
+                                        color: Colors.grey,
+                                        indent: 50,
+                                        endIndent: 50,
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return ListTile(
+                                    title: const Text('User data not found'),
+                                    subtitle: Text(user.email),
+                                  );
+                                }
+                              } else {
+                                return ListTile(
+                                  title: const Text('Loading...'),
+                                  subtitle: Text(user.email),
+                                  leading: const CircularProgressIndicator(),
                                 );
-                              },
-                            );
-                          } else {
-                            return ListTile(
-                              title: Text('User data not found'),
-                              subtitle: Text(user.email),
-                            );
-                          }
-                        } else {
-                          return ListTile(
-                            title: Text('Loading...'),
-                            subtitle: Text(user.email),
-                            leading: const CircularProgressIndicator(),
+                              }
+                            },
                           );
-                        }
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+                        },
+                      );
+                    },
+                  ),
           ),
         ],
       ),
@@ -162,14 +245,23 @@ class _HomeChatState extends State<HomeChat> {
 
 class UserList extends StatefulWidget {
   final User? user;
+  final bool isChecked;
+  final Function toggleSearch;
+  final Function clearSearchField;
   final Future<Map<String, dynamic>?> Function(String) fetchUserData;
 
-  const UserList({super.key, required this.user, required this.fetchUserData});
+  const UserList({
+    Key? key,
+    required this.user,
+    required this.isChecked,
+    required this.toggleSearch,
+    required this.clearSearchField,
+    required this.fetchUserData,
+  }) : super(key: key);
 
   @override
   _UserListState createState() => _UserListState();
 }
-
 
 class _UserListState extends State<UserList> {
   final ChatService _chatService = ChatService();
@@ -191,115 +283,176 @@ class _UserListState extends State<UserList> {
 
         final users = snapshot.data!.docs
             .map((doc) => UserModel.fromSnapshot(
-            doc as DocumentSnapshot<Map<String, dynamic>>))
+                doc as DocumentSnapshot<Map<String, dynamic>>))
             .toList();
 
         if (users.isEmpty) {
-          return const Center(child: Text('No users found.'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/chat.png',
+                  width: 100,
+                ),
+                const SizedBox(height: 20),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    " You don't have any chat messages yet , tap to connect with others ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontFamily: 'Times New Roman',
+                    ),
+                  ),
+                ),
+                const Text(
+                  'Your chat list will be shown here .. ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                    fontFamily: 'Times New Roman',
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.toggleSearch();
+                      });
+                    },
+                    child: Text('Tap to start ',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Times New Roman'))),
+                // IconButton(
+                //   onPressed: () {
+                //     widget.toggleSearch(); // Call toggleSearch function from HomeChat
+                //   },
+                //   icon: const Icon(Icons.manage_search),
+                // ),
+              ],
+            ),
+          );
         }
 
         return ListView.builder(
           itemCount: users.length,
           itemBuilder: (context, index) {
             final user = users[index];
-            return FutureBuilder<Map<String, dynamic>?>(
-              future: widget.fetchUserData(user.email),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData && snapshot.data != null) {
-                    var userData = snapshot.data!;
-                    return StreamBuilder<Message?>(
-                      stream: _chatService.getLastMessage(
-                          FirebaseAuth.instance.currentUser!.email!,
-                          user.email),
-                      builder: (context, messageSnapshot) {
-                        if (messageSnapshot.connectionState ==
-                            ConnectionState.waiting) {
+            return Column(
+              children: [
+                ListTile(
+                  title: FutureBuilder<Map<String, dynamic>?>(
+                    future: widget.fetchUserData(user.email),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData && snapshot.data != null) {
+                          var userData = snapshot.data!;
+                          return StreamBuilder<Message?>(
+                            stream: _chatService.getLastMessage(
+                                FirebaseAuth.instance.currentUser!.email!,
+                                user.email),
+                            builder: (context, messageSnapshot) {
+                              if (messageSnapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return ListTile(
+                                  title: const Text('Loading...'),
+                                  subtitle: Text(user.email),
+                                );
+                              }
+
+                              final lastMessage = messageSnapshot.data;
+                              final messageText =
+                                  lastMessage?.message ?? 'No messages';
+                              final messageTime = lastMessage != null
+                                  ? DateFormat('yyyy-MM-dd, HH-mm')
+                                      .format(lastMessage.timestamp.toDate())
+                                  : '';
+                              final isLastMessageFromCurrentUser =
+                                  lastMessage?.senderEmail ==
+                                      FirebaseAuth.instance.currentUser!.email;
+
+                              return ListTile(
+                                title: Text(
+                                  '${userData['firstname']} ${userData['lastname']}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                subtitle: Row(
+                                  children: [
+                                    Text(
+                                      messageText,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      messageTime,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                leading: userData['imageUrl'] != null
+                                    ? CircleAvatar(
+                                        radius: 22,
+                                        backgroundImage:
+                                            NetworkImage(userData['imageUrl']),
+                                      )
+                                    : const CircleAvatar(
+                                        radius: 30,
+                                        child: Icon(Icons.person),
+                                      ),
+                                onTap: () {
+                                  widget
+                                      .clearSearchField(); // Clear search field
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChatPage(
+                                        receivedUserID: user.id!,
+                                        receivedUserEmail: user.email,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        } else {
                           return ListTile(
-                            title: Text('Loading...'),
+                            title: const Text('User data not found'),
                             subtitle: Text(user.email),
                           );
                         }
-
-                        final lastMessage = messageSnapshot.data;
-                        final messageText =
-                            lastMessage?.message ?? 'No messages';
-                        final messageTime = lastMessage != null
-                            ? DateFormat('yyyy-MM-dd, HH-mm')
-                            .format(lastMessage.timestamp.toDate())
-                            : '';
-                        // Determine if the last message is from the current user
-                        final isLastMessageFromCurrentUser =
-                            lastMessage?.senderEmail ==
-                                FirebaseAuth.instance.currentUser!.email;
-
+                      } else {
                         return ListTile(
-                          title: Text(
-                            '${userData['firstname']} ${userData['lastname']}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          subtitle: Row(
-                            children: [
-                              Text(
-                                messageText,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-
-
-                              Spacer(),
-                              Text(
-                                messageTime,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          leading: userData['imageUrl'] != null
-                              ? CircleAvatar(
-                            radius: 22,
-                            backgroundImage:
-                            NetworkImage(userData['imageUrl']),
-                          )
-                              : CircleAvatar(
-                            radius: 30,
-                            child: Icon(Icons.person),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatPage(
-                                  receivedUserID: user.id!,
-                                  receivedUserEmail: user.email,
-                                ),
-                              ),
-                            );
-                          },
+                          title: const Text('Loading...'),
+                          subtitle: Text(user.email),
+                          leading: const CircularProgressIndicator(),
                         );
-                      },
-                    );
-                  } else {
-                    return ListTile(
-                      title: Text('User data not found'),
-                      subtitle: Text(user.email),
-                    );
-                  }
-                } else {
-                  return ListTile(
-                    title: Text('Loading...'),
-                    subtitle: Text(user.email),
-                    leading: const CircularProgressIndicator(),
-                  );
-                }
-              },
+                      }
+                    },
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 0.7,
+                  color: Colors.grey,
+                  indent: 50,
+                  endIndent: 50,
+                ),
+              ],
             );
           },
         );

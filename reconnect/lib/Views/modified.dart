@@ -140,8 +140,8 @@ class SecondPage extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              bottomnavigationcontroller.change(0);
-                              Get.close(2);
+                              bottomnavigationcontroller.change(2);
+                              Get.close(0);
                               // Perform any action when the button is pressed
                             },
                             icon: const Icon(Icons.restart_alt_sharp,color: Colors.white,),

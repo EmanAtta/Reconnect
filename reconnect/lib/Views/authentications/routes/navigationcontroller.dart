@@ -24,15 +24,16 @@ class BottomNavigationController extends GetxController {
     userE = user?.email;
   }
 
-  var selectedIndex = 0.obs;
+  var selectedIndex = 2.obs;
   late final List<Widget> pages;
 
   BottomNavigationController() {
     pages = [
-      const MyHomePage(),
-      const Post(),
+     
+     // const Post(),
       const PostListPage(posts: []),
       const Donation(),
+      const MyHomePage(),
       FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         future: getUserData(user?.email),
         builder: (context, snapshot) {
@@ -60,10 +61,11 @@ class BottomNavigationController extends GetxController {
   }
 
   final List<Map<String, dynamic>> icons = [
-    {'icon': Icons.home, 'color': AppColors.primaryColor},
-    {'icon': Icons.post_add, 'color': AppColors.primaryColor},
+    
+   // {'icon': Icons.post_add, 'color': AppColors.primaryColor},
     {'icon': Icons.public_rounded, 'color': AppColors.primaryColor},
     {'icon': Icons.monetization_on_outlined, 'color': AppColors.primaryColor},
+    {'icon': Icons.home, 'color': AppColors.primaryColor},
     {'icon': Icons.person, 'color': AppColors.primaryColor},
     {'icon': Icons.chat, 'color': AppColors.primaryColor},
 

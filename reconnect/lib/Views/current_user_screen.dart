@@ -30,32 +30,32 @@ class PostModel {
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-    postTime: json['timestamp'] ?? '',
-    postDate: json['datestamp'] ?? '',
-    name: json['name'] ?? '',
-    dateoflost: json['dateoflost'] ?? '',
-    phone: json['phone'] ?? '',
-    image_url: json['image_url'] ?? '',
-    description: json['description'] ?? '',
-    firstN: json['first_name'] ?? '',
-    lastN: json['last_name'] ?? '',
-    userP: json['user_photo'] ?? '',
-    userEmail: json['user_email'] ?? '',
-  );
+        postTime: json['timestamp'] ?? '',
+        postDate: json['datestamp'] ?? '',
+        name: json['name'] ?? '',
+        dateoflost: json['dateoflost'] ?? '',
+        phone: json['phone'] ?? '',
+        image_url: json['image_url'] ?? '',
+        description: json['description'] ?? '',
+        firstN: json['first_name'] ?? '',
+        lastN: json['last_name'] ?? '',
+        userP: json['user_photo'] ?? '',
+        userEmail: json['user_email'] ?? '',
+      );
 
   Map<String, dynamic> toJson() => {
-    'datestamp': postDate,
-    'timestamp': postTime,
-    'name': name,
-    'dateoflost': dateoflost,
-    'phone': phone,
-    'image_url': image_url,
-    'description': description,
-    'first_name': firstN,
-    'last_name': lastN,
-    'user_photo': userP,
-    'user_email': userEmail,
-  };
+        'datestamp': postDate,
+        'timestamp': postTime,
+        'name': name,
+        'dateoflost': dateoflost,
+        'phone': phone,
+        'image_url': image_url,
+        'description': description,
+        'first_name': firstN,
+        'last_name': lastN,
+        'user_photo': userP,
+        'user_email': userEmail,
+      };
 }
 
 class currentUsers extends StatefulWidget {
@@ -65,12 +65,12 @@ class currentUsers extends StatefulWidget {
   final String userEmail;
 
   const currentUsers({
-    super.key,
+    Key? key,
     required this.userPhotoUrl,
     required this.firstName,
     required this.lastName,
     required this.userEmail,
-  });
+  }) : super(key: key);
 
   @override
   _currentUsersState createState() => _currentUsersState();
@@ -126,229 +126,227 @@ class _currentUsersState extends State<currentUsers> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Column(
-        children: [
-          const SizedBox(height: 10),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 120,
-                  backgroundImage: NetworkImage(widget.userPhotoUrl),
-                  backgroundColor:Colors.transparent,
-                ),
-                const SizedBox(height: 16.0),
-                Text(
-                  '${widget.firstName} ${widget.lastName}',
-                  style: const TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.secondaryColor,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            pinned: true,
+            floating: true,
+            expandedHeight: 200.0,
+            flexibleSpace: LayoutBuilder(
+              builder: (context, constraints) {
+                double appBarSize = constraints.biggest.height;
+                return FlexibleSpaceBar(
+                  background: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: appBarSize * 0.6,
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: NetworkImage(widget.userPhotoUrl),
+                            backgroundColor: Colors.transparent,
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Text(
+                          '${widget.firstName} ${widget.lastName}',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.secondaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ),
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                // نضيف هنا هيتم تحديث البوستات ازاي واسترجاعها من فايربيز
-              },
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('posts')
-                    .where('user_email', isEqualTo: widget.userEmail)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+          SliverToBoxAdapter(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .where('user_email', isEqualTo: widget.userEmail)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-                  List<PostModel> posts = snapshot.data!.docs
-                      .map((doc) =>
-                      PostModel.fromJson(
-                        doc.data() as Map<String, dynamic>,
-                      ))
-                      .toList();
+                List<PostModel> posts = snapshot.data!.docs
+                    .map((doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
+                    .toList();
 
-                  return ListView.builder(
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 30,
-                        shadowColor: AppColors.textolor,
-                        color: AppColors.primaryColor,
-                        margin: const EdgeInsets.all(8.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 20,
-                                        backgroundImage: NetworkImage(
-                                            posts[index].userP ?? ''),
-                                      ),
-                                      const SizedBox(width: 8.0),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '${posts[index].firstN ??
-                                                  ''} ${posts[index].lastN ??
-                                                  ''}',
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: posts.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 8,
+                      shadowColor: AppColors.primaryColor,
+                      color: Colors.white,
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage: NetworkImage(posts[index].userP ?? ''),
+                                    ),
+                                    const SizedBox(width: 8.0),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
+                                            style: const TextStyle(
+                                              color: AppColors.secondaryColor,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 5.0),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: '${posts[index].postDate}    |    ${posts[index].postTime}',
                                               style: const TextStyle(
                                                 color: AppColors.secondaryColor,
-                                                fontSize: 16.0,
+                                                fontSize: 12.0,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            const SizedBox(height: 5.0),
-                                            RichText(
-                                              text: TextSpan(
-                                                text:
-                                                '${posts[index]
-                                                    .postDate}    |    ${posts[index]
-                                                    .postTime}',
-                                                style: const TextStyle(
-                                                  color:
-                                                  AppColors.secondaryColor,
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    color: AppColors.secondaryColor,
-                                    onPressed: () {
-                                      _deletePost(
-                                          snapshot.data!.docs[index].id);
-                                    },
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  color: AppColors.secondaryColor,
+                                  onPressed: () {
+                                    _deletePost(snapshot.data!.docs[index].id);
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10.0),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 200,
+                              child: posts[index].image_url != null && posts[index].image_url!.isNotEmpty
+                                  ? Image.network(
+                                      posts[index].image_url!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const Center(
+                                      child: Text('No image'),
+                                    ),
+                            ),
+                            const SizedBox(height: 12.0),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Name: ',
+                                style: const TextStyle(
+                                  color: AppColors.secondaryColor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${posts[index].name}',
+                                    style: const TextStyle(
+                                      color: AppColors.textolor,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10.0),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 200,
-                                child: posts[index].image_url != null &&
-                                    posts[index].image_url!.isNotEmpty
-                                    ? Image.network(
-                                  posts[index].image_url!,
-                                  fit: BoxFit.contain,
-                                )
-                                    : const Center(
-                                  child: Text('No image'),
+                            ),
+                            const SizedBox(height: 12.0),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Date Of Lost: ',
+                                style: const TextStyle(
+                                  color: AppColors.secondaryColor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Name: ',
-                                  style: const TextStyle(
-                                    color: AppColors.secondaryColor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: '${posts[index].name}',
-                                      style: const TextStyle(
-                                        color: AppColors.textolor,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                children: [
+                                  TextSpan(
+                                    text: '${posts[index].dateoflost}',
+                                    style: const TextStyle(
+                                      color: AppColors.textolor,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12.0),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Date Of Lost: ',
-                                  style: const TextStyle(
-                                    color: AppColors.secondaryColor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: '${posts[index].dateoflost}',
-                                      style: const TextStyle(
-                                        color: AppColors.textolor,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ],
                               ),
-                              const SizedBox(height: 10.0),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Phone: ',
-                                  style: const TextStyle(
-                                    color: AppColors.secondaryColor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(height: 10.0),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Phone: ',
+                                style: const TextStyle(
+                                  color: AppColors.secondaryColor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${posts[index].phone}',
+                                    style: const TextStyle(
+                                      color: AppColors.textolor,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: '${posts[index].phone}',
-                                      style: const TextStyle(
-                                        color: AppColors.textolor,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ],
                               ),
-                              const SizedBox(height: 10.0),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Description: ',
-                                  style: const TextStyle(
-                                    color: AppColors.secondaryColor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(height: 10.0),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Description: ',
+                                style: const TextStyle(
+                                  color: AppColors.secondaryColor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '${posts[index].description}',
+                                    style: const TextStyle(
+                                      color: AppColors.textolor,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: '${posts[index].description}',
-                                      style: const TextStyle(
-                                        color: AppColors.textolor,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],

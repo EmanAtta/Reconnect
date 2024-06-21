@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:reconnect/Views/payment.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -20,37 +21,39 @@ class _PaymobInterfaceState extends State<PaymobInterface> {
     BottomNavigationController bottomnavigationcontroller =
         Get.put(BottomNavigationController());
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.secondaryColor,
-          title: const Text(
-            ' Payment',
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: AppColors.primaryColor),
-          ),
+      appBar: AppBar(
+        backgroundColor: AppColors.secondaryColor,
+        title: const Text(
+          ' Payment',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: AppColors.primaryColor),
         ),
-        body: WebViewWidget(
-            controller: WebViewController()
-              ..setJavaScriptMode(JavaScriptMode.unrestricted)
-              ..setBackgroundColor(const Color(0x00000000))
-              ..setNavigationDelegate(
-                NavigationDelegate(
-                  onProgress: (int progress) {
-                    // Update loading bar.
-                  },
-                  onPageStarted: (String url) {},
-                  onPageFinished: (String url) {},
-                  onWebResourceError: (WebResourceError error) {},
-                  onNavigationRequest: (NavigationRequest request) {
-                    if (request.url.startsWith('https://www.youtube.com/')) {
-                      return NavigationDecision.prevent;
-                    }
-                    return NavigationDecision.navigate;
-                  },
-                ),
-              )
-              ..loadRequest(Uri.parse(
-                'https://accept.paymob.com/api/acceptance/iframes/841120?payment_token=${widget.paymentToken}',
-              ))));
+      ),
+      body: WebViewWidget(
+        controller: WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setBackgroundColor(const Color(0x00000000))
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onProgress: (int progress) {
+                // Update loading bar.
+              },
+              onPageStarted: (String url) {},
+              onPageFinished: (String url) {},
+              onWebResourceError: (WebResourceError error) {},
+              onNavigationRequest: (NavigationRequest request) {
+                if (request.url.startsWith('https://www.youtube.com/')) {
+                  return NavigationDecision.prevent;
+                }
+                return NavigationDecision.navigate;
+              },
+            ),
+          )
+          ..loadRequest(Uri.parse(
+            'https://accept.paymob.com/api/acceptance/iframes/841120?payment_token=${widget.paymentToken}',
+          )),
+      ),
+    );
   }
 }
 
@@ -65,6 +68,37 @@ class _DonationState extends State<Donation> {
   final amountController = TextEditingController();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+
+  final List<String> images = [
+    "assets/donation.jpg",
+    "assets/donate3.png", 
+    "assets/donate2.png"
+   
+  ];
+
+  int _currentImageIndex = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startImageChangeTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startImageChangeTimer() {
+    _timer = Timer.periodic(Duration(seconds:30), (timer) {
+      setState(() {
+        _currentImageIndex = (_currentImageIndex + 1) % images.length;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +107,7 @@ class _DonationState extends State<Donation> {
         child: Column(
           children: [
             Container(
-              child: const Image(
-                image: AssetImage("assets/donation.jpg"),
-              ),
+              child: Image.asset(images[_currentImageIndex]),
             ),
             const SizedBox(
               height: 35,
@@ -84,31 +116,39 @@ class _DonationState extends State<Donation> {
               margin: const EdgeInsets.only(right: 10, left: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: AppColors.secondaryColor),
+                //border: Border.all(color: AppColors.secondaryColor),
               ),
-              child: const Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16, 8, 16, 80),
-                    child: Text(
-                      'About',
-                      style: TextStyle(color: AppColors.textolor, fontSize: 16),
-                    ),
-                  ),
-                  TextField(
-                    cursorColor: AppColors.secondaryColor,
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(
-                          16, 30, 16, 16), // Adjust padding as needed
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                    ),
-                  ),
-                ],
-              ),
+              child:Stack(
+  alignment: Alignment.topLeft,
+  children: [
+    TextFormField(
+  readOnly: true,
+  initialValue: "Donate via our Reconnect app to support DNA testing. Your contribution helps us provide reunite families.",
+  
+  cursorColor: AppColors.textolor,
+  minLines: 2, // Minimum number of lines to display
+  maxLines: null, // Allows unlimited lines of text
+  decoration: InputDecoration(
+    labelText: "About",
+    floatingLabelStyle: TextStyle(fontSize: 18,color: AppColors.secondaryColor), // Adjust label text as needed
+    labelStyle: TextStyle(fontSize: 15, color: AppColors.labelStyle),
+    contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 16), // Adjust padding as needed
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.secondaryColor),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColors.secondaryColor,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(30),
+    ),
+  ),
+),
+
+  ],
+)
             ),
             const SizedBox(
               height: 30,

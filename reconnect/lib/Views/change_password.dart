@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/login.dart';
 
@@ -98,6 +99,9 @@ class _Change_PasswordState extends State<Change_Password> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+                      
+                      child:  Lottie.asset('assets/change.json',height: 220)),
           const Center(
             child: Text(
               'Change password',

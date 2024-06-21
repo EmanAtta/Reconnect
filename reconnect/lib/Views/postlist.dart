@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
-import 'package:reconnect/Views/color.dart';
-import 'package:reconnect/Views/user_profile_screen.dart';
 import 'package:share_plus/share_plus.dart';
-
-
+import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
+import 'package:reconnect/Views/post.dart';
+import 'package:reconnect/Views/user_profile_screen.dart';
 
 class PostModel {
   late String? postTime;
@@ -78,7 +76,7 @@ class PostListPage extends StatelessWidget {
     BottomNavigationController bottomnavigationcontroller =
         Get.put(BottomNavigationController());
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: const Color(0xFFf8f9fa),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('posts')
@@ -97,178 +95,133 @@ class PostListPage extends StatelessWidget {
           return ListView.builder(
             itemCount: posts.length,
             itemBuilder: (context, index) {
-              return Stack(
-                children: [
-                  Card(
-                    elevation: 30,
-                    shadowColor: AppColors.textolor,
-                    color: AppColors.primaryColor,
-                    margin: const EdgeInsets.all(8.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              return Card(
+                elevation: 5,
+                shadowColor: Colors.grey,
+                color: const Color(0xFFFFFFFF),
+                margin: const EdgeInsets.all(10.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          const SizedBox(height: 40.0), // Space for profile icon
-                          Text(
-                            '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
-                            style: const TextStyle(
-                              color: AppColors.secondaryColor,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          CircleAvatar(
+                            radius: 25,
+                            backgroundImage:
+                                NetworkImage(posts[index].userP ?? ''),
                           ),
-                          const SizedBox(height: 5.0),
-                          Text(
-                            '${posts[index].postDate} | ${posts[index].postTime}',
-                            style: const TextStyle(
-                              color: AppColors.secondaryColor,
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10.0),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 200,
-                            child: posts[index].image_url != null &&
-                                    posts[index].image_url!.isNotEmpty
-                                ? Image.network(
-                                    posts[index].image_url!,
-                                    fit: BoxFit.contain,
-                                  )
-                                : const Center(
-                                    child: Text('No image'),
-                                  ),
-                          ),
-                          const SizedBox(height: 12.0),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Name: ',
-                              style: const TextStyle(
-                                color: AppColors.secondaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '${posts[index].name}',
-                                  style: const TextStyle(
-                                    color: AppColors.textolor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
+                          const SizedBox(width: 10.0),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UserProfileScreen(
+                                    userPhotoUrl: posts[index].userP ?? '',
+                                    firstName: posts[index].firstN ?? '',
+                                    lastName: posts[index].lastN ?? '',
+                                    userEmail: posts[index].userEmail ?? '',
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 12.0),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Date Of Lost: ',
-                              style: const TextStyle(
-                                color: AppColors.secondaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '${posts[index].dateoflost}',
-                                  style: const TextStyle(
-                                    color: AppColors.textolor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10.0),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Phone: ',
-                              style: const TextStyle(
-                                color: AppColors.secondaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '${posts[index].phone}',
-                                  style: const TextStyle(
-                                    color: AppColors.textolor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10.0),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Description: ',
-                              style: const TextStyle(
-                                color: AppColors.secondaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: '${posts[index].description}',
-                                  style: const TextStyle(
-                                    color: AppColors.textolor,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              sharePost(posts[index]);
+                              );
                             },
-                            icon: const Icon(Icons.share),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
+                                  style: const TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 5.0),
+                                RichText(
+                                  text: TextSpan(
+                                    text:
+                                        '${posts[index].postDate}    |    ${posts[index].postTime}',
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 8,
-                    left: 16,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserProfileScreen(
-                              userPhotoUrl: posts[index].userP ?? '',
-                              firstName: posts[index].firstN ?? '',
-                              lastName: posts[index].lastN ?? '',
-                              userEmail: posts[index].userEmail ?? '',
-                            ),
-                          ),
-                        );
-                      },
-                      child: ClipOval(
-                        child: Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.all(2.0),
-                          child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(posts[index].userP ?? ''),
-                            radius: 20,
-                          ),
+                      const SizedBox(height: 15.0),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 250,
+                        child: posts[index].image_url != null &&
+                                posts[index].image_url!.isNotEmpty
+                            ? Image.network(
+                                posts[index].image_url!,
+                                fit: BoxFit.cover,
+                              )
+                            : const Center(
+                                child: Text('No image available'),
+                              ),
+                      ),
+                      const SizedBox(height: 15.0),
+                      Text(
+                        'Name: ${posts[index].name}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 10.0),
+                      Text(
+                        'Date Of Lost: ${posts[index].dateoflost}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Text(
+                        'Phone: ${posts[index].phone}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Text(
+                        'Description: ${posts[index].description}',
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          onPressed: () {
+                            sharePost(posts[index]);
+                          },
+                          icon:
+                              const Icon(Icons.share, color: Colors.blueAccent),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               );
             },
           );
@@ -276,12 +229,13 @@ class PostListPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          bottomnavigationcontroller.change(1);
+          // bottomnavigationcontroller.change(1);
+          Get.to(() => Post());
         },
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: const Color(0xFF343a40),
         child: const Icon(
           Icons.add,
-          color: AppColors.secondaryColor,
+          color: Colors.white,
         ),
       ),
     );
@@ -289,8 +243,7 @@ class PostListPage extends StatelessWidget {
 
   Future<void> sharePost(PostModel post) async {
     final String uniqueLink = post.uniqueLink ?? '';
-    final String webUrl =
-        'https://reconnect-8f8e9.web.app/?id=$uniqueLink'; // رابط صفحة الويب
+    final String webUrl = 'https://reconnect-8f8e9.web.app/?id=$uniqueLink';
 
     await Share.share(
       '$webUrl',
@@ -298,6 +251,3 @@ class PostListPage extends StatelessWidget {
     );
   }
 }
-
-
-
