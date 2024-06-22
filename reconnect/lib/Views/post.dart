@@ -332,10 +332,13 @@ class _PostState extends State<Post> {
   }) {
     return TextField(
       controller: controller,
+      cursorColor: AppColors.textolor,
       maxLines: maxLines,
       decoration: InputDecoration(
         labelText: labelText,
-        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+        labelStyle: const TextStyle(fontSize: 15, color: AppColors.labelStyle),
+        enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+        focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
       ),
     );
   }
