@@ -62,7 +62,7 @@ dependencies:
   shared_preferences: ^2.2.3
   intl: any
   lottie: ^3.1.2
-  google_fonts: any # Ensure you are using a compatible version
+  google_fonts: ^6.2.1  # Ensure you are using a compatible version
   animated_text_kit: ^4.2.2
   share_plus: ^6.0.4
 

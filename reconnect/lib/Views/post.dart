@@ -332,10 +332,15 @@ class _PostState extends State<Post> {
   }) {
     return TextField(
       controller: controller,
+      cursorColor: AppColors.textolor,
       maxLines: maxLines,
       decoration: InputDecoration(
         labelText: labelText,
-        border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+        labelStyle: const TextStyle(fontSize: 15, color: AppColors.labelStyle),
+        focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50)),
+      
+        ),
+      enabledBorder:const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),   
       ),
     );
   }
@@ -388,9 +393,12 @@ class _PostState extends State<Post> {
         Padding(
           padding: const EdgeInsets.only(bottom: 0),
           child: IntlPhoneField(
+             cursorColor: AppColors.textolor,
             decoration: const InputDecoration(
+              labelStyle: const TextStyle(fontSize: 15, color: AppColors.labelStyle),
               labelText: 'Phone Number',
-              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+              focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
             ),
             initialCountryCode: 'EG',
             onChanged: (phone) {

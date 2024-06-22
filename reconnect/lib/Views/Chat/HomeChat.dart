@@ -52,171 +52,190 @@ class _HomeChatState extends State<HomeChat> {
     return Scaffold(
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search . . .',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+          if (isChecked)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Search . . .',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            setState(() {
+                              _searchController.clear();
+                              _searchQuery = '';
+                            });
+                          },
+                        )
+                      : null,
                 ),
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    setState(() {
-                      _searchController.clear();
-                      _searchQuery = '';
-                    });
-                  },
-                )
-                    : null,
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value.toLowerCase();
+                  });
+                },
               ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value.toLowerCase();
-                });
-              },
             ),
-          ),
           Expanded(
             child: _searchQuery.isEmpty
                 ? UserList(
-              key: UniqueKey(), // Ensure key is unique
-              user: user,
-              fetchUserData: _fetchUserData,
-              isChecked: isChecked,
-              toggleSearch: () {
-                setState(() {
-                  isChecked = !isChecked;
-                });
-              },
-              clearSearchField: _clearSearchField,
-            )
+                    key: UniqueKey(), // Ensure key is unique
+                    user: user,
+                    fetchUserData: _fetchUserData,
+                    isChecked: isChecked,
+                    toggleSearch: () {
+                      setState(() {
+                        isChecked = !isChecked;
+                      });
+                    },
+                    clearSearchField: _clearSearchField,
+                  )
                 : StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-                final users = snapshot.data!.docs
-                    .map((doc) => UserModel.fromSnapshot(
-                    doc as DocumentSnapshot<Map<String, dynamic>>))
-                    .where((user) => user.fullName
-                    .toLowerCase()
-                    .contains(_searchQuery))
-                    .toList();
+                      final users = snapshot.data!.docs
+                          .map((doc) => UserModel.fromSnapshot(
+                              doc as DocumentSnapshot<Map<String, dynamic>>))
+                          .where((user) => user.fullName
+                              .toLowerCase()
+                              .contains(_searchQuery))
+                          .toList();
 
-                if (users.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/chat.png',
-                          width: 100,
-                        ),
-                        const SizedBox(height: 20),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "You don't have any chat messages yet , tap to connect with others",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 23,
-                              fontFamily: 'Times New Roman',
-                            ),
-                          ),
-                        ),
-                        const Text(
-                          'Your chat list will be shown here .. ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 18,
-                            fontFamily: 'Times New Roman',
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                return ListView.builder(
-                  itemCount: users.length,
-                  itemBuilder: (context, index) {
-                    final user = users[index];
-                    return FutureBuilder<Map<String, dynamic>?>(
-                      future: _fetchUserData(user.email),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.done) {
-                          if (snapshot.hasData && snapshot.data != null) {
-                            var userData = snapshot.data!;
-                            return Column(
-                              children: [
-                                ListTile(
-                                  title: Text(
-                                    '${userData['firstname']} ${userData['lastname']}',
+                      if (users.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/chat.png',
+                                width: 100,
+                              ),
+                              const SizedBox(height: 20),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "You don't have any chat messages yet , tap to connect with others",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 23,
+                                    fontFamily: 'Times New Roman',
                                   ),
-                                  subtitle: Text(user.email),
-                                  leading: userData['imageUrl'] != null
-                                      ? CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        userData['imageUrl']),
-                                  )
-                                      : const CircleAvatar(
-                                    radius: 20,
-                                    child: Icon(Icons.person),
-                                  ),
-                                  onTap: () {
-                                    _clearSearchField(); // Clear search field
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ChatPage(
-                                          receivedUserID: user.id!,
-                                          receivedUserEmail: user.email,
-                                        ),
-                                      ),
-                                    );
-                                  },
                                 ),
-                                const Divider(
-                                  height: 1,
-                                  thickness: 0.7,
+                              ),
+                              const Text(
+                                'Your chat list will be shown here .. ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
                                   color: Colors.grey,
-                                  indent: 50,
-                                  endIndent: 50,
+                                  fontSize: 18,
+                                  fontFamily: 'Times New Roman',
                                 ),
-                              ],
-                            );
-                          } else {
-                            return ListTile(
-                              title: const Text('User data not found'),
-                              subtitle: Text(user.email),
-                            );
-                          }
-                        } else {
-                          return ListTile(
-                            title: const Text('Loading...'),
-                            subtitle: Text(user.email),
-                            leading: const CircularProgressIndicator(),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isChecked = !isChecked;
+                                    });
+                                  },
+                                  child: Text('Tap to start ',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Times New Roman'))),
+                              // IconButton(
+                              //   onPressed: () {
+                              //     setState(() {
+                              //       isChecked = !isChecked;
+                              //     });
+                              //   },
+                              //   icon: const Icon(Icons.manage_search),
+                              // ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      return ListView.builder(
+                        itemCount: users.length,
+                        itemBuilder: (context, index) {
+                          final user = users[index];
+                          return FutureBuilder<Map<String, dynamic>?>(
+                            future: _fetchUserData(user.email),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData && snapshot.data != null) {
+                                  var userData = snapshot.data!;
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text(
+                                          '${userData['firstname']} ${userData['lastname']}',
+                                        ),
+                                        subtitle: Text(user.email),
+                                        leading: userData['imageUrl'] != null
+                                            ? CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    userData['imageUrl']),
+                                              )
+                                            : const CircleAvatar(
+                                                radius: 20,
+                                                child: Icon(Icons.person),
+                                              ),
+                                        onTap: () {
+                                          _clearSearchField(); // Clear search field
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ChatPage(
+                                                receivedUserID: user.id!,
+                                                receivedUserEmail: user.email,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      const Divider(
+                                        height: 1,
+                                        thickness: 0.7,
+                                        color: Colors.grey,
+                                        indent: 50,
+                                        endIndent: 50,
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return ListTile(
+                                    title: const Text('User data not found'),
+                                    subtitle: Text(user.email),
+                                  );
+                                }
+                              } else {
+                                return ListTile(
+                                  title: const Text('Loading...'),
+                                  subtitle: Text(user.email),
+                                  leading: const CircularProgressIndicator(),
+                                );
+                              }
+                            },
                           );
-                        }
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+                        },
+                      );
+                    },
+                  ),
           ),
         ],
       ),
@@ -264,7 +283,7 @@ class _UserListState extends State<UserList> {
 
         final users = snapshot.data!.docs
             .map((doc) => UserModel.fromSnapshot(
-            doc as DocumentSnapshot<Map<String, dynamic>>))
+                doc as DocumentSnapshot<Map<String, dynamic>>))
             .toList();
 
         if (users.isEmpty) {
@@ -299,6 +318,22 @@ class _UserListState extends State<UserList> {
                     fontFamily: 'Times New Roman',
                   ),
                 ),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.toggleSearch();
+                      });
+                    },
+                    child: Text('Tap to start ',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Times New Roman'))),
+                // IconButton(
+                //   onPressed: () {
+                //     widget.toggleSearch(); // Call toggleSearch function from HomeChat
+                //   },
+                //   icon: const Icon(Icons.manage_search),
+                // ),
               ],
             ),
           );
@@ -335,7 +370,7 @@ class _UserListState extends State<UserList> {
                                   lastMessage?.message ?? 'No messages';
                               final messageTime = lastMessage != null
                                   ? DateFormat('yyyy-MM-dd, HH-mm')
-                                  .format(lastMessage.timestamp.toDate())
+                                      .format(lastMessage.timestamp.toDate())
                                   : '';
                               final isLastMessageFromCurrentUser =
                                   lastMessage?.senderEmail ==
@@ -370,14 +405,14 @@ class _UserListState extends State<UserList> {
                                 ),
                                 leading: userData['imageUrl'] != null
                                     ? CircleAvatar(
-                                  radius: 22,
-                                  backgroundImage:
-                                  NetworkImage(userData['imageUrl']),
-                                )
+                                        radius: 22,
+                                        backgroundImage:
+                                            NetworkImage(userData['imageUrl']),
+                                      )
                                     : const CircleAvatar(
-                                  radius: 30,
-                                  child: Icon(Icons.person),
-                                ),
+                                        radius: 30,
+                                        child: Icon(Icons.person),
+                                      ),
                                 onTap: () {
                                   widget
                                       .clearSearchField(); // Clear search field

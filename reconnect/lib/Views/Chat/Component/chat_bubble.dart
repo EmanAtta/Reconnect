@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:reconnect/Views/color.dart';
 
 class ChatBubble extends StatelessWidget {
   final String message;
@@ -42,7 +43,7 @@ class ChatBubble extends StatelessWidget {
               bottomRight: isCurrentUser ? Radius.circular(0) : Radius.circular(15),
 
             ),
-            color: isCurrentUser ? const Color(0xFF4A563E) : Colors.grey.shade200,
+            color: isCurrentUser ? AppColors.secondaryColor : Colors.grey.shade200,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +52,7 @@ class ChatBubble extends StatelessWidget {
                 message,
                 style: TextStyle(
                   fontSize: 16,
-                  color: isCurrentUser ? const Color(0xFFFFE8D6) : Colors.black,
+                  color: isCurrentUser ? AppColors.primaryColor : Colors.black,
                 ),
               ),
 
