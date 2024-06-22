@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:reconnect/Views/Chat/Chat/Chat_service.dart';
 import 'package:reconnect/Views/Chat/Component/chat_bubble.dart';
 import 'package:reconnect/Views/Chat/Model/message.dart';
-import 'package:reconnect/Views/color.dart';
 import 'package:reconnect/Views/user_profile_screen.dart';
 
 class ChatPage extends StatefulWidget {
@@ -159,7 +158,7 @@ class _ChatPageState extends State<ChatPage> {
           ),
           IconButton(
             onPressed: sendMessage,
-            icon: Icon(Icons.send, size: 30, color: AppColors.secondaryColor),
+            icon: Icon(Icons.send, size: 30, color: Color(0xFF4A563E)),
           ),
         ],
       ),
@@ -169,11 +168,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: Color(0xFFFFE8D6),
       appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
+        backgroundColor: Color(0xFF4A563E),
         iconTheme: IconThemeData(
-          color: AppColors.primaryColor,
+          color: Color(0xFFFFE8D6),
         ),
         title: Row(
           children: [
@@ -211,7 +210,7 @@ class _ChatPageState extends State<ChatPage> {
               },
               child: Text(
                 _receiverName ?? 'Loading...',
-                style: TextStyle(color: AppColors.primaryColor),
+                style: TextStyle(color: Color(0xFFFFE8D6)),
               ),
             )
           ],

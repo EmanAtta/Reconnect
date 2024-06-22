@@ -155,6 +155,9 @@ class UserProfileScreen extends StatelessWidget {
                       },
                       icon: const Icon(Icons.message_rounded),
                     )
+
+
+
                   ],
                 ),
               ],
@@ -229,7 +232,7 @@ class UserProfileScreen extends StatelessWidget {
                                           text:
                                           '${posts[index].postDate}    |    ${posts[index].postTime}',
                                           style: const TextStyle(
-                                            color: Colors.grey,
+                                            color: AppColors.secondaryColor,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.bold,
                                           ),

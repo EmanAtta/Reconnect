@@ -44,7 +44,7 @@ class _resetPasswordState extends State<verification> {
         leading: IconButton(
           color: const Color.fromARGB(255, 230, 124, 49),
           onPressed: () {
-            (signup());
+            Get.to(signup());
           },
           icon: const Icon(
             Icons.keyboard_arrow_left,
@@ -89,9 +89,7 @@ class _resetPasswordState extends State<verification> {
                       //Color(0xff546642),
                     ])),
                 child: ElevatedButton(
-                  onPressed: () {
-                  Get.to(() => signup());
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent),

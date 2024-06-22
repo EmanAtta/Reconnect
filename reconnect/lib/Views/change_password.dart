@@ -101,7 +101,7 @@ class _Change_PasswordState extends State<Change_Password> {
         children: [
           Container(
                       
-          child:  Lottie.asset('assets/change.json',height: 220)),
+                      child:  Lottie.asset('assets/change.json',height: 220)),
           const Center(
             child: Text(
               'Change password',

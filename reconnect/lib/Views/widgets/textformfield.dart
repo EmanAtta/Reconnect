@@ -20,9 +20,10 @@ class _textfieldState extends State<textfield> {
           cursorColor: AppColors.textolor,
           decoration:InputDecoration(
             labelText: widget.label_Text,
-            labelStyle: const TextStyle(fontSize: 15, color: AppColors.labelStyle),
-              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
-              focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30))
+            labelStyle: const TextStyle(
+                            fontSize: 15, color: AppColors.labelStyle),
+                            enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.secondaryColor),borderRadius: BorderRadius.circular(30)),
+                           focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: AppColors.textolor),borderRadius: BorderRadius.circular(30))
                        
           ),
         ),

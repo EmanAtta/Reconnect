@@ -97,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> _uploadImage(File imageFile) async {
     // اللينك بيتغير حسب السيرفر
-    final url = Uri.parse('https://c395-156-197-200-46.ngrok-free.app/search'); // Replace with your actual API endpoint
+    final url = Uri.parse('https://59c0-156-197-191-184.ngrok-free.app/search'); // Replace with your actual API endpoint
     final request = http.MultipartRequest('POST', url);
     request.files.add(await http.MultipartFile.fromPath('image', imageFile.path));
 
