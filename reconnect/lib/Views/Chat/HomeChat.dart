@@ -96,13 +96,13 @@ class _HomeChatState extends State<HomeChat> {
               clearSearchField: _clearSearchField,
             )
                 : StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
                 final users = snapshot.data!.docs
                     .map((doc) => UserModel.fromSnapshot(
@@ -149,74 +149,74 @@ class _HomeChatState extends State<HomeChat> {
                   );
                 }
 
-                      return ListView.builder(
-                        itemCount: users.length,
-                        itemBuilder: (context, index) {
-                          final user = users[index];
-                          return FutureBuilder<Map<String, dynamic>?>(
-                            future: _fetchUserData(user.email),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                if (snapshot.hasData && snapshot.data != null) {
-                                  var userData = snapshot.data!;
-                                  return Column(
-                                    children: [
-                                      ListTile(
-                                        title: Text(
-                                          '${userData['firstname']} ${userData['lastname']}',
-                                        ),
-                                        subtitle: Text(user.email),
-                                        leading: userData['imageUrl'] != null
-                                            ? CircleAvatar(
-                                                backgroundImage: NetworkImage(
-                                                    userData['imageUrl']),
-                                              )
-                                            : const CircleAvatar(
-                                                radius: 20,
-                                                child: Icon(Icons.person),
-                                              ),
-                                        onTap: () {
-                                          _clearSearchField(); // Clear search field
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => ChatPage(
-                                                receivedUserID: user.id!,
-                                                receivedUserEmail: user.email,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      const Divider(
-                                        height: 1,
-                                        thickness: 0.7,
-                                        color: Colors.grey,
-                                        indent: 50,
-                                        endIndent: 50,
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return ListTile(
-                                    title: const Text('User data not found'),
-                                    subtitle: Text(user.email),
-                                  );
-                                }
-                              } else {
-                                return ListTile(
-                                  title: const Text('Loading...'),
+                return ListView.builder(
+                  itemCount: users.length,
+                  itemBuilder: (context, index) {
+                    final user = users[index];
+                    return FutureBuilder<Map<String, dynamic>?>(
+                      future: _fetchUserData(user.email),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.done) {
+                          if (snapshot.hasData && snapshot.data != null) {
+                            var userData = snapshot.data!;
+                            return Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    '${userData['firstname']} ${userData['lastname']}',
+                                  ),
                                   subtitle: Text(user.email),
-                                  leading: const CircularProgressIndicator(),
-                                );
-                              }
-                            },
+                                  leading: userData['imageUrl'] != null
+                                      ? CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        userData['imageUrl']),
+                                  )
+                                      : const CircleAvatar(
+                                    radius: 20,
+                                    child: Icon(Icons.person),
+                                  ),
+                                  onTap: () {
+                                    _clearSearchField(); // Clear search field
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ChatPage(
+                                          receivedUserID: user.id!,
+                                          receivedUserEmail: user.email,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                const Divider(
+                                  height: 1,
+                                  thickness: 0.7,
+                                  color: Colors.grey,
+                                  indent: 50,
+                                  endIndent: 50,
+                                ),
+                              ],
+                            );
+                          } else {
+                            return ListTile(
+                              title: const Text('User data not found'),
+                              subtitle: Text(user.email),
+                            );
+                          }
+                        } else {
+                          return ListTile(
+                            title: const Text('Loading...'),
+                            subtitle: Text(user.email),
+                            leading: const CircularProgressIndicator(),
                           );
-                        },
-                      );
-                    },
-                  ),
+                        }
+                      },
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
