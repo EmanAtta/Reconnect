@@ -6,6 +6,7 @@ import 'package:reconnect/Views/Chat/Chat/Chat_service.dart';
 import 'package:reconnect/Views/Chat/Model/message.dart';
 import 'package:reconnect/Views/Chat/Pages/ChatPage.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
+import 'package:reconnect/Views/color.dart';
 
 class HomeChat extends StatefulWidget {
   const HomeChat({Key? key}) : super(key: key);
@@ -101,7 +102,7 @@ class _HomeChatState extends State<HomeChat> {
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator(color: AppColors.labelStyle));
                 }
 
                 final users = snapshot.data!.docs

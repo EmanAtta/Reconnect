@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:reconnect/Views/authentications/routes/navigationcontroller.dart';
 import 'package:reconnect/Views/post.dart';
 import 'package:reconnect/Views/user_profile_screen.dart';
+import 'package:reconnect/Views/color.dart';
 
 class PostModel {
   late String? postTime;
@@ -136,7 +137,7 @@ class PostListPage extends StatelessWidget {
                                 Text(
                                   '${posts[index].firstN ?? ''} ${posts[index].lastN ?? ''}',
                                   style: const TextStyle(
-                                    color: Colors.black87,
+                                    color: AppColors.secondaryColor,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -176,7 +177,7 @@ class PostListPage extends StatelessWidget {
                       Text(
                         'Name: ${posts[index].name}',
                         style: const TextStyle(
-                          color: Colors.black,
+                          color: AppColors.secondaryColor,
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -185,7 +186,7 @@ class PostListPage extends StatelessWidget {
                       Text(
                         'Date Of Lost: ${posts[index].dateoflost}',
                         style: const TextStyle(
-                          color: Colors.black,
+                          color: AppColors.secondaryColor,
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -194,7 +195,7 @@ class PostListPage extends StatelessWidget {
                       Text(
                         'Phone: ${posts[index].phone}',
                         style: const TextStyle(
-                          color: Colors.black,
+                          color: AppColors.secondaryColor,
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -203,7 +204,7 @@ class PostListPage extends StatelessWidget {
                       Text(
                         'Description: ${posts[index].description}',
                         style: const TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
+                          color: AppColors.secondaryColor,
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -216,7 +217,7 @@ class PostListPage extends StatelessWidget {
                             sharePost(posts[index]);
                           },
                           icon:
-                              const Icon(Icons.share, color: Colors.blueAccent),
+                              const Icon(Icons.share, color: AppColors.textolor),
                         ),
                       ),
                     ],

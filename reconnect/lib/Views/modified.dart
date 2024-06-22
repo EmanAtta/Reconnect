@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
+import 'package:reconnect/Views/color.dart';
 import 'authentications/routes/navigationcontroller.dart';
 
 class SecondPage extends StatelessWidget {
@@ -41,7 +42,7 @@ class SecondPage extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.transparent,
-              content: Text('Image saved to: $path/image_$timestamp.jpg',style: const TextStyle(color: Colors.white)),
+              content: Text('Image saved to: $path/image_$timestamp.jpg',style: const TextStyle(color: AppColors.textolor)),
             ),
           );
         } else {
@@ -49,7 +50,7 @@ class SecondPage extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               backgroundColor: Colors.transparent,
-              content: Text('Failed to save image',style: TextStyle(color: Colors.white),),
+              content: Text('Failed to save image',style: TextStyle(color: AppColors.textolor),),
             ),
           );
         }
@@ -58,7 +59,7 @@ class SecondPage extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.transparent,
-            content: Text('Failed to download image',style: TextStyle(color: Colors.white)),
+            content: Text('Failed to download image',style: TextStyle(color: AppColors.textolor)),
           ),
         );
       }
@@ -67,7 +68,7 @@ class SecondPage extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.transparent,
-          content: Text('Error saving image',style: TextStyle(color: Colors.white)),
+          content: Text('Error saving image',style: TextStyle(color: AppColors.textolor)),
         ),
       );
     }
@@ -97,7 +98,7 @@ class SecondPage extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                color: const Color(0xFF4A563E),
+                color: AppColors.primaryColor,
                 child: Center(
                   child: modifiedImageUrl != null
                       ? Column(
@@ -125,7 +126,7 @@ class SecondPage extends StatelessWidget {
                                       value: loadingProgress.expectedTotalBytes != null
                                           ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
                                           : null,
-                                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.grey),
                                     ),
                                   );
                                 }
@@ -144,14 +145,14 @@ class SecondPage extends StatelessWidget {
                               Get.close(0);
                               // Perform any action when the button is pressed
                             },
-                            icon: const Icon(Icons.restart_alt_sharp,color: Colors.white,),
+                            icon: const Icon(Icons.restart_alt_sharp,color: AppColors.textolor,),
                           ),
                           const SizedBox(width: 15,),
                           IconButton(
                             onPressed: () async {
                               await _saveImageToDevice(context);
                             },
-                            icon: const Icon(Icons.download, color: Colors.white),
+                            icon: const Icon(Icons.download, color: AppColors.textolor),
                           ),
                           const SizedBox(width: 15,),
                           IconButton(
@@ -160,7 +161,7 @@ class SecondPage extends StatelessWidget {
                             Get.close(2);
                               // Perform any action when the button is pressed
                             },
-                            icon: const Icon(Icons.share,color: Colors.white,),
+                            icon: const Icon(Icons.share,color: AppColors.textolor,),
                           ),
                         ],
                       ),
@@ -168,7 +169,7 @@ class SecondPage extends StatelessWidget {
                   )
                       : const Text(
                     'Modified image will appear here ...',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: AppColors.textolor, fontSize: 20),
                   ),
                 ),
               ),

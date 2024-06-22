@@ -162,26 +162,32 @@ class _EditState extends State<Edit> {
                   ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 50),
                     
-                    SizedBox(height: 40),
-                    ElevatedButton(
-                        onPressed: () async {
-                          final userData = UserModel(
-                              firstname: firstname.text.trim(),
-                              lastname: lastname.text.trim(),
-                              email: email.text.trim(),
-                              password: password.text.trim(), imageUrl: '');
-                          try {
-                            // Update the document
-                            await controller.updateRecord(userData);
-                            
-                          } catch (e) {
-                            print('Error updating document: $e');
-                            // Handle the error, such as showing a dialog or logging it.
-                          }
-                        },
-                        child: Text("save changes"))
+                    
+                    Container(
+                      height: 60,
+                        width: 240,
+                      child: ElevatedButton(
+                         style: ElevatedButton.styleFrom(backgroundColor: AppColors
+                        .secondaryColor),
+                          onPressed: () async {
+                            final userData = UserModel(
+                                firstname: firstname.text.trim(),
+                                lastname: lastname.text.trim(),
+                                email: email.text.trim(),
+                                password: password.text.trim(), imageUrl: '');
+                            try {
+                              // Update the document
+                              await controller.updateRecord(userData);
+                              
+                            } catch (e) {
+                              print('Error updating document: $e');
+                              // Handle the error, such as showing a dialog or logging it.
+                            }
+                          },
+                          child: Text("save changes",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: AppColors.primaryColor),)),
+                    )
                   ],
                 ),
               );

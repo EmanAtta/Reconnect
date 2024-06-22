@@ -89,7 +89,9 @@ class _resetPasswordState extends State<verification> {
                       //Color(0xff546642),
                     ])),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     Get.to(signup());
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent),
