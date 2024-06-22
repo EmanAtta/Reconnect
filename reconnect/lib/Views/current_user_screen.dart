@@ -173,7 +173,7 @@ class _currentUsersState extends State<currentUsers> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: CircularProgressIndicator(color: AppColors.labelStyle));
                 }
 
                 List<PostModel> posts = snapshot.data!.docs

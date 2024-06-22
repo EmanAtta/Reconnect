@@ -38,7 +38,7 @@ class BottomNavigationController extends GetxController {
         future: getUserData(user?.email),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const CircularProgressIndicator(color: AppColors.labelStyle);
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {

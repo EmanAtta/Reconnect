@@ -62,7 +62,7 @@ dependencies:
   shared_preferences: ^2.2.3
   intl: any
   lottie: ^3.1.2
-  #google_fonts: ^6.2.1  # Ensure you are using a compatible version
+  google_fonts: any # Ensure you are using a compatible version
   animated_text_kit: ^4.2.2
   share_plus: ^6.0.4
 
@@ -75,7 +75,6 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.9.2"
   flutter_test:
     sdk: flutter
   intl: ^0.17.0
@@ -91,11 +90,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/logo.png"
-
 flutter:
 
   # The following line ensures that the Material Icons font is

@@ -237,7 +237,7 @@ class _profileState extends State<profile> {
               return const Center(child: Text("Something went wrong"));
             }
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: AppColors.labelStyle));
           }
         },
       ),

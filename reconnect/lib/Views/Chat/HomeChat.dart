@@ -6,7 +6,7 @@ import 'package:reconnect/Views/Chat/Chat/Chat_service.dart';
 import 'package:reconnect/Views/Chat/Model/message.dart';
 import 'package:reconnect/Views/Chat/Pages/ChatPage.dart';
 import 'package:reconnect/Views/authentications/usermodle.dart';
-import 'package:reconnect/Views/color.dart';
+
 class HomeChat extends StatefulWidget {
   const HomeChat({Key? key}) : super(key: key);
 
@@ -53,52 +53,48 @@ class _HomeChatState extends State<HomeChat> {
       body: Column(
         children: [
           Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _searchController,
-                cursorColor: AppColors.textolor,
-                decoration: InputDecoration(
-                  hintText: 'Search . . .',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: _searchController.text.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            setState(() {
-                              _searchController.clear();
-                              _searchQuery = '';
-                            });
-                          },
-                        )
-                      : null,
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search . . .',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    _searchQuery = value.toLowerCase();
-                  });
-                },
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: _searchController.text.isNotEmpty
+                    ? IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    setState(() {
+                      _searchController.clear();
+                      _searchQuery = '';
+                    });
+                  },
+                )
+                    : null,
               ),
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value.toLowerCase();
+                });
+              },
             ),
+          ),
           Expanded(
             child: _searchQuery.isEmpty
                 ? UserList(
-                    key: UniqueKey(), // Ensure key is unique
-                    user: user,
-                    fetchUserData: _fetchUserData,
-                    isChecked: isChecked,
-                    toggleSearch: () {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                    clearSearchField: _clearSearchField,
-                  )
+              key: UniqueKey(), // Ensure key is unique
+              user: user,
+              fetchUserData: _fetchUserData,
+              isChecked: isChecked,
+              toggleSearch: () {
+                setState(() {
+                  isChecked = !isChecked;
+                });
+              },
+              clearSearchField: _clearSearchField,
+            )
                 : StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('users')
@@ -108,50 +104,50 @@ class _HomeChatState extends State<HomeChat> {
                         return const Center(child: CircularProgressIndicator());
                       }
 
-                      final users = snapshot.data!.docs
-                          .map((doc) => UserModel.fromSnapshot(
-                              doc as DocumentSnapshot<Map<String, dynamic>>))
-                          .where((user) => user.fullName
-                              .toLowerCase()
-                              .contains(_searchQuery))
-                          .toList();
+                final users = snapshot.data!.docs
+                    .map((doc) => UserModel.fromSnapshot(
+                    doc as DocumentSnapshot<Map<String, dynamic>>))
+                    .where((user) => user.fullName
+                    .toLowerCase()
+                    .contains(_searchQuery))
+                    .toList();
 
-                      if (users.isEmpty) {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/chat.png',
-                                width: 100,
-                              ),
-                              const SizedBox(height: 20),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "You don't have any chat messages yet , tap to connect with others",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 23,
-                                    fontFamily: 'Times New Roman',
-                                  ),
-                                ),
-                              ),
-                              const Text(
-                                'Your chat list will be shown here .. ',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 18,
-                                  fontFamily: 'Times New Roman',
-                                ),
-                              ),
-                            ],
+                if (users.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/chat.png',
+                          width: 100,
+                        ),
+                        const SizedBox(height: 20),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "You don't have any chat messages yet , tap to connect with others",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 23,
+                              fontFamily: 'Times New Roman',
+                            ),
                           ),
-                        );
-                      }
+                        ),
+                        const Text(
+                          'Your chat list will be shown here .. ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontFamily: 'Times New Roman',
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
                       return ListView.builder(
                         itemCount: users.length,
@@ -263,12 +259,12 @@ class _UserListState extends State<UserList> {
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: AppColors.labelStyle));
         }
 
         final users = snapshot.data!.docs
             .map((doc) => UserModel.fromSnapshot(
-                doc as DocumentSnapshot<Map<String, dynamic>>))
+            doc as DocumentSnapshot<Map<String, dynamic>>))
             .toList();
 
         if (users.isEmpty) {
@@ -339,7 +335,7 @@ class _UserListState extends State<UserList> {
                                   lastMessage?.message ?? 'No messages';
                               final messageTime = lastMessage != null
                                   ? DateFormat('yyyy-MM-dd, HH-mm')
-                                      .format(lastMessage.timestamp.toDate())
+                                  .format(lastMessage.timestamp.toDate())
                                   : '';
                               final isLastMessageFromCurrentUser =
                                   lastMessage?.senderEmail ==
@@ -374,14 +370,14 @@ class _UserListState extends State<UserList> {
                                 ),
                                 leading: userData['imageUrl'] != null
                                     ? CircleAvatar(
-                                        radius: 22,
-                                        backgroundImage:
-                                            NetworkImage(userData['imageUrl']),
-                                      )
+                                  radius: 22,
+                                  backgroundImage:
+                                  NetworkImage(userData['imageUrl']),
+                                )
                                     : const CircleAvatar(
-                                        radius: 30,
-                                        child: Icon(Icons.person),
-                                      ),
+                                  radius: 30,
+                                  child: Icon(Icons.person),
+                                ),
                                 onTap: () {
                                   widget
                                       .clearSearchField(); // Clear search field
@@ -408,7 +404,7 @@ class _UserListState extends State<UserList> {
                         return ListTile(
                           title: const Text('Loading...'),
                           subtitle: Text(user.email),
-                          leading: const CircularProgressIndicator(),
+                          leading: const CircularProgressIndicator(color: AppColors.labelStyle),
                         );
                       }
                     },
